@@ -8,20 +8,23 @@ datasource db {
 }
 
 model Project {
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  content     String?  @db.Text
-  thumbnail   String
-  images      String[]
-  tags        String[]
-  techStack   String[]
-  liveUrl     String?
-  githubUrl   String?
-  isFeatured  Boolean  @default(false)
-  order       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               String   @id @default(cuid())
+  title            String
+  description      String
+  longDescription  String?  @db.Text
+  thumbnail        String
+  galleryImages    String[]
+  technologies     String[]
+  category         String
+  githubUrl        String?
+  liveUrl          String?
+  isFeatured       Boolean  @default(false)
+  completionDate   DateTime?
+  status           String   @default("Completed")
+  animationSettings Json?
+  order            Int      @default(0)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model Experience {
@@ -45,4 +48,18 @@ model Skill {
   icon      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
 }

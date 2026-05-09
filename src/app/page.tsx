@@ -1,57 +1,19 @@
 'use client';
 
-import { Typography } from "@/components/ui/Typography";
+import { Hero } from "@/components/sections/Hero";
+import { Services } from "@/components/sections/Services";
 import { Section } from "@/components/layout/Section";
 import { Reveal } from "@/components/animations/Reveal";
-import { Scene } from "@/components/3d/Scene";
+import { Typography } from "@/components/ui/Typography";
 import { useCursorStore } from "@/store/useCursorStore";
 
 export default function Home() {
   const { setCursorType } = useCursorStore();
-
+  
   return (
     <main className="relative min-h-screen">
-      {/* 3D Background */}
-      <Scene>
-        {/* We can add 3D elements here later */}
-        <color attach="background" args={['#050505']} />
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} color="#ff6b00" />
-      </Scene>
-
-      {/* Hero Section Skeleton */}
-      <Section className="min-h-screen flex items-center justify-center pt-0 pb-0">
-        <div className="flex flex-col items-center text-center space-y-8">
-          <Reveal variant="blurReveal" delay={0.2}>
-            <Typography variant="caption" className="text-accent animate-glow">
-              Engineering the Intelligence of Tomorrow
-            </Typography>
-          </Reveal>
-          
-          <Reveal variant="fadeUp" delay={0.4}>
-            <Typography variant="display" className="max-w-4xl text-gradient">
-              CRAFTING <span className="text-accent">INTELLIGENT</span> DIGITAL ECOSYSTEMS
-            </Typography>
-          </Reveal>
-
-          <Reveal variant="fadeUp" delay={0.6}>
-            <Typography variant="subtitle" className="max-w-2xl mx-auto">
-              Senior AI Engineer specializing in high-performance architectures, 
-              generative systems, and immersive creative development.
-            </Typography>
-          </Reveal>
-
-          <Reveal variant="scaleIn" delay={0.8}>
-            <button 
-              onMouseEnter={() => setCursorType('pointer')}
-              onMouseLeave={() => setCursorType('default')}
-              className="mt-8 px-8 py-4 bg-white text-black font-bold rounded-full hover:scale-105 transition-transform duration-300 glass-card !bg-white !text-black"
-            >
-              EXPLORE PROJECTS
-            </button>
-          </Reveal>
-        </div>
-      </Section>
+      <Hero />
+      <Services />
 
       {/* Featured Section Skeleton */}
       <Section className="bg-background-secondary/50">
