@@ -18,8 +18,8 @@ export const Experience = () => {
           <span className="section-label">Career Journey</span>
         </Reveal>
         <Reveal variant="fadeUp" delay={0.1}>
-          <Typography variant="title" as="h2" className="text-4xl md:text-5xl mt-4">
-            Professional <span className="text-accent">Timeline</span>
+          <Typography variant="title" as="h2" className="text-4xl md:text-5xl mt-4 text-gradient">
+            Professional <span className="text-gradient-accent text-glow">Timeline</span>
           </Typography>
         </Reveal>
       </div>
@@ -41,7 +41,7 @@ export const Experience = () => {
                   <div className={`w-3 h-3 rounded-full border-2 ${exp.isCurrent ? 'bg-accent border-accent shadow-[0_0_15px_rgba(0,255,255,0.6)]' : 'bg-background border-white/20'}`} />
                 </div>
 
-                <div className="glass-card-hover rounded-2xl p-8">
+                <div className="glass-card-hover animated-border rounded-2xl p-8">
                   <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
                     <div>
                       <Typography className="text-white font-bold text-lg">{exp.position}</Typography>

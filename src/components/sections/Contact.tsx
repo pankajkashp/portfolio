@@ -37,9 +37,9 @@ export const Contact = () => {
             <span className="section-label">Get In Touch</span>
           </Reveal>
           <Reveal variant="fadeUp" delay={0.1}>
-            <Typography variant="title" as="h2" className="text-4xl md:text-5xl">
+            <Typography variant="title" as="h2" className="text-4xl md:text-5xl text-gradient">
               Let&apos;s Build<br />
-              <span className="text-accent">Something Great</span>
+              <span className="text-gradient-accent text-glow">Something Great</span>
             </Typography>
           </Reveal>
           <Reveal variant="fadeUp" delay={0.2}>
@@ -103,7 +103,7 @@ export const Contact = () => {
 
         {/* Right: Form */}
         <Reveal variant="fadeUp" delay={0.2}>
-          <form onSubmit={handleSubmit} className="glass-card-hover rounded-3xl p-8 md:p-10 space-y-6">
+          <form onSubmit={handleSubmit} className="glass-card-hover animated-border rounded-3xl p-8 md:p-10 space-y-6">
             <div className="space-y-2">
               <label className="text-xs text-text-muted uppercase tracking-widest font-bold">Name</label>
               <input

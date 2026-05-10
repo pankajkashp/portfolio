@@ -21,7 +21,7 @@ function SkillBar({ name, level, delay }: { name: string; level: number; delay: 
       <div className="h-1 bg-white/5 rounded-full overflow-hidden">
         <motion.div
           className="h-full rounded-full"
-          style={{ background: 'linear-gradient(90deg, #00ffff, #ff00ff)' }}
+          style={{ background: `linear-gradient(90deg, var(--accent), var(--accent-secondary))` }}
           initial={{ width: 0 }}
           animate={isInView ? { width: `${level}%` } : {}}
           transition={{ duration: 1.2, delay, ease: [0.23, 1, 0.32, 1] }}
@@ -45,8 +45,8 @@ export const Skills = () => {
           <span className="section-label">Technical Arsenal</span>
         </Reveal>
         <Reveal variant="fadeUp" delay={0.1}>
-          <Typography variant="title" as="h2" className="text-4xl md:text-5xl mt-4">
-            Skills & <span className="text-accent">Technologies</span>
+          <Typography variant="title" as="h2" className="text-4xl md:text-5xl mt-4 text-gradient">
+            Skills & <span className="text-gradient-accent text-glow">Technologies</span>
           </Typography>
         </Reveal>
       </div>
@@ -55,7 +55,7 @@ export const Skills = () => {
         {categories.map((category, catIndex) => (
           <Reveal key={category} variant="fadeUp" delay={catIndex * 0.1}>
             <div 
-              className="glass-card-hover rounded-2xl p-8 h-full"
+              className="glass-card-hover animated-border rounded-2xl p-8 h-full"
               onMouseEnter={() => setCursorType('hover')}
               onMouseLeave={() => setCursorType('default')}
             >

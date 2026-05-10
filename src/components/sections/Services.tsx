@@ -17,21 +17,21 @@ export const Services = () => {
       <div className="mb-20">
         <Reveal variant="fadeUp">
           <Typography variant="caption" className="text-accent mb-4 block tracking-[0.2em]">Our Capabilities</Typography>
-          <Typography variant="title" className="text-4xl md:text-6xl">
-            INTELLIGENCE <br /> <span className="text-text-muted">MEETS AESTHETICS</span>
+          <Typography variant="title" className="text-4xl md:text-6xl text-gradient">
+            INTELLIGENCE <br /> <span className="text-gradient-accent text-glow">MEETS AESTHETICS</span>
           </Typography>
         </Reveal>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service, index) => {
-          const Icon = (Icons as any)[service.icon] || Icons.HelpCircle;
+          const Icon = (Icons as Record<string, any>)[service.icon] || Icons.HelpCircle;
           return (
             <Reveal key={service.title} variant="fadeUp" delay={index * 0.1}>
               <div 
                 onMouseEnter={() => setCursorType('hover')}
                 onMouseLeave={() => setCursorType('default')}
-                className="glass-card p-8 rounded-2xl h-full flex flex-col group hover:bg-white/[0.05] transition-all duration-500 cursor-none"
+                className="glass-card-hover animated-border p-8 rounded-2xl h-full flex flex-col group hover:bg-white/[0.05] transition-all duration-500 cursor-none"
               >
                 <div className="mb-8 w-12 h-12 rounded-xl flex items-center justify-center bg-white/5 group-hover:bg-accent/20 transition-colors duration-500">
                   <Icon size={24} color={service.color} />

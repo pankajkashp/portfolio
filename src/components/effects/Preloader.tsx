@@ -8,8 +8,18 @@ import { personalInfo } from '@/data/personal';
 export const Preloader = () => {
   const [progress, setProgress] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [shouldShow, setShouldShow] = useState(false);
 
   useEffect(() => {
+    // Only show preloader on first visit, not on back-navigation
+    const hasVisited = sessionStorage.getItem('preloader-shown');
+    if (hasVisited) {
+      setIsLoaded(true);
+      return;
+    }
+    setShouldShow(true);
+    sessionStorage.setItem('preloader-shown', 'true');
+
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
@@ -23,6 +33,8 @@ export const Preloader = () => {
     return () => clearInterval(interval);
   }, []);
 
+  if (!shouldShow) return null;
+
   return (
     <AnimatePresence>
       {!isLoaded && (
@@ -32,7 +44,6 @@ export const Preloader = () => {
           className="fixed inset-0 z-[10000] flex flex-col items-center justify-center"
           style={{ background: 'var(--background)' }}
         >
-          {/* Ambient Glow */}
           <motion.div 
             animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }}
             transition={{ duration: 3, repeat: Infinity }}
@@ -47,7 +58,7 @@ export const Preloader = () => {
               transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
             >
               <Typography variant="display" className="text-3xl md:text-5xl font-bold tracking-tighter">
-                {personalInfo.name.split(' ')[0].toLowerCase()}<span style={{ color: 'var(--accent)' }}>.</span>
+                {personalInfo.name.split(' ')[0].toUpperCase()}<span style={{ color: 'var(--accent)' }}>.</span>
               </Typography>
             </motion.div>
           </div>

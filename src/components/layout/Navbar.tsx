@@ -52,7 +52,7 @@ export const Navbar = () => {
             className="shrink-0"
           >
             <Typography variant="title" className="text-2xl font-bold tracking-tighter">
-              {personalInfo.name.split(' ')[0].toLowerCase()}<span className="text-accent">.</span>
+              {personalInfo.name.split(' ')[0].toUpperCase()}<span className="text-accent">.</span>
             </Typography>
           </div>
 
@@ -81,6 +81,7 @@ export const Navbar = () => {
           <div className="flex items-center gap-3 shrink-0">
             <a
               href={personalInfo.resumeUrl}
+              download
               onMouseEnter={() => setCursorType('pointer')}
               onMouseLeave={() => setCursorType('default')}
               className="hidden md:flex items-center gap-2 glass-card px-5 py-2.5 rounded-xl text-[12px] font-medium hover:border-accent/30 transition-all"
