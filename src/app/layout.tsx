@@ -16,23 +16,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AETHER | AI Engineer & Creative Developer",
-  description: "Senior AI Engineer & Creative Developer specializing in cinematic digital experiences and intelligent systems.",
+  title: "Pankaj Kashap | AI Engineer & Creative Developer",
+  description: "Portfolio of Pankaj Kashap — AI Engineer, Full Stack Developer, and Creative Technologist building intelligent digital experiences.",
   openGraph: {
-    title: "AETHER | AI Engineer & Creative Developer",
-    description: "Cinematic portfolio of a Senior AI Engineer.",
-    url: "https://aether-folio.vercel.app",
-    siteName: "AETHER Portfolio",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-      },
-    ],
+    title: "Pankaj Kashap | AI Engineer & Creative Developer",
+    description: "Building immersive digital experiences with AI, creativity, and modern web technologies.",
+    url: "https://pankajkashap.dev",
+    siteName: "Pankaj Kashap",
+    images: [{ url: "/og-image.png", width: 1200, height: 630 }],
     locale: "en_US",
     type: "website",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pankaj Kashap | AI Engineer",
+    description: "Building immersive digital experiences with AI, creativity, and modern web technologies.",
+  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -45,7 +45,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased dark`}
     >
-      <body className="min-h-full bg-background text-foreground selection:bg-accent/30 selection:text-accent">
+      <body className="min-h-full bg-background text-foreground">
         <AppProviders>
           <Navbar />
           {children}

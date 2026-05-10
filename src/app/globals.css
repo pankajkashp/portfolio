@@ -1,14 +1,39 @@
 @import "tailwindcss";
 
+/* =========================================
+   CENTRALIZED THEME SYSTEM
+   Change these values to re-skin the ENTIRE site.
+   ========================================= */
+:root {
+  /* ── Primary Accent ── */
+  --accent: #ff6b00;
+  --accent-secondary: #ff8c33;
+  --accent-rgb: 255, 107, 0;
+
+  /* ── Background ── */
+  --background: #110a04;
+  --background-secondary: #1a0f07;
+
+  /* ── Text ── */
+  --foreground: #ffffff;
+  --text-secondary: #c4b5a5;
+  --text-muted: #7a6b5e;
+
+  /* ── Derived (auto-calculated from accent) ── */
+  --accent-glow: rgba(var(--accent-rgb), 0.5);
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.06);
+}
+
 @theme {
-  --color-background: #020205;
-  --color-background-secondary: #08080f;
-  --color-foreground: #ffffff;
-  --color-accent: #00ffff;
-  --color-accent-secondary: #ff00ff;
-  --color-accent-glow: rgba(0, 255, 255, 0.3);
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #52525b;
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-foreground: var(--foreground);
+  --color-accent: var(--accent);
+  --color-accent-secondary: var(--accent-secondary);
+  --color-accent-glow: rgba(var(--accent-rgb), 0.3);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
   
   --font-sans: var(--font-geist-sans), Inter, sans-serif;
   --font-mono: var(--font-geist-mono), monospace;
@@ -17,31 +42,30 @@
   --animate-pulse-glow: pulse-glow 2s ease-in-out infinite alternate;
 }
 
-:root {
-  --background: #020205;
-  --foreground: #ffffff;
-  --accent: #00ffff;
-  --accent-glow: rgba(0, 255, 255, 0.5);
-}
-
 @keyframes float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-20px); }
 }
 
 @keyframes pulse-glow {
-  from { box-shadow: 0 0 10px rgba(0, 255, 255, 0.3); }
-  to { box-shadow: 0 0 25px rgba(0, 255, 255, 0.6); }
+  from { box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.3); }
+  to { box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.6); }
 }
 
 @layer base {
   * {
-    border-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--glass-border);
   }
 
   body {
-    @apply bg-background text-foreground selection:bg-accent/30 selection:text-accent overflow-x-hidden;
-    background: radial-gradient(ellipse at top right, #050510 0%, #020205 50%, #000000 100%);
+    @apply bg-background text-foreground overflow-x-hidden;
+    background: radial-gradient(ellipse at top center, var(--background-secondary) 0%, var(--background) 60%);
+    selection-background: rgba(var(--accent-rgb), 0.3);
+  }
+
+  ::selection {
+    background: rgba(var(--accent-rgb), 0.3);
+    color: var(--accent);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -51,27 +75,71 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/[0.02] backdrop-blur-2xl border border-white/[0.06] transition-all duration-500;
+    background: var(--glass-bg);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid var(--glass-border);
+    transition: all 0.5s ease;
   }
   
   .glass-card-hover {
-    @apply glass-card hover:border-accent/30 hover:bg-white/[0.04] hover:shadow-[0_0_30px_rgba(0,255,255,0.08)];
+    background: var(--glass-bg);
+    backdrop-filter: blur(40px);
+    -webkit-backdrop-filter: blur(40px);
+    border: 1px solid var(--glass-border);
+    transition: all 0.5s ease;
+  }
+  .glass-card-hover:hover {
+    border-color: rgba(var(--accent-rgb), 0.25);
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 30px rgba(var(--accent-rgb), 0.06);
   }
   
   .nav-capsule {
-    @apply bg-white/[0.02] backdrop-blur-3xl border border-white/[0.06] px-8 py-2.5 rounded-full;
+    background: rgba(255, 255, 255, 0.02);
+    backdrop-filter: blur(60px);
+    -webkit-backdrop-filter: blur(60px);
+    border: 1px solid var(--glass-border);
+    padding: 6px 10px;
+    border-radius: 9999px;
   }
 
   .btn-primary {
-    @apply bg-accent text-black px-8 py-3.5 rounded-full font-bold transition-all duration-300 shadow-[0_0_30px_rgba(0,255,255,0.3)] hover:shadow-[0_0_50px_rgba(0,255,255,0.5)] hover:scale-105;
+    background: var(--accent);
+    color: #000000;
+    padding: 12px 28px;
+    border-radius: 9999px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 25px rgba(var(--accent-rgb), 0.35);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 45px rgba(var(--accent-rgb), 0.5);
+    transform: scale(1.03);
   }
 
   .btn-secondary {
-    @apply px-8 py-3.5 glass-card rounded-full text-sm font-bold uppercase tracking-widest hover:border-accent/40 hover:bg-accent/5;
+    padding: 12px 28px;
+    border-radius: 9999px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(var(--accent-rgb), 0.3);
+    background: rgba(var(--accent-rgb), 0.05);
   }
 
   .section-label {
-    @apply text-accent text-xs font-bold tracking-[0.3em] uppercase;
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
   }
 }
 

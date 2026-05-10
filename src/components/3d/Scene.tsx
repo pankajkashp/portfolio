@@ -11,7 +11,7 @@ interface SceneProps {
 
 export const Scene = ({ children, className }: SceneProps) => {
   return (
-    <div className={`absolute inset-0 -z-10 ${className}`}>
+    <div className={`relative ${className || ''}`}>
       <Canvas
         shadows
         camera={{ position: [0, 0, 5], fov: 45 }}

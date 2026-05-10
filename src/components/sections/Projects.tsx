@@ -7,7 +7,7 @@ import { Section } from '@/components/layout/Section';
 import { Reveal } from '@/components/animations/Reveal';
 import { projects, projectCategories, Project } from '@/data/projects';
 import { useCursorStore } from '@/store/useCursorStore';
-import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, GitBranch, ArrowUpRight } from 'lucide-react';
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { setCursorType } = useCursorStore();
@@ -58,7 +58,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             )}
             {project.githubUrl && (
               <a href={project.githubUrl} target="_blank" rel="noopener" className="p-3 bg-white/10 border border-white/10 rounded-full hover:bg-white/20 transition-colors">
-                <Github size={18} />
+                <GitBranch size={18} />
               </a>
             )}
           </motion.div>
