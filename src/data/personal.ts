@@ -22,10 +22,10 @@ export const personalInfo = {
     ]
   },
   hero: {
-    title: 'ARCHITECTING INTELLIGENT EXPERIENCES',
-    subtitle: 'AI Engineer & Creative Developer',
-    ctaText: 'VIEW MY WORK',
-    secondaryCtaText: 'CONTACT ME',
+    title: 'Building digital products, brands & experience.',
+    subtitle: 'AI Engineer & Creative Developer specializing in autonomous systems and cinematic web interfaces.',
+    ctaText: 'Connect With Me',
+    secondaryCtaText: 'VIEW MY WORK',
   },
   focus: [
     'AI Projects',
@@ -34,7 +34,6 @@ export const personalInfo = {
     'Creative Development',
     'Interactive Web Experiences'
   ],
-  modelPath: '/models/pankaj.glb',
   testimonial: {
     text: 'Pankaj has a unique ability to combine deep technical AI knowledge with world-class creative execution. His work on our platform was transformational.',
     author: 'Sarah Chen',

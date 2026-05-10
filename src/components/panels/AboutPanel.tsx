@@ -3,68 +3,102 @@
 import { personalInfo } from '@/data/personal';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
+import { User } from 'lucide-react';
 
 export const AboutPanel = () => {
   return (
-    <div className="space-y-8">
-      {/* Top: Photo + Bio */}
-      <div className="flex flex-col md:flex-row gap-6">
-        <div className="w-24 h-24 md:w-32 md:h-32 rounded-2xl overflow-hidden shrink-0 border border-white/5">
-          <Image src="/profile.jpg" alt={personalInfo.fullName} width={128} height={128} className="object-cover w-full h-full" />
-        </div>
-        <div className="space-y-3">
-          <h3 className="text-2xl font-bold text-gradient">{personalInfo.fullName}</h3>
-          <p className="text-sm font-mono text-accent">{personalInfo.hero.subtitle}</p>
-          <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+    <div className="space-y-20 py-10">
+      {/* ─── BIO SECTION ─── */}
+      <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 items-center">
+        <motion.div 
+          className="relative group"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1 }}
+        >
+          <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 relative">
+            <Image 
+              src="/pankaj.png" 
+              alt={personalInfo.fullName} 
+              fill
+              className="object-cover object-bottom transition-transform duration-700 group-hover:scale-110" 
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#06060a] via-transparent to-transparent opacity-60" />
+          </div>
+          {/* Decorative Corner */}
+          <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-[#ff6b00]/30 rounded-tl-[3rem] pointer-events-none" />
+        </motion.div>
+
+        <div className="space-y-8">
+          <div className="space-y-2">
+            <h3 className="text-5xl md:text-6xl font-bold text-white tracking-tighter">
+              {personalInfo.fullName.split(' ')[0]} <span className="text-white/20">{personalInfo.fullName.split(' ')[1]}</span>
+            </h3>
+            <p className="text-lg font-medium text-[#ff6b00] uppercase tracking-[0.4em]">
+              {personalInfo.hero.subtitle}
+            </p>
+          </div>
+          
+          <p className="text-xl md:text-2xl leading-relaxed text-white/50 font-light">
             {personalInfo.about.long}
           </p>
+
+          <div className="flex gap-10 pt-4">
+            {personalInfo.about.stats.slice(0, 3).map((stat, i) => (
+              <div key={i} className="space-y-1">
+                <div className="text-4xl font-light text-white">{stat.value}</div>
+                <div className="text-[10px] uppercase tracking-widest text-white/20 font-black">{stat.label}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        {personalInfo.about.stats.map((stat, i) => (
-          <motion.div
-            key={stat.label}
-            className="glass-card rounded-xl p-4 text-center"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.08 }}
-          >
-            <div className="text-xl font-bold text-gradient-accent">{stat.value}</div>
-            <div className="text-[10px] uppercase tracking-widest mt-1" style={{ color: 'var(--text-muted)' }}>{stat.label}</div>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Achievements */}
-      <div>
-        <h4 className="text-xs font-mono uppercase tracking-widest mb-4" style={{ color: 'var(--accent)' }}>Key Achievements</h4>
-        <div className="space-y-3">
-          {personalInfo.about.achievements.map((a, i) => (
-            <motion.div
-              key={i}
-              className="flex items-start gap-3"
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 + i * 0.1 }}
-            >
-              <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0" style={{ background: 'var(--accent)' }} />
-              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>{a}</p>
-            </motion.div>
-          ))}
+      {/* ─── ACHIEVEMENTS ─── */}
+      <div className="grid md:grid-cols-2 gap-12">
+        <div className="space-y-8">
+          <h4 className="text-xs font-black uppercase tracking-[0.5em] text-[#ff6b00]">Core Achievements</h4>
+          <div className="grid gap-4">
+            {personalInfo.about.achievements.map((a, i) => (
+              <motion.div
+                key={i}
+                className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 hover:border-white/10 transition-colors flex gap-5"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3 + i * 0.1 }}
+              >
+                <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-[#ff6b00]" />
+                <p className="text-sm md:text-base text-white/60 leading-relaxed font-light">{a}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
-      </div>
 
-      {/* Career Goals */}
-      <div>
-        <h4 className="text-xs font-mono uppercase tracking-widest mb-3" style={{ color: 'var(--accent)' }}>Focus Areas</h4>
-        <div className="flex flex-wrap gap-2">
-          {personalInfo.focus.map((f) => (
-            <span key={f} className="px-3 py-1.5 rounded-lg text-[11px] font-mono" style={{ background: 'rgba(var(--accent-rgb), 0.08)', color: 'var(--accent)', border: '1px solid rgba(var(--accent-rgb), 0.15)' }}>
-              {f}
-            </span>
-          ))}
+        <div className="space-y-8">
+          <h4 className="text-xs font-black uppercase tracking-[0.5em] text-[#ff6b00]">Focus Sectors</h4>
+          <div className="flex flex-wrap gap-3">
+            {personalInfo.focus.map((f, i) => (
+              <motion.span 
+                key={f} 
+                className="px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest bg-white/5 border border-white/10 text-white/60 hover:text-white hover:border-[#ff6b00]/40 transition-all duration-300"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.5 + i * 0.05 }}
+              >
+                {f}
+              </motion.span>
+            ))}
+          </div>
+          
+          <div className="p-10 rounded-[2rem] bg-[#ff6b00]/5 border border-[#ff6b00]/10 mt-12 relative overflow-hidden group">
+            <div className="absolute top-0 right-0 p-8 text-[#ff6b00]/10 group-hover:scale-125 transition-transform duration-700">
+              <User size={120} />
+            </div>
+            <h5 className="text-xl font-bold text-white mb-2 italic">Dossier Access</h5>
+            <p className="text-sm text-white/40 leading-relaxed font-light">
+              Strategic objective: Bridging the gap between sophisticated AI models and immersive human experiences. 
+            </p>
+          </div>
         </div>
       </div>
     </div>

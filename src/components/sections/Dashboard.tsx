@@ -4,16 +4,21 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursorStore } from '@/store/useCursorStore';
 import { personalInfo } from '@/data/personal';
-import {
-  User, Code, GraduationCap, Briefcase, FolderOpen, Cpu,
-  Mail, FileText, Award, FlaskConical, ChevronRight
+import { 
+  User, Code, GraduationCap, FolderOpen, 
+  Mail, FileText, ChevronRight, X, Cpu, Globe, ArrowLeft, Award
 } from 'lucide-react';
-import { DashboardModal } from '@/components/ui/DashboardModal';
 
-export type CategoryKey = 'about' | 'skills' | 'education' | 'experience' | 'projects' | 'services' | 'contact' | 'resume' | 'certifications' | 'ailab';
+// Panels
+import { AboutPanel } from '@/components/panels/AboutPanel';
+import { SkillsPanel } from '@/components/panels/SkillsPanel';
+import { EducationPanel } from '@/components/panels/EducationPanel';
+import { ProjectsPanel } from '@/components/panels/ProjectsPanel';
+import { ContactPanel } from '@/components/panels/ContactPanel';
+import { CertificationsPanel } from '@/components/panels/CertificationsPanel';
 
 interface CategoryItem {
-  key: CategoryKey;
+  key: string;
   label: string;
   description: string;
   icon: React.ReactNode;
@@ -21,149 +26,202 @@ interface CategoryItem {
 }
 
 const categories: CategoryItem[] = [
-  { key: 'about',          label: 'About Me',       description: 'Profile, achievements & goals',   icon: <User size={22} />,           accent: '#ff6b00' },
-  { key: 'skills',         label: 'Skills',          description: 'Technologies & expertise',         icon: <Code size={22} />,           accent: '#00d4ff' },
-  { key: 'education',      label: 'Education',       description: 'Academic background',              icon: <GraduationCap size={22} />,  accent: '#a855f7' },
-  { key: 'experience',     label: 'Experience',      description: 'Professional timeline',            icon: <Briefcase size={22} />,      accent: '#22c55e' },
-  { key: 'projects',       label: 'Projects',        description: 'Featured work & builds',           icon: <FolderOpen size={22} />,     accent: '#ff6b00' },
-  { key: 'services',       label: 'Services',        description: 'What I offer',                     icon: <Cpu size={22} />,            accent: '#f43f5e' },
-  { key: 'contact',        label: 'Contact',         description: 'Get in touch',                     icon: <Mail size={22} />,           accent: '#3b82f6' },
-  { key: 'resume',         label: 'Resume',          description: 'Download CV',                      icon: <FileText size={22} />,       accent: '#eab308' },
-  { key: 'certifications', label: 'Certifications',  description: 'Badges & certificates',            icon: <Award size={22} />,          accent: '#14b8a6' },
-  { key: 'ailab',          label: 'AI Lab',          description: 'Experiments & prototypes',          icon: <FlaskConical size={22} />,   accent: '#f97316' },
+  { key: 'about',          label: 'About Me',       description: 'Biometric profile & mission overview',   icon: <User size={28} />,           accent: '#ff6b00' },
+  { key: 'skills',         label: 'Skills',          description: 'Technical stack & proficiency levels',    icon: <Cpu size={28} />,            accent: '#00d4ff' },
+  { key: 'education',      label: 'Education',       description: 'Academic records & certifications',      icon: <GraduationCap size={28} />,  accent: '#a855f7' },
+  { key: 'projects',       label: 'Projects',        description: 'Operational deployments & codebase',     icon: <FolderOpen size={28} />,     accent: '#22c55e' },
+  { key: 'certifications', label: 'Certifications',  description: 'Professional credentials & awards',      icon: <Award size={28} />,          accent: '#eab308' },
+  { key: 'contact',        label: 'Contact',         description: 'Encrypted communication channel',         icon: <Mail size={28} />,           accent: '#3b82f6' },
 ];
 
 export const Dashboard = () => {
   const { setCursorType } = useCursorStore();
-  const [activeCategory, setActiveCategory] = useState<CategoryKey | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+  const handleCardClick = (key: string) => {
+    setActiveCategory(key);
+  };
 
   return (
-    <>
-      <section id="dashboard" className="relative min-h-screen py-20 md:py-28">
-        {/* Background */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0 opacity-[0.02]" style={{
-            backgroundImage: `
-              linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)
-            `,
-            backgroundSize: '60px 60px',
-          }} />
-          <div className="absolute top-1/4 right-0 w-[500px] h-[500px] rounded-full blur-[200px]"
-            style={{ background: 'rgba(var(--accent-rgb), 0.04)' }}
-          />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-[180px]"
-            style={{ background: 'rgba(var(--accent-rgb), 0.03)' }}
-          />
-        </div>
+    <section id="dashboard" className="relative min-h-screen py-32 bg-[#06060a]">
+      {/* ─── FUTURISTIC BACKGROUND ─── */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
+          backgroundSize: '40px 40px',
+        }} />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#06060a] via-transparent to-[#06060a]" />
+      </div>
 
-        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-          {/* Header */}
-          <motion.div
-            className="mb-14"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-px bg-accent" />
-              <span className="section-label">COMMAND CENTER</span>
-            </div>
-            <h2 className="text-3xl md:text-5xl font-bold tracking-tight">
-              <span className="text-gradient">Mission </span>
-              <span className="text-gradient-accent">Control</span>
-            </h2>
-            <p className="mt-3 text-sm max-w-lg" style={{ color: 'var(--text-muted)' }}>
-              Navigate through the systems. Click any module to explore.
-            </p>
-          </motion.div>
+      <div className="max-w-[1600px] mx-auto px-8 md:px-16 relative z-10">
+        {/* ─── HEADER ─── */}
+        <motion.div
+          className="mb-24 space-y-4"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-px bg-[#ff6b00]" />
+            <span className="text-[10px] uppercase tracking-[0.5em] text-[#ff6b00] font-black">Central Command</span>
+          </div>
+          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
+            System <span className="text-white/20">Modules</span>
+          </h2>
+          <p className="text-lg text-white/30 max-w-xl font-light leading-relaxed">
+            Access core intelligence sectors. Each module contains encrypted data regarding operational history and technical capabilities.
+          </p>
+        </motion.div>
 
-          {/* Category Grid */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {categories.map((cat, i) => (
-              <motion.button
-                key={cat.key}
-                className="dash-card p-5 text-left group"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
-                onClick={() => {
-                  if (cat.key === 'resume') {
-                    window.open(personalInfo.resumeUrl, '_blank');
-                  } else {
-                    setActiveCategory(cat.key);
-                  }
-                }}
+        {/* ─── CINEMATIC GRID ─── */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+          {categories.map((cat, i) => (
+            <motion.div
+              key={cat.key}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <button
+                onClick={() => handleCardClick(cat.key)}
                 onMouseEnter={() => setCursorType('pointer')}
                 onMouseLeave={() => setCursorType('default')}
+                className="group relative w-full aspect-[4/3] md:aspect-[16/10] text-left overflow-hidden rounded-[2rem] bg-white/[0.02] border border-white/5 p-10 transition-all duration-700 hover:bg-white/[0.04] hover:border-white/10"
               >
-                {/* Icon */}
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center mb-4 transition-all duration-500 group-hover:scale-110"
+                {/* Depth Lighting */}
+                <div 
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                   style={{
-                    background: `${cat.accent}10`,
-                    color: cat.accent,
-                    boxShadow: `0 0 0px ${cat.accent}00`,
+                    background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), ${cat.accent}15, transparent 40%)`
                   }}
-                >
-                  {cat.icon}
+                />
+
+                <div className="relative z-10 h-full flex flex-col justify-between">
+                  <div 
+                    className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-[10deg]"
+                    style={{ background: `${cat.accent}10`, color: cat.accent }}
+                  >
+                    {cat.icon}
+                  </div>
+
+                  <div className="space-y-4">
+                    <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight group-hover:text-[#ff6b00] transition-colors duration-500">
+                      {cat.label}
+                    </h3>
+                    <p className="text-sm md:text-base text-white/30 font-light leading-relaxed max-w-[80%]">
+                      {cat.description}
+                    </p>
+                    <div className="pt-4 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/20 group-hover:text-white transition-colors">
+                      Initialize Link <ChevronRight size={12} className="group-hover:translate-x-1 transition-transform" />
+                    </div>
+                  </div>
                 </div>
 
-                {/* Text */}
-                <p className="text-sm font-semibold text-white mb-1 group-hover:text-accent transition-colors">
-                  {cat.label}
-                </p>
-                <p className="text-[11px] leading-snug" style={{ color: 'var(--text-muted)' }}>
-                  {cat.description}
-                </p>
-
-                {/* Arrow */}
-                <div className="mt-3 flex items-center gap-1 text-[10px] font-mono uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: cat.accent }}>
-                  Open <ChevronRight size={10} />
+                {/* Animated Border Corner */}
+                <div className="absolute top-0 right-0 w-24 h-24 pointer-events-none">
+                  <div className="absolute top-8 right-8 w-px h-0 bg-white/20 group-hover:h-12 transition-all duration-700 delay-100" />
+                  <div className="absolute top-8 right-8 w-0 h-px bg-white/20 group-hover:w-12 transition-all duration-700 delay-100" />
                 </div>
-              </motion.button>
-            ))}
+              </button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* ─── SYSTEM STATUS BAR ─── */}
+        <motion.div
+          className="mt-32 pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1, delay: 0.5 }}
+        >
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3">
+              <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e]" />
+              <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40">Core Operational</span>
+            </div>
+            <div className="h-4 w-px bg-white/10" />
+            <div className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">
+              V{new Date().getFullYear()}.4.2
+            </div>
           </div>
 
-          {/* Bottom bar */}
-          <motion.div
-            className="mt-16 flex items-center justify-between glass-card rounded-2xl p-5"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>
-                ALL SYSTEMS OPERATIONAL
-              </span>
-            </div>
-            <div className="hidden md:flex items-center gap-6 text-[11px] font-mono" style={{ color: 'var(--text-muted)' }}>
-              <span>{personalInfo.about.stats[0].value} EXP</span>
-              <span className="w-px h-3 bg-white/10" />
-              <span>{personalInfo.about.stats[1].value} PROJECTS</span>
-              <span className="w-px h-3 bg-white/10" />
-              <span>{personalInfo.about.stats[2].value} TECH</span>
-            </div>
-            <span className="text-[10px] font-mono" style={{ color: 'var(--text-muted)' }}>
-              © {new Date().getFullYear()} {personalInfo.name}
-            </span>
-          </motion.div>
-        </div>
-      </section>
+          <div className="flex items-center gap-12 text-[10px] font-black uppercase tracking-[0.4em] text-white/20">
+            <span className="hover:text-white transition-colors cursor-help">Latency: 12ms</span>
+            <span className="hover:text-white transition-colors cursor-help">Secure Link: Active</span>
+          </div>
+        </motion.div>
+      </div>
 
-      {/* Modal Overlay */}
+      {/* ─── CINEMATIC MODAL SYSTEM ─── */}
       <AnimatePresence>
         {activeCategory && (
-          <DashboardModal
-            category={activeCategory}
-            onClose={() => setActiveCategory(null)}
-          />
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-[#06060a]/95 backdrop-blur-2xl"
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0, y: 30 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.9, opacity: 0, y: 30 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              className="relative w-full max-w-7xl h-full bg-[#0d0d12] rounded-[3rem] border border-white/10 overflow-hidden grid grid-rows-[auto_1fr]"
+            >
+              {/* Modal Header */}
+              <div className="p-8 md:p-12 border-b border-white/5 flex items-center justify-between">
+                <div className="flex items-center gap-6">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#ff6b00]">
+                    {categories.find(c => c.key === activeCategory)?.icon}
+                  </div>
+                  <div>
+                    <h2 className="text-3xl font-bold text-white tracking-tight">
+                      {categories.find(c => c.key === activeCategory)?.label}
+                    </h2>
+                    <p className="text-xs uppercase tracking-[0.3em] text-white/20 font-black">Module Active</p>
+                  </div>
+                </div>
+                
+                <button
+                  onClick={() => setActiveCategory(null)}
+                  onMouseEnter={() => setCursorType('pointer')}
+                  onMouseLeave={() => setCursorType('default')}
+                  className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-white hover:text-black transition-all duration-300"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Modal Content */}
+              <div className="overflow-y-auto p-8 md:p-16 modal-scroll" data-lenis-prevent>
+                <div className="max-w-5xl mx-auto pb-24">
+                  {activeCategory === 'about' && <AboutPanel />}
+                  {activeCategory === 'skills' && <SkillsPanel />}
+                  {activeCategory === 'education' && <EducationPanel />}
+                  {activeCategory === 'projects' && <ProjectsPanel />}
+                  {activeCategory === 'contact' && <ContactPanel />}
+                  {activeCategory === 'certifications' && <CertificationsPanel />}
+
+                  {/* Module Navigation Back */}
+                  <div className="mt-20 pt-10 border-t border-white/5 flex justify-center">
+                    <button
+                      onClick={() => setActiveCategory(null)}
+                      onMouseEnter={() => setCursorType('pointer')}
+                      onMouseLeave={() => setCursorType('default')}
+                      className="px-10 py-4 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-3 text-sm font-bold uppercase tracking-widest"
+                    >
+                      <ArrowLeft size={18} /> Back to Command Center
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </section>
   );
 };
