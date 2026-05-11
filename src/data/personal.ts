@@ -34,10 +34,5 @@ export const personalInfo = {
     'Creative Development',
     'Interactive Web Experiences'
   ],
-  testimonial: {
-    text: 'Pankaj has a unique ability to combine deep technical AI knowledge with world-class creative execution. His work on our platform was transformational.',
-    author: 'Sarah Chen',
-    role: 'Lead Architect @ NeuralLabs',
-    avatar: 'https://i.pravatar.cc/150?u=sarah'
-  }
+
 };

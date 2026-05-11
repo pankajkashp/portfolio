@@ -3,20 +3,7 @@
 import { motion } from 'framer-motion';
 import { GraduationCap, Calendar, School } from 'lucide-react';
 
-const education = [
-  { 
-    degree: 'Bachelor of Technology — Computer Science', 
-    institution: 'University of Technology', 
-    year: '2020 – 2024', 
-    description: 'Specialized in Artificial Intelligence and Machine Learning. Graduated with distinction. Focused on neural architectures and distributed systems.' 
-  },
-  { 
-    degree: 'Higher Secondary (12th)', 
-    institution: 'Science Stream', 
-    year: '2018 – 2020', 
-    description: 'Advanced coursework in Physics, Chemistry, Mathematics, and Computer Science. Secured top honors in regional competitive exams.' 
-  },
-];
+import { education } from '@/data/education';
 
 export const EducationPanel = () => {
   return (
