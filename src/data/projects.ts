@@ -40,7 +40,7 @@ export const projects: Project[] = [
     ],
     category: 'AI / ML',
     githubUrl: 'https://github.com/pankajkashp/CodeReview',
-    liveUrl: 'https://code.tech',
+    liveUrl: 'https://codesage.tech',
     isFeatured: true,
     completionDate: '2025-04',
     status: 'Completed',

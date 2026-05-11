@@ -20,7 +20,7 @@ export const personalInfo = {
   },
   hero: {
     title: 'Building Intelligent Digital Experiences.',
-    subtitle: 'AI & Full Stack Developer focused on modern web applications, automation systems, and interactive user experiences.',
+    subtitle: 'AI & Full Stack Developer passionate about creating modern, scalable, and interactive web applications.',
     ctaText: 'Connect With Me',
     secondaryCtaText: 'View Projects',
   },

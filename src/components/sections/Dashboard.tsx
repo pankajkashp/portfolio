@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursorStore } from '@/store/useCursorStore';
+import { useDashboardStore } from '@/store/useDashboardStore';
 import { personalInfo } from '@/data/personal';
 import {
   User, Code, GraduationCap, FolderOpen,
@@ -36,11 +37,34 @@ const categories: CategoryItem[] = [
 
 export const Dashboard = () => {
   const { setCursorType } = useCursorStore();
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const { activeModule, setActiveModule } = useDashboardStore();
 
   const handleCardClick = (key: string) => {
-    setActiveCategory(key);
+    setActiveModule(key);
+    window.location.hash = key;
   };
+
+  const closeModule = () => {
+    setActiveModule(null);
+    window.history.pushState('', document.title, window.location.pathname + window.location.search);
+  };
+
+  // Sync with URL Hash
+  useEffect(() => {
+    const handleHash = () => {
+      const hash = window.location.hash.replace('#', '');
+      const validKeys = categories.map(c => c.key);
+      if (validKeys.includes(hash)) {
+        setActiveModule(hash);
+      } else if (!hash) {
+        setActiveModule(null);
+      }
+    };
+
+    handleHash();
+    window.addEventListener('hashchange', handleHash);
+    return () => window.removeEventListener('hashchange', handleHash);
+  }, []);
 
   return (
     <section id="dashboard" className="relative min-h-screen py-32 bg-[#06060a]">
@@ -157,7 +181,7 @@ export const Dashboard = () => {
 
       {/* ─── CINEMATIC MODAL SYSTEM ─── */}
       <AnimatePresence>
-        {activeCategory && (
+        {activeModule && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -175,17 +199,17 @@ export const Dashboard = () => {
               <div className="p-8 md:p-12 border-b border-white/5 flex items-center justify-between">
                 <div className="flex items-center gap-6">
                   <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#ff6b00]">
-                    {categories.find(c => c.key === activeCategory)?.icon}
+                    {categories.find(c => c.key === activeModule)?.icon}
                   </div>
                   <div>
                     <h2 className="text-3xl font-bold text-white tracking-tight">
-                      {categories.find(c => c.key === activeCategory)?.label}
+                      {categories.find(c => c.key === activeModule)?.label}
                     </h2>
                   </div>
                 </div>
 
                 <button
-                  onClick={() => setActiveCategory(null)}
+                  onClick={closeModule}
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
                   className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-white hover:text-black transition-all duration-300"
@@ -197,17 +221,17 @@ export const Dashboard = () => {
               {/* Modal Content */}
               <div className="overflow-y-auto p-8 md:p-16 modal-scroll" data-lenis-prevent>
                 <div className="max-w-5xl mx-auto pb-24">
-                  {activeCategory === 'about' && <AboutPanel />}
-                  {activeCategory === 'skills' && <SkillsPanel />}
-                  {activeCategory === 'education' && <EducationPanel />}
-                  {activeCategory === 'projects' && <ProjectsPanel />}
-                  {activeCategory === 'contact' && <ContactPanel />}
-                  {activeCategory === 'certifications' && <CertificationsPanel />}
+                  {activeModule === 'about' && <AboutPanel />}
+                  {activeModule === 'skills' && <SkillsPanel />}
+                  {activeModule === 'education' && <EducationPanel />}
+                  {activeModule === 'projects' && <ProjectsPanel />}
+                  {activeModule === 'contact' && <ContactPanel />}
+                  {activeModule === 'certifications' && <CertificationsPanel />}
 
                   {/* Module Navigation Back */}
                   <div className="mt-20 pt-10 border-t border-white/5 flex justify-center">
                     <button
-                      onClick={() => setActiveCategory(null)}
+                      onClick={closeModule}
                       onMouseEnter={() => setCursorType('pointer')}
                       onMouseLeave={() => setCursorType('default')}
                       className="px-10 py-4 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-3 text-sm font-bold uppercase tracking-widest"

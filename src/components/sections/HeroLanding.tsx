@@ -47,16 +47,16 @@ export const HeroLanding = () => {
           <div className="absolute top-[35%] right-[-10%] w-[800px] h-[800px] bg-[#ff6b00]/20 blur-[200px] rounded-full opacity-60 animate-pulse" />
           <div className="absolute top-[30%] right-[0%] w-[500px] h-[500px] bg-[#ff6b00]/30 blur-[150px] rounded-full opacity-50 animate-pulse" style={{ animationDelay: '1.5s' }} />
           <div className="absolute top-[40%] right-[5%] w-[400px] h-[400px] bg-white/10 blur-[90px] rounded-full opacity-30" />
-          
-          <img 
-            src="/pankaj.png" 
-            alt={personalInfo.name} 
+
+          <img
+            src="/pankaj.png"
+            alt={personalInfo.name}
             className="h-[85%] w-auto object-contain object-bottom brightness-[0.95] grayscale-[0.05] contrast-[1.05]"
-            style={{ 
+            style={{
               filter: 'drop-shadow(0 0 20px rgba(255,107,0,0.4)) drop-shadow(0 0 40px rgba(255,107,0,0.2))'
             }}
           />
-          
+
           {/* Cinematic Blending - No hard edges */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#06060a] via-transparent to-transparent z-20" />
           <div className="absolute inset-0 bg-gradient-to-r from-[#06060a] via-transparent to-transparent z-20" />
@@ -65,7 +65,7 @@ export const HeroLanding = () => {
 
       {/* ─── MAIN CONTENT (80% Width) ─── */}
       <div className="w-[80%] h-full relative z-40 flex flex-col justify-center">
-        
+
         {/* TOP: Stats (Aligned Top Left) */}
         <div className="absolute top-32 left-0 flex gap-20">
           {personalInfo.about.stats.slice(0, 2).map((stat, i) => (
@@ -88,12 +88,13 @@ export const HeroLanding = () => {
           <div className="space-y-6">
             <Reveal variant="fadeUp" delay={0.6}>
               <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold leading-[1.05] tracking-tight text-white">
-                Designing <br />
-                <span className="text-[#ff6b00]">Impactful</span> <br />
-                Experience.
+                Hey, I'm Pankaj <br />
+                <span className="text-[#ff6b00] text-5xl">Web Developer
+                </span>
+                <span className="text-white text-5xl"> & AI Enthusiast.</span>
               </h1>
             </Reveal>
-            
+
             <Reveal variant="fadeUp" delay={0.8}>
               <div className="flex items-center gap-4">
                 <div className="w-10 h-px bg-[#ff6b00]" />
@@ -104,17 +105,16 @@ export const HeroLanding = () => {
             </Reveal>
           </div>
 
-          {/* CTA (Minimalist) */}
           <Reveal variant="fadeUp" delay={1.2}>
             <div className="flex flex-col sm:flex-row items-center gap-6">
-              <button 
+              <a
+                href="#projects"
                 className="h-16 px-12 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-full hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-3 whitespace-nowrap"
                 onMouseEnter={() => setCursorType('pointer')}
                 onMouseLeave={() => setCursorType('default')}
               >
-                Let's Build <Send size={16} />
-              </button>
-              <div className="text-[10px] uppercase tracking-[0.4em] text-white/20">or scroll to explore</div>
+                Explore My Work <Send size={16} />
+              </a>
             </div>
           </Reveal>
         </div>
