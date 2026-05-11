@@ -1,38 +1,35 @@
 export const personalInfo = {
-  name: 'Pankaj Kashap',
-  fullName: 'Pankaj Kashap',
+  name: 'Pankaj Kashyap',
+  fullName: 'Pankaj Kashyap',
   role: 'AI Engineer + Full Stack Developer + Creative Developer',
   location: 'India',
-  email: 'pankajkashap@proton.me',
+  email: 'pankajkashap26@gmail.com',
   resumeUrl: '/resume.pdf',
   about: {
-    short: 'Building immersive digital experiences with AI, creativity, and modern web technologies.',
-    long: 'I\'m an AI Engineer and Creative Developer who thrives at the intersection of intelligent systems and cinematic web experiences. I architect autonomous agents, design real-time data pipelines, and craft immersive 3D interfaces — all with the goal of making technology feel alive. My work spans from fine-tuning large language models to building production-grade Next.js platforms with Awwwards-level aesthetics.',
+    short: 'Passionate about building intelligent digital experiences using AI, full stack development, and modern web technologies.',
+    long: 'Hi, I’m Pankaj Kashap — a Computer Science student specializing in Artificial Intelligence with a strong interest in full stack development, modern UI/UX experiences, and intelligent systems. I enjoy building real-world projects that combine creativity with technology, ranging from AI-powered applications and automation tools to IoT dashboards and interactive web platforms.\n\nI’m constantly exploring new technologies, improving my development skills, and working on projects that solve practical problems while delivering clean and engaging user experiences. My focus is on building scalable, modern, and impactful digital products using technologies like React, Next.js, Node.js, AI APIs, and cloud-based tools.',
     stats: [
-      { label: 'Years Experience', value: '4+' },
-      { label: 'Projects Shipped', value: '30+' },
-      { label: 'Technologies', value: '20+' },
-      { label: 'Lines of Code', value: '500K+' },
+
     ],
     achievements: [
-      'Built AI agents handling 10K+ daily autonomous decisions',
-      'Architected real-time fuel monitoring IoT platform',
-      'Designed cinematic web experiences with 95+ Lighthouse scores',
-      'Open-source contributor to ML tooling ecosystem',
+      'Building AI-powered applications and intelligent automation systems',
+      'Developing modern full stack web platforms with responsive UI/UX',
+      'Exploring IoT-based monitoring and real-time dashboard systems',
+      'Focused on learning scalable software architecture and modern technologies'
     ]
   },
   hero: {
-    title: 'Building digital products, brands & experience.',
-    subtitle: 'AI Engineer & Creative Developer specializing in autonomous systems and cinematic web interfaces.',
+    title: 'Building Intelligent Digital Experiences.',
+    subtitle: 'AI & Full Stack Developer focused on modern web applications, automation systems, and interactive user experiences.',
     ctaText: 'Connect With Me',
-    secondaryCtaText: 'VIEW MY WORK',
+    secondaryCtaText: 'View Projects',
   },
   focus: [
-    'AI Projects',
-    'Automation',
+    'Artificial Intelligence',
     'Full Stack Development',
-    'Creative Development',
-    'Interactive Web Experiences'
+    'Modern Web Applications',
+    'Automation Systems',
+    'Interactive UI/UX'
   ],
 
 };

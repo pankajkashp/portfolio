@@ -4,35 +4,31 @@ export interface Certification {
   year: string;
   description: string;
   id: string;
+  image?: string;
+  verificationUrl?: string;
 }
 
 export const certifications: Certification[] = [
-  { 
-    title: 'Google AI Professional Certificate', 
-    issuer: 'Google Cloud', 
+  {
+    title: 'AWS Certified Cloud Practitioner',
+    issuer: 'Amazon Web Services',
     year: '2024',
-    description: 'Advanced machine learning, model optimization, and generative AI implementation on GCP.',
-    id: 'GC-AI-992'
+    description: 'Cloud computing fundamentals, AWS core services, security concepts, pricing models, and architectural best practices.',
+    id: 'AWS-CCP-24'
   },
-  { 
-    title: 'AWS Certified Cloud Practitioner', 
-    issuer: 'Amazon Web Services', 
+  {
+    title: 'Palo Alto Networks Cybersecurity Foundation',
+    issuer: 'Palo Alto Networks',
     year: '2024',
-    description: 'Cloud infrastructure, security, and architectural best practices.',
-    id: 'AWS-CCP-10'
+    description: 'Fundamentals of cybersecurity, network protection, threat prevention, and modern security practices using enterprise-grade security concepts.',
+    id: 'PA-CYBER-24'
   },
-  { 
-    title: 'Meta Frontend Developer Professional', 
-    issuer: 'Meta', 
-    year: '2023',
-    description: 'Expertise in React, responsive design, and modern frontend architecture.',
-    id: 'META-FE-55'
-  },
-  { 
-    title: 'Deep Learning Specialization', 
-    issuer: 'DeepLearning.AI', 
-    year: '2023',
-    description: 'Neural networks, computer vision, and sequence models.',
-    id: 'DLAI-DL-88'
-  },
+
+  {
+    title: 'Diploma in Computer Applications',
+    issuer: 'Local Computer Training Center',
+    year: '2022',
+    description: 'Completed foundational training in computer applications, MS Office tools, internet technologies, programming basics, and digital productivity skills.',
+    id: 'DCA-2022'
+  }
 ];

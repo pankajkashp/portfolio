@@ -36,9 +36,8 @@ export const Navbar = () => {
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 transition-all duration-500 ${
-        scrolled ? 'bg-[#06060a]/80 backdrop-blur-md py-4' : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 transition-all duration-500 ${scrolled ? 'bg-[#06060a]/80 backdrop-blur-md py-4' : 'bg-transparent'
+        }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         {/* Logo */}
@@ -48,10 +47,11 @@ export const Navbar = () => {
           onMouseLeave={() => setCursorType('default')}
           className="shrink-0"
         >
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-              <span className="text-black font-black text-xl leading-none">P</span>
-            </div>
+          <div className="flex items-center gap-3 group">
+
+            <span className="text-sm font-black uppercase tracking-[0.3em] text-[#ff6b00] group-hover:text-white transition-colors">
+              Pankaj Kashyap</span>
+
           </div>
         </Link>
 
@@ -63,9 +63,8 @@ export const Navbar = () => {
               href={link.href}
               onMouseEnter={() => setCursorType('pointer')}
               onMouseLeave={() => setCursorType('default')}
-              className={`text-[13px] font-medium transition-all duration-300 relative group ${
-                isActive(link.href) ? 'text-white' : 'text-white/40 hover:text-white'
-              }`}
+              className={`text-[13px] font-medium transition-all duration-300 relative group ${isActive(link.href) ? 'text-white' : 'text-white hover:text-[#ff6b00]'
+                }`}
             >
               {link.name}
               <span className={`absolute -bottom-1 left-0 w-0 h-px bg-white transition-all duration-300 group-hover:w-full ${isActive(link.href) ? 'w-full' : ''}`} />
@@ -93,8 +92,8 @@ export const Navbar = () => {
           <span className="w-6 h-px bg-white" />
           <span className="w-6 h-px bg-white" />
         </button>
-      </div>
-    </motion.nav>
+      </div >
+    </motion.nav >
   );
 };
 

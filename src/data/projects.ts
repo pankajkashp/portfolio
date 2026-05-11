@@ -12,6 +12,7 @@ export interface Project {
   isFeatured: boolean;
   completionDate: string;
   status: 'Completed' | 'In Progress' | 'Maintenance';
+  iconName: string;
 }
 
 export const projectCategories = ['All', 'AI / ML', 'Full Stack', 'Creative Dev', 'Automation'];
@@ -22,10 +23,11 @@ export const projects: Project[] = [
     title: 'CodeSage',
     description: 'AI-powered intelligent code review platform with real-time analysis and optimization suggestions.',
     longDescription: 'CodeSage is an advanced AI-driven code review platform designed to analyze source code for vulnerabilities, performance bottlenecks, structural issues, and optimization opportunities. The platform integrates modern LLM APIs to generate intelligent suggestions, explain bugs in simple language, and improve developer productivity. It features syntax highlighting, live analysis, GitHub integration, responsive dashboards, and a premium futuristic UI focused on developer experience.',
-    thumbnail: '/projects/codesage.jpg',
+    thumbnail: '/projects/code.png',
     galleryImages: [
-      '/projects/codesage-1.jpg',
-      '/projects/codesage-2.jpg'
+      '/projects/code1.png',
+      '/projects/code2.png',
+      '/projects/code3.png'
     ],
     technologies: [
       'Next.js',
@@ -38,10 +40,11 @@ export const projects: Project[] = [
     ],
     category: 'AI / ML',
     githubUrl: 'https://github.com/pankajkashp/CodeReview',
-    liveUrl: 'https://codesage.tech',
+    liveUrl: 'https://code.tech',
     isFeatured: true,
     completionDate: '2025-04',
-    status: 'Completed'
+    status: 'Completed',
+    iconName: '/projects/codesage.png'
   },
 
   {
@@ -49,10 +52,9 @@ export const projects: Project[] = [
     title: 'PumpCore IoT',
     description: 'Smart IoT-based fuel station monitoring and automated petrol management platform.',
     longDescription: 'PumpCore IoT is an industrial-grade intelligent fuel station ecosystem built for real-time monitoring, analytics, and automation of petrol pumps and fuel dispensing systems. The platform tracks fuel flow, pump activity, automated pricing, sensor telemetry, dispensing logs, and operational analytics in real-time. It includes a futuristic touchscreen dashboard, AI-assisted monitoring, multi-pump management, and scalable IoT integration for modern fuel stations.',
-    thumbnail: '/projects/pumpcore.jpg',
+    thumbnail: '/projects/iot1.png',
     galleryImages: [
-      '/projects/pumpcore-1.jpg',
-      '/projects/pumpcore-2.jpg'
+      '/projects/iot2.png'
     ],
     technologies: [
       'React',
@@ -65,11 +67,12 @@ export const projects: Project[] = [
       'TailwindCSS'
     ],
     category: 'IoT / Full Stack',
-    githubUrl: 'https://github.com/pankajkashp/pumpcore',
+    githubUrl: 'https://github.com/pankajkashp/iot-petrol',
     liveUrl: 'https://pumpcore.vercel.app',
     isFeatured: true,
     completionDate: '2025-06',
-    status: 'In Progress'
+    status: 'In Progress',
+    iconName: '/projects/logo.svg'
   },
 
   {
@@ -97,6 +100,7 @@ export const projects: Project[] = [
     liveUrl: 'https://smartkirana.vercel.app',
     isFeatured: true,
     completionDate: '2025-05',
-    status: 'Completed'
+    status: 'Completed',
+    iconName: 'ShoppingBag'
   }
 ];

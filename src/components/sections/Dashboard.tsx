@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursorStore } from '@/store/useCursorStore';
 import { personalInfo } from '@/data/personal';
-import { 
-  User, Code, GraduationCap, FolderOpen, 
+import {
+  User, Code, GraduationCap, FolderOpen,
   Mail, FileText, ChevronRight, X, Cpu, Globe, ArrowLeft, Award
 } from 'lucide-react';
 
@@ -26,12 +26,12 @@ interface CategoryItem {
 }
 
 const categories: CategoryItem[] = [
-  { key: 'about',          label: 'About Me',       description: 'Biometric profile & mission overview',   icon: <User size={28} />,           accent: '#ff6b00' },
-  { key: 'skills',         label: 'Skills',          description: 'Technical stack & proficiency levels',    icon: <Cpu size={28} />,            accent: '#00d4ff' },
-  { key: 'education',      label: 'Education',       description: 'Academic records & certifications',      icon: <GraduationCap size={28} />,  accent: '#a855f7' },
-  { key: 'projects',       label: 'Projects',        description: 'Operational deployments & codebase',     icon: <FolderOpen size={28} />,     accent: '#22c55e' },
-  { key: 'certifications', label: 'Certifications',  description: 'Professional credentials & awards',      icon: <Award size={28} />,          accent: '#eab308' },
-  { key: 'contact',        label: 'Contact',         description: 'Encrypted communication channel',         icon: <Mail size={28} />,           accent: '#3b82f6' },
+  { key: 'about', label: 'About Me', description: 'Biometric profile & mission overview', icon: <User size={28} />, accent: '#ff6b00' },
+  { key: 'skills', label: 'Skills', description: 'Technical stack & proficiency levels', icon: <Cpu size={28} />, accent: '#00d4ff' },
+  { key: 'education', label: 'Education', description: 'Academic records & certifications', icon: <GraduationCap size={28} />, accent: '#a855f7' },
+  { key: 'projects', label: 'Projects', description: 'Operational deployments & codebase', icon: <FolderOpen size={28} />, accent: '#22c55e' },
+  { key: 'certifications', label: 'Certifications', description: 'Professional credentials & awards', icon: <Award size={28} />, accent: '#eab308' },
+  { key: 'contact', label: 'Contact', description: 'Encrypted communication channel', icon: <Mail size={28} />, accent: '#3b82f6' },
 ];
 
 export const Dashboard = () => {
@@ -67,10 +67,10 @@ export const Dashboard = () => {
             <span className="text-[10px] uppercase tracking-[0.5em] text-[#ff6b00] font-black">Central Command</span>
           </div>
           <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
-            System <span className="text-white/20">Modules</span>
+            Portfolio <span className="text-white/20">Modules</span>
           </h2>
           <p className="text-lg text-white/30 max-w-xl font-light leading-relaxed">
-            Access core intelligence sectors. Each module contains encrypted data regarding operational history and technical capabilities.
+            Explore my projects, technical skills, education, and professional journey.
           </p>
         </motion.div>
 
@@ -91,7 +91,7 @@ export const Dashboard = () => {
                 className="group relative w-full aspect-[4/3] md:aspect-[16/10] text-left overflow-hidden rounded-[2rem] bg-white/[0.02] border border-white/5 p-10 transition-all duration-700 hover:bg-white/[0.04] hover:border-white/10"
               >
                 {/* Depth Lighting */}
-                <div 
+                <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
                   style={{
                     background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), ${cat.accent}15, transparent 40%)`
@@ -99,7 +99,7 @@ export const Dashboard = () => {
                 />
 
                 <div className="relative z-10 h-full flex flex-col justify-between">
-                  <div 
+                  <div
                     className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-[10deg]"
                     style={{ background: `${cat.accent}10`, color: cat.accent }}
                   >
@@ -181,10 +181,9 @@ export const Dashboard = () => {
                     <h2 className="text-3xl font-bold text-white tracking-tight">
                       {categories.find(c => c.key === activeCategory)?.label}
                     </h2>
-                    <p className="text-xs uppercase tracking-[0.3em] text-white/20 font-black">Module Active</p>
                   </div>
                 </div>
-                
+
                 <button
                   onClick={() => setActiveCategory(null)}
                   onMouseEnter={() => setCursorType('pointer')}

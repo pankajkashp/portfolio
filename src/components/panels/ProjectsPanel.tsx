@@ -1,15 +1,28 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { projects, Project } from '@/data/projects';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, X, ArrowUpRight, Code, Globe, Layout, Cpu, ArrowLeft } from 'lucide-react';
+import {
+  ExternalLink, X, ArrowUpRight, Code, Globe, Layout,
+  Cpu, ArrowLeft, Code2, Activity, ShoppingBag, Terminal
+} from 'lucide-react';
 import { GithubIcon } from '@/components/icons/GithubIcon';
 import { useCursorStore } from '@/store/useCursorStore';
 
 function ProjectDetail({ project, onClose }: { project: Project; onClose: () => void }) {
   const { setCursorType } = useCursorStore();
-  
+  const [currentIdx, setCurrentIdx] = useState(0);
+  const images = [project.thumbnail, ...project.galleryImages].filter(Boolean);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const timer = setInterval(() => {
+      setCurrentIdx((prev) => (prev + 1) % images.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
   return (
     <motion.div
       className="fixed inset-0 z-[110] flex items-center justify-center p-4 md:p-12"
@@ -26,21 +39,39 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
       >
         {/* Left: Project Imagery */}
-        <div className="flex-[1.2] relative bg-black/40 overflow-hidden">
+        <div className="flex-[1.2] relative bg-black/40 overflow-hidden group/imagery">
           <div className="absolute inset-0 flex items-center justify-center p-12">
-            <div className="w-full h-full rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center relative overflow-hidden group">
-               <span className="text-5xl font-black text-white/5 uppercase tracking-[0.5em] select-none text-center px-10">
-                 {project.title}
-               </span>
-               <div className="absolute inset-0 bg-gradient-to-t from-[#06060a]/60 to-transparent" />
+            <div className="w-full h-full rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center relative overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentIdx}
+                  src={images[currentIdx]}
+                  alt={project.title}
+                  initial={{ opacity: 0, scale: 1.05 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full h-full object-contain"
+                />
+              </AnimatePresence>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#06060a]/60 to-transparent" />
             </div>
           </div>
-          
-          <div className="absolute bottom-12 left-12 right-12 flex gap-4 overflow-x-auto pb-4 modal-scroll">
-            {project.technologies.map((tech) => (
-              <span key={tech} className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest text-white/40 whitespace-nowrap">
-                {tech}
-              </span>
+
+          {/* Thumbnail Gallery / Nav */}
+          <div className="absolute bottom-12 left-12 right-12 flex gap-4 overflow-x-auto pb-4 modal-scroll z-20">
+            {images.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setCurrentIdx(idx)}
+                onMouseEnter={() => setCursorType('pointer')}
+                onMouseLeave={() => setCursorType('default')}
+                className={`relative shrink-0 w-24 aspect-video rounded-xl overflow-hidden border-2 transition-all duration-300 ${
+                  currentIdx === idx ? 'border-[#22c55e] scale-105' : 'border-white/10 opacity-40 hover:opacity-100'
+                }`}
+              >
+                <img src={img} alt={`Gallery ${idx}`} className="w-full h-full object-cover" />
+              </button>
             ))}
           </div>
         </div>
@@ -83,10 +114,10 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
 
             <div className="flex flex-col sm:flex-row gap-4 pt-8">
               {project.githubUrl && (
-                <a 
-                  href={project.githubUrl} 
-                  target="_blank" 
-                  rel="noopener" 
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noopener"
                   className="flex-1 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center gap-3 text-white font-bold uppercase tracking-widest text-[11px] hover:bg-white hover:text-black transition-all duration-300"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
@@ -95,10 +126,10 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
                 </a>
               )}
               {project.liveUrl && (
-                <a 
-                  href={project.liveUrl} 
-                  target="_blank" 
-                  rel="noopener" 
+                <a
+                  href={project.liveUrl}
+                  target="_blank"
+                  rel="noopener"
                   className="flex-1 h-16 rounded-2xl bg-[#22c55e] flex items-center justify-center gap-3 text-black font-black uppercase tracking-widest text-[11px] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
@@ -126,6 +157,14 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
   );
 }
 
+const IconMap: Record<string, any> = {
+  Code2,
+  Activity,
+  ShoppingBag,
+  Terminal,
+  Layout
+};
+
 export const ProjectsPanel = () => {
   const { setCursorType } = useCursorStore();
   const [selected, setSelected] = useState<Project | null>(null);
@@ -144,29 +183,35 @@ export const ProjectsPanel = () => {
             onMouseEnter={() => setCursorType('pointer')}
             onMouseLeave={() => setCursorType('default')}
           >
-             {/* Preview Overlay */}
-             <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-[#22c55e]" />
-             
-             <div className="relative z-10 flex flex-col h-full">
-                <div className="flex justify-between items-start">
-                   <div className="p-4 rounded-2xl bg-white/5 border border-white/10 text-white group-hover:bg-[#22c55e] group-hover:text-black transition-all duration-500">
-                      <Layout size={24} />
-                   </div>
-                   <div className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black group-hover:text-white transition-colors">
-                      {project.category}
-                   </div>
-                </div>
+            {/* Preview Overlay */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-[#22c55e]" />
 
-                <div className="mt-auto space-y-4">
-                   <h4 className="text-3xl font-bold text-white tracking-tight group-hover:text-[#22c55e] transition-colors">{project.title}</h4>
-                   <p className="text-sm text-white/30 leading-relaxed font-light line-clamp-2 max-w-[90%] group-hover:text-white/50 transition-colors">
-                      {project.description}
-                   </p>
-                   <div className="pt-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/20 group-hover:text-white transition-colors">
-                      Explore Deployment <ArrowUpRight size={12} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                   </div>
+            <div className="relative z-10 flex flex-col h-full">
+              <div className="flex justify-between items-start">
+                <div className="p-2 rounded-2xl bg-white/5 border border-white/10 text-white group-hover:bg-[#22c55e] group-hover:text-black transition-all duration-500 overflow-hidden flex items-center justify-center">
+                  {(() => {
+                    if (project.iconName.startsWith('/')) {
+                      return <img src={project.iconName} alt="Project Logo" className="w-12 h-12 object-cover" />;
+                    }
+                    const Icon = IconMap[project.iconName] || Layout;
+                    return <Icon size={24} />;
+                  })()}
                 </div>
-             </div>
+                <div className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black group-hover:text-white transition-colors">
+                  {project.category}
+                </div>
+              </div>
+
+              <div className="mt-auto space-y-4">
+                <h4 className="text-3xl font-bold text-white tracking-tight group-hover:text-[#22c55e] transition-colors">{project.title}</h4>
+                <p className="text-sm text-white/30 leading-relaxed font-light line-clamp-2 max-w-[90%] group-hover:text-white/50 transition-colors">
+                  {project.description}
+                </p>
+                <div className="pt-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/20 group-hover:text-white transition-colors">
+                  Explore Deployment <ArrowUpRight size={12} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                </div>
+              </div>
+            </div>
           </motion.div>
         ))}
       </div>

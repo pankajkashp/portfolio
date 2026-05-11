@@ -7,21 +7,21 @@ import { User } from 'lucide-react';
 
 export const AboutPanel = () => {
   return (
-    <div className="space-y-20 py-10">
+    <div className="space-y-10 py-10">
       {/* ─── BIO SECTION ─── */}
       <div className="grid lg:grid-cols-[1fr_1.5fr] gap-16 items-center">
-        <motion.div 
+        <motion.div
           className="relative group"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1 }}
         >
           <div className="aspect-[4/5] rounded-[2.5rem] overflow-hidden border border-white/10 relative">
-            <Image 
-              src="/pankaj.png" 
-              alt={personalInfo.fullName} 
+            <Image
+              src="/pankaj.png"
+              alt={personalInfo.fullName}
               fill
-              className="object-cover object-bottom transition-transform duration-700 group-hover:scale-110" 
+              className="object-cover object-bottom transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#06060a] via-transparent to-transparent opacity-60" />
           </div>
@@ -34,11 +34,11 @@ export const AboutPanel = () => {
             <h3 className="text-5xl md:text-6xl font-bold text-white tracking-tighter">
               {personalInfo.fullName.split(' ')[0]} <span className="text-white/20">{personalInfo.fullName.split(' ')[1]}</span>
             </h3>
-            <p className="text-lg font-medium text-[#ff6b00] uppercase tracking-[0.4em]">
-              {personalInfo.hero.subtitle}
+            <p className="text-sm font-medium text-[#ff6b00] uppercase tracking-[0.4em]">
+              {personalInfo.about.short}
             </p>
           </div>
-          
+
           <p className="text-xl md:text-2xl leading-relaxed text-white/50 font-light">
             {personalInfo.about.long}
           </p>
@@ -78,8 +78,8 @@ export const AboutPanel = () => {
           <h4 className="text-xs font-black uppercase tracking-[0.5em] text-[#ff6b00]">Focus Sectors</h4>
           <div className="flex flex-wrap gap-3">
             {personalInfo.focus.map((f, i) => (
-              <motion.span 
-                key={f} 
+              <motion.span
+                key={f}
                 className="px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest bg-white/5 border border-white/10 text-white/60 hover:text-white hover:border-[#ff6b00]/40 transition-all duration-300"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -89,16 +89,8 @@ export const AboutPanel = () => {
               </motion.span>
             ))}
           </div>
-          
-          <div className="p-10 rounded-[2rem] bg-[#ff6b00]/5 border border-[#ff6b00]/10 mt-12 relative overflow-hidden group">
-            <div className="absolute top-0 right-0 p-8 text-[#ff6b00]/10 group-hover:scale-125 transition-transform duration-700">
-              <User size={120} />
-            </div>
-            <h5 className="text-xl font-bold text-white mb-2 italic">Dossier Access</h5>
-            <p className="text-sm text-white/40 leading-relaxed font-light">
-              Strategic objective: Bridging the gap between sophisticated AI models and immersive human experiences. 
-            </p>
-          </div>
+
+
         </div>
       </div>
     </div>
