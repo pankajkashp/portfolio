@@ -54,7 +54,7 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: '100%', opacity: 0 }}
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[100] bg-[#06060a]/90 backdrop-blur-3xl overflow-y-auto"
+            className="fixed inset-0 z-[100] bg-[#06060a]/90 backdrop-blur-3xl overflow-hidden"
             data-lenis-prevent
           >
             <Dashboard />

@@ -76,7 +76,7 @@ export const Dashboard = () => {
   return (
     <section 
       id="dashboard" 
-      className="relative min-h-screen py-32 bg-[#06060a] overflow-y-auto"
+      className="relative h-screen bg-[#06060a] overflow-hidden flex flex-col"
       data-lenis-prevent
     >
       {/* ─── FUTURISTIC BACKGROUND ─── */}
@@ -88,7 +88,18 @@ export const Dashboard = () => {
         <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#06060a] via-transparent to-[#06060a]" />
       </div>
 
-      <div className="max-w-[1600px] mx-auto px-8 md:px-16 relative z-10">
+      {/* Main Scrollable Area (Dashboard Grid) */}
+      <motion.div 
+        className={`flex-1 overflow-y-auto py-32 ${activeModule ? 'pointer-events-none' : 'pointer-events-auto'}`}
+        animate={{ 
+          filter: activeModule ? 'blur(20px)' : 'blur(0px)',
+          opacity: activeModule ? 0.3 : 1,
+          scale: activeModule ? 0.95 : 1
+        }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      >
+        <div className="max-w-[1600px] mx-auto px-8 md:px-16 relative z-10">
+          {/* Header and Grid... */}
         {/* ─── HEADER ─── */}
         <motion.div
           className="mb-24 flex items-start justify-between gap-8"
@@ -224,6 +235,7 @@ export const Dashboard = () => {
           </div>
         </motion.div>
       </div>
+    </motion.div>
 
       {/* ─── CINEMATIC MODAL SYSTEM ─── */}
       <AnimatePresence>
