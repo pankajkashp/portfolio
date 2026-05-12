@@ -37,7 +37,7 @@ const categories: CategoryItem[] = [
 
 export const Dashboard = () => {
   const { setCursorType } = useCursorStore();
-  const { activeModule, setActiveModule } = useDashboardStore();
+  const { activeModule, setActiveModule, setIsDashboardOpen } = useDashboardStore();
 
   const handleCardClick = (key: string) => {
     setActiveModule(key);
@@ -46,6 +46,13 @@ export const Dashboard = () => {
 
   const closeModule = () => {
     setActiveModule(null);
+    window.history.pushState('', document.title, window.location.pathname + window.location.search);
+  };
+
+  const shutdownSystem = () => {
+    setActiveModule(null);
+    setIsDashboardOpen(false);
+    window.location.hash = '';
     window.history.pushState('', document.title, window.location.pathname + window.location.search);
   };
 
@@ -67,7 +74,11 @@ export const Dashboard = () => {
   }, []);
 
   return (
-    <section id="dashboard" className="relative min-h-screen py-32 bg-[#06060a]">
+    <section 
+      id="dashboard" 
+      className="relative min-h-screen py-32 bg-[#06060a] overflow-y-auto"
+      data-lenis-prevent
+    >
       {/* ─── FUTURISTIC BACKGROUND ─── */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 opacity-[0.03]" style={{
@@ -80,22 +91,50 @@ export const Dashboard = () => {
       <div className="max-w-[1600px] mx-auto px-8 md:px-16 relative z-10">
         {/* ─── HEADER ─── */}
         <motion.div
-          className="mb-24 space-y-4"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-24 flex items-start justify-between gap-8"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
         >
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-px bg-[#ff6b00]" />
-            <span className="text-[10px] uppercase tracking-[0.5em] text-[#ff6b00] font-black">Central Command</span>
+          <div className="space-y-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 }}
+              className="flex items-center gap-4"
+            >
+              <div className="w-12 h-px bg-[#ff6b00]" />
+              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-[#ff6b00]">Command Center // System Active</span>
+            </motion.div>
+            
+            <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-none">
+              <motion.span
+                initial={{ opacity: 0, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)' }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+              >
+                CORE
+              </motion.span> 
+              <br />
+              <span className="text-[#ff6b00]">MODULES</span>
+            </h2>
+            
+            <p className="text-xl text-white/50 max-w-xl font-light leading-relaxed">
+              <span className="text-[#ff6b00] font-mono text-xs mr-2 animate-pulse">[CONNECTED]</span>
+              Accessing neural archives... Exploring projects, skills, and professional experience.
+            </p>
           </div>
-          <h2 className="text-5xl md:text-7xl font-bold tracking-tighter text-white">
-            Portfolio <span className="text-white/20">Modules</span>
-          </h2>
-          <p className="text-lg text-white/30 max-w-xl font-light leading-relaxed">
-            Explore my projects, technical skills, education, and professional journey.
-          </p>
+
+          <button
+            onClick={shutdownSystem}
+            onMouseEnter={() => setCursorType('pointer')}
+            onMouseLeave={() => setCursorType('default')}
+            className="group relative flex items-center gap-6 px-10 py-5 rounded-full bg-[#ff6b00] text-black font-black transition-all duration-500 overflow-hidden shadow-[0_0_30px_rgba(255,107,0,0.3)] hover:shadow-[0_0_50px_rgba(255,107,0,0.5)]"
+          >
+            <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
+            <span className="relative z-10 text-[11px] uppercase tracking-[0.4em]">Exit System</span>
+            <X size={20} className="relative z-10 group-hover:rotate-90 transition-transform duration-500" />
+          </button>
         </motion.div>
 
         {/* ─── CINEMATIC GRID ─── */}
@@ -174,7 +213,14 @@ export const Dashboard = () => {
 
           <div className="flex items-center gap-12 text-[10px] font-black uppercase tracking-[0.4em] text-white/20">
             <span className="hover:text-white transition-colors cursor-help">Latency: 12ms</span>
-            <span className="hover:text-white transition-colors cursor-help">Secure Link: Active</span>
+            <button 
+              onClick={shutdownSystem}
+              onMouseEnter={() => setCursorType('pointer')}
+              onMouseLeave={() => setCursorType('default')}
+              className="hover:text-[#ff6b00] transition-colors"
+            >
+              Terminate Session
+            </button>
           </div>
         </motion.div>
       </div>

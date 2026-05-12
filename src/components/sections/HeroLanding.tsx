@@ -7,9 +7,18 @@ import { useCursorStore } from '@/store/useCursorStore';
 import { Send } from 'lucide-react';
 import { Reveal } from '@/components/animations/Reveal';
 
+import { useDashboardStore } from '@/store/useDashboardStore';
+
 export const HeroLanding = () => {
   const { setCursorType } = useCursorStore();
+  const { setIsDashboardOpen, setActiveModule } = useDashboardStore();
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleExplore = () => {
+    setIsDashboardOpen(true);
+    setActiveModule('projects');
+    window.location.hash = 'projects';
+  };
 
   // Parallax for the profile image
   const mouseX = useMotionValue(0);
@@ -51,7 +60,7 @@ export const HeroLanding = () => {
           <img
             src="/pankaj.png"
             alt={personalInfo.name}
-            className="h-[85%] w-auto object-contain object-bottom brightness-[0.95] grayscale-[0.05] contrast-[1.05]"
+            className="h-[65%] w-auto object-contain object-bottom brightness-[0.95] grayscale-[0.05] contrast-[1.05]"
             style={{
               filter: 'drop-shadow(0 0 20px rgba(255,107,0,0.4)) drop-shadow(0 0 40px rgba(255,107,0,0.2))'
             }}
@@ -106,15 +115,35 @@ export const HeroLanding = () => {
           </div>
 
           <Reveal variant="fadeUp" delay={1.2}>
-            <div className="flex flex-col sm:flex-row items-center gap-6">
-              <a
-                href="#projects"
-                className="h-16 px-12 bg-white text-black font-bold text-xs uppercase tracking-widest rounded-full hover:scale-[1.05] active:scale-[0.95] transition-all flex items-center justify-center gap-3 whitespace-nowrap"
+            <div className="flex flex-col sm:flex-row items-center gap-12">
+              <button
+                onClick={handleExplore}
                 onMouseEnter={() => setCursorType('pointer')}
                 onMouseLeave={() => setCursorType('default')}
+                className="group relative flex items-center justify-center"
               >
-                Explore My Work <Send size={16} />
-              </a>
+                {/* Holographic Ring Decor */}
+                <div className="absolute inset-0 -m-4 rounded-full border border-[#ff6b00]/20 animate-[spin_10s_linear_infinite]" />
+                <div className="absolute inset-0 -m-6 rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]" />
+
+                <div className="relative h-20 px-16 bg-[#ff6b00] text-black font-black text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-500 group-hover:scale-110 active:scale-95 flex items-center justify-center gap-4">
+                  {/* Glitch Effect Layers */}
+                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  <span className="relative z-10">Explore My Work</span>
+                  <Send size={14} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+
+                  {/* Inner Glow */}
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                </div>
+
+                {/* Outer Holographic Glow */}
+                <div className="absolute -inset-1 bg-[#ff6b00] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity rounded-full" />
+              </button>
+
+              <div className="hidden lg:flex items-center gap-4">
+                <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b00] animate-pulse" />
+                <span className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black">System Ready</span>
+              </div>
             </div>
           </Reveal>
         </div>
