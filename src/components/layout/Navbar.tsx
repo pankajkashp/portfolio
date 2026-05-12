@@ -6,14 +6,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { personalInfo } from '@/data/personal';
 import { useCursorStore } from '@/store/useCursorStore';
-import { ArrowUpRight, User, Cpu, GraduationCap, FolderOpen, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { AIOrb } from '@/components/ui/AIOrb';
 
-const navLinks = [
-  { name: 'About', href: '#about', icon: <User size={18} /> },
-  { name: 'Skills', href: '#skills', icon: <Cpu size={18} /> },
-  { name: 'Education', href: '#education', icon: <GraduationCap size={18} /> },
-  { name: 'Projects', href: '#projects', icon: <FolderOpen size={18} /> },
-];
+const navLinks = []; // Empty as requested to replace with 3D system
 
 export const Navbar = () => {
   const pathname = usePathname();
@@ -56,22 +52,9 @@ export const Navbar = () => {
             </div>
           </Link>
 
-          {/* Center — Nav Links (desktop) */}
-          <div className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onMouseEnter={() => setCursorType('pointer')}
-                onMouseLeave={() => setCursorType('default')}
-                className={`text-[13px] font-medium transition-all duration-300 relative group flex items-center gap-2 ${isActive(link.href) ? 'text-[#ff6b00]' : 'text-white/60 hover:text-white'
-                  }`}
-              >
-                <span className="opacity-0 group-hover:opacity-100 transition-opacity">{link.icon}</span>
-                {link.name}
-                <span className={`absolute -bottom-1 left-0 w-0 h-px bg-[#ff6b00] transition-all duration-300 group-hover:w-full ${isActive(link.href) ? 'w-full' : ''}`} />
-              </Link>
-            ))}
+          {/* Center — AI Orb System (desktop) */}
+          <div className="hidden md:flex flex-1 items-center justify-center max-w-[600px] mx-auto overflow-hidden">
+            <AIOrb />
           </div>
 
           {/* Right — CTA */}
@@ -111,23 +94,19 @@ export const Navbar = () => {
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#ff6b0010,transparent_70%)] pointer-events-none" />
 
-            {navLinks.map((link, i) => (
-              <motion.div
-                key={link.name}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.1 }}
-              >
-                <Link
-                  href={link.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="flex items-center gap-6 text-3xl font-bold text-white hover:text-[#ff6b00] transition-colors"
-                >
-                  <span className="text-[#ff6b00]">{link.icon}</span>
-                  {link.name}
-                </Link>
-              </motion.div>
-            ))}
+            {/* Center — AI Orb System (mobile) */}
+            <div className="w-full h-[200px] mb-8">
+              <AIOrb />
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="text-center"
+            >
+              <h3 className="text-2xl font-black uppercase tracking-[0.2em] text-[#ff6b00] mb-2">Neural Link Active</h3>
+              <p className="text-white/40 text-xs uppercase tracking-widest font-medium">Immersive Intelligence Core</p>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
