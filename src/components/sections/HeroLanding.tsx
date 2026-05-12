@@ -4,7 +4,7 @@ import { useRef, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
 import { useCursorStore } from '@/store/useCursorStore';
-import { Send } from 'lucide-react';
+import { Send, ArrowUpRight } from 'lucide-react';
 import { Reveal } from '@/components/animations/Reveal';
 
 import { useDashboardStore } from '@/store/useDashboardStore';
@@ -15,9 +15,9 @@ export const HeroLanding = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleExplore = () => {
+    setActiveModule(null);
     setIsDashboardOpen(true);
-    setActiveModule('projects');
-    window.location.hash = 'projects';
+    window.location.hash = '';
   };
 
   // Parallax for the profile image
@@ -60,7 +60,7 @@ export const HeroLanding = () => {
           <img
             src="/pankaj.png"
             alt={personalInfo.name}
-            className="h-[65%] w-auto object-contain object-bottom brightness-[0.95] grayscale-[0.05] contrast-[1.05]"
+            className="h-[90%] w-auto object-contain object-bottom brightness-[0.95] grayscale-[0.05] contrast-[1.05]"
             style={{
               filter: 'drop-shadow(0 0 20px rgba(255,107,0,0.4)) drop-shadow(0 0 40px rgba(255,107,0,0.2))'
             }}
@@ -115,35 +115,58 @@ export const HeroLanding = () => {
           </div>
 
           <Reveal variant="fadeUp" delay={1.2}>
-            <div className="flex flex-col sm:flex-row items-center gap-12">
-              <button
-                onClick={handleExplore}
+            <div className="flex flex-col sm:flex-row items-center gap-5 mt-8">
+              {/* Left Column: Explore Button + System Status */}
+              <div className="flex flex-col items-center gap-6">
+                <button
+                  onClick={handleExplore}
+                  onMouseEnter={() => setCursorType('pointer')}
+                  onMouseLeave={() => setCursorType('default')}
+                  className="group relative flex items-center justify-center shrink-0"
+                >
+                  {/* Holographic Ring Decor */}
+                  <div className="absolute inset-0 -m-4 rounded-full border border-[#ff6b00]/20 animate-[spin_10s_linear_infinite]" />
+                  <div className="absolute inset-0 -m-6 rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]" />
+
+                  <div className="relative h-16 px-12 bg-[#ff6b00] text-black font-black text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-500 group-hover:scale-105 active:scale-95 flex items-center justify-center gap-3 whitespace-nowrap">
+                    {/* Glitch Effect Layers */}
+                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                    <span className="relative z-10 text-lg">Explore My Work</span>
+                    <Send size={14} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+
+                    {/* Inner Glow */}
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </div>
+
+                  {/* Outer Holographic Glow */}
+                  <div className="absolute -inset-1 bg-[#ff6b00] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity rounded-full" />
+                </button>
+
+                {/* System Status (Now Below) */}
+                <div className="flex items-center gap-4">
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b00] animate-pulse" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] uppercase tracking-[0.4em] text-white/20 font-black">System</span>
+                    <span className="text-[9px] uppercase tracking-[0.4em] text-[#ff6b00] font-black animate-pulse">Ready</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column: Resume Link */}
+              <div className="" />
+
+              <a
+                href="/resume.pdf"
+                download
                 onMouseEnter={() => setCursorType('pointer')}
                 onMouseLeave={() => setCursorType('default')}
-                className="group relative flex items-center justify-center"
+                className="flex items-center gap-4 text-[11px] font-black text-white/80 hover:text-[#ff6b00] transition-all group whitespace-nowrap mb-6"
               >
-                {/* Holographic Ring Decor */}
-                <div className="absolute inset-0 -m-4 rounded-full border border-[#ff6b00]/20 animate-[spin_10s_linear_infinite]" />
-                <div className="absolute inset-0 -m-6 rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]" />
-
-                <div className="relative h-20 px-16 bg-[#ff6b00] text-black font-black text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-500 group-hover:scale-110 active:scale-95 flex items-center justify-center gap-4">
-                  {/* Glitch Effect Layers */}
-                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
-                  <span className="relative z-10">Explore My Work</span>
-                  <Send size={14} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-
-                  {/* Inner Glow */}
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="uppercase tracking-[0.3em]">Download Resume</span>
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#ff6b00] group-hover:text-black transition-all">
+                  <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
-
-                {/* Outer Holographic Glow */}
-                <div className="absolute -inset-1 bg-[#ff6b00] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity rounded-full" />
-              </button>
-
-              <div className="hidden lg:flex items-center gap-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b00] animate-pulse" />
-                <span className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black">System Ready</span>
-              </div>
+              </a>
             </div>
           </Reveal>
         </div>

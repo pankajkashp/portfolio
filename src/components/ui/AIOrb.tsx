@@ -29,7 +29,7 @@ const OrbCore = () => {
 
   return (
     <Float speed={3} rotationIntensity={2} floatIntensity={1.5}>
-      <Sphere ref={meshRef} args={[1, 100, 100]}>
+      <Sphere ref={meshRef} args={[0.25, 100, 100]}>
         <MeshDistortMaterial
           color="#ff6b00"
           emissive="#ff4500"
@@ -43,7 +43,7 @@ const OrbCore = () => {
         />
       </Sphere>
       {/* Internal Core Glow */}
-      <Sphere args={[0.7, 32, 32]}>
+      <Sphere args={[0.15, 32, 32]}>
         <meshStandardMaterial 
           color="#ffcc00" 
           emissive="#ffcc00" 
@@ -73,7 +73,7 @@ const OrbitalRings = () => {
 
   return (
     <group ref={ringsRef}>
-      {[1.4, 1.7, 2.0, 2.3].map((radius, i) => (
+      {[0.6, 0.75, 0.9, 1.05].map((radius, i) => (
         <mesh key={i} rotation={[Math.random() * Math.PI, Math.random() * Math.PI, 0]}>
           <torusGeometry args={[radius, 0.015, 16, 100]} />
           <meshStandardMaterial 
@@ -94,7 +94,7 @@ const NeuralNetwork = () => {
   const points = useMemo(() => {
     const p = [];
     for (let i = 0; i < count; i++) {
-      const r = 2.8;
+      const r = 0.8;
       const theta = THREE.MathUtils.randFloatSpread(360);
       const phi = THREE.MathUtils.randFloatSpread(360);
       p.push(new THREE.Vector3().setFromSphericalCoords(r, theta, phi));
@@ -106,7 +106,7 @@ const NeuralNetwork = () => {
     const l = [];
     for (let i = 0; i < count; i++) {
       for (let j = i + 1; j < count; j++) {
-        if (points[i].distanceTo(points[j]) < 1.8) {
+        if (points[i].distanceTo(points[j]) < 0.5) {
           l.push([points[i], points[j]]);
         }
       }
@@ -205,7 +205,6 @@ const Scene = () => {
   return (
     <group ref={groupRef}>
       <OrbCore />
-      <OrbitalRings />
       <NeuralNetwork />
       <DataStreams />
       <ambientLight intensity={0.5} />
@@ -217,9 +216,9 @@ const Scene = () => {
 
 export const AIOrb = () => {
   return (
-    <div className="w-full h-full min-h-[120px] relative pointer-events-auto">
+    <div className="w-full h-full min-h-[70px] relative pointer-events-auto">
       <Canvas
-        camera={{ position: [0, 0, 6], fov: 40 }}
+        camera={{ position: [0, 0, 4.5], fov: 30 }}
         gl={{ antialias: true, alpha: true, toneMapping: THREE.ReinhardToneMapping }}
       >
         <Scene />
