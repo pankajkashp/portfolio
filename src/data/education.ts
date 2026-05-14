@@ -14,8 +14,20 @@ export const education: Education[] = [
   },
   {
     degree: 'Higher Secondary Education (12th Grade)',
-    institution: 'Science Stream',
+    institution: 'GSSS Ranghar Nangal',
     year: '2022',
-    description: 'Completed higher secondary education with 92.3% in Physics, Chemistry, Mathematics, and Computer Science. Developed a strong analytical and problem-solving foundation with growing interest in software engineering and artificial intelligence.'
+    description: 'Completed higher secondary education in Science with Biology, securing 92.3%. Built a strong foundation in analytical thinking, problem-solving, and scientific concepts while developing a growing interest in technology and software development.'
+  },
+  {
+    degree: 'Diploma in Computer Applications',
+    institution: 'Guru Nanak Dev University',
+    year: '2023',
+    description: 'Completed foundational training in computer applications, MS Office tools, internet technologies, programming basics, and digital productivity skills.',
+  },
+  {
+    degree: '10th Standard',
+    institution: 'DAV High School, Batala, Punjab',
+    year: '2020',
+    description: 'Completed secondary education with 89%, building a strong academic foundation in mathematics, science, and computer fundamentals.',
   }
 ];

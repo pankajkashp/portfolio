@@ -7,6 +7,8 @@ import { certifications, Certification } from '@/data/certifications';
 function CertificationDetail({ cert, onClose }: { cert: Certification; onClose: () => void }) {
   const { setCursorType } = useCursorStore();
 
+  const isPdf = cert.fileUrl?.toLowerCase().endsWith('.pdf');
+
   return (
     <motion.div
       className="fixed inset-0 z-[110] flex items-center justify-center p-4 md:p-12"
@@ -16,53 +18,80 @@ function CertificationDetail({ cert, onClose }: { cert: Certification; onClose: 
     >
       <div className="absolute inset-0 bg-[#06060a]/98 backdrop-blur-3xl" onClick={onClose} />
       <motion.div
-        className="relative w-full max-w-5xl bg-[#0d0d12] rounded-[3rem] border border-white/10 overflow-hidden grid grid-cols-1 md:grid-cols-[1.1fr_1fr]"
+        className="relative w-full max-w-6xl h-[85vh] bg-[#0d0d12] rounded-[3rem] border border-white/10 overflow-hidden grid grid-cols-1 lg:grid-cols-[1.2fr_1fr]"
         initial={{ scale: 0.9, y: 30 }}
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.9, y: 30 }}
         transition={{ type: 'spring', damping: 25, stiffness: 200 }}
       >
         {/* Left: Credential Preview */}
-        <div className="relative bg-black/40 overflow-hidden flex items-center justify-center p-8 md:p-16">
-          <div className="w-full aspect-[1.4/1] rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center relative overflow-hidden group">
-            {cert.image ? (
+        <div className="relative bg-black/40 overflow-hidden flex flex-col">
+          <div className="flex-1 relative group m-6 md:m-10 rounded-2xl overflow-hidden bg-white/[0.02] border border-white/10">
+            {cert.fileUrl ? (
+              isPdf ? (
+                <iframe
+                  src={`${cert.fileUrl}#toolbar=0&navpanes=0&scrollbar=0`}
+                  className="w-full h-full border-none"
+                  title={cert.title}
+                />
+              ) : (
+                <img src={cert.fileUrl} alt={cert.title} className="w-full h-full object-contain" />
+              )
+            ) : cert.image ? (
               <img src={cert.image} alt={cert.title} className="w-full h-full object-contain" />
             ) : (
-              <div className="flex flex-col items-center gap-4 text-white/10">
-                <Award size={80} />
+              <div className="w-full h-full flex flex-col items-center justify-center gap-4 text-white/10">
+                <Award size={120} strokeWidth={1} />
                 <span className="text-[10px] uppercase tracking-[0.5em] font-black">Credential Preview</span>
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-[#06060a]/60 to-transparent" />
+            
+            {/* Interactive Overlay for PDF */}
+            {cert.fileUrl && isPdf && (
+              <div className="absolute top-4 right-4 z-10">
+                <a
+                  href={cert.fileUrl}
+                  target="_blank"
+                  rel="noopener"
+                  className="p-3 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-[#eab308] hover:text-black transition-all duration-300 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest"
+                  onMouseEnter={() => setCursorType('pointer')}
+                  onMouseLeave={() => setCursorType('default')}
+                >
+                  <ExternalLink size={14} /> View Full
+                </a>
+              </div>
+            )}
           </div>
         </div>
 
         {/* Right: Technical Details */}
-        <div className="p-8 md:p-16 overflow-y-auto modal-scroll flex flex-col pb-24" data-lenis-prevent>
-          <button
-            onClick={onClose}
-            onMouseEnter={() => setCursorType('pointer')}
-            onMouseLeave={() => setCursorType('default')}
-            className="self-end w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-white hover:text-black transition-all duration-300 mb-12"
-          >
-            <X size={20} />
-          </button>
+        <div className="p-8 md:p-16 overflow-y-auto modal-scroll flex flex-col" data-lenis-prevent>
+          <div className="flex justify-between items-center mb-12">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-px bg-[#eab308]" />
+              <span className="text-[10px] uppercase tracking-[0.3em] text-[#eab308] font-black">Certification Details</span>
+            </div>
+            <button
+              onClick={onClose}
+              onMouseEnter={() => setCursorType('pointer')}
+              onMouseLeave={() => setCursorType('default')}
+              className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-white/40 hover:bg-white hover:text-black transition-all duration-300"
+            >
+              <X size={20} />
+            </button>
+          </div>
 
           <div className="flex-1 space-y-12">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-px bg-[#eab308]" />
-                <span className="text-[10px] uppercase tracking-[0.3em] text-[#eab308] font-black">Certificate Verified</span>
-              </div>
-              <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tighter">
+            <div className="space-y-6">
+              <h3 className="text-3xl md:text-5xl font-bold text-white tracking-tighter leading-[1.1]">
                 {cert.title}
               </h3>
-              <p className="text-base text-white/40 font-light leading-relaxed">
+              <p className="text-lg text-white/40 font-light leading-relaxed">
                 {cert.description}
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-8">
+            <div className="grid grid-cols-2 gap-y-10 gap-x-8">
               <div className="space-y-3">
                 <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black">Issuer</h4>
                 <p className="text-sm text-white font-medium">{cert.issuer}</p>
@@ -76,24 +105,35 @@ function CertificationDetail({ cert, onClose }: { cert: Certification; onClose: 
                 <p className="text-xs text-[#eab308] font-mono break-all">{cert.id}</p>
               </div>
               <div className="space-y-3">
-                <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black">Security</h4>
+                <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black">Status</h4>
                 <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-[#22c55e] font-black">
                   <ShieldCheck size={12} /> Standard Authenticated
                 </div>
               </div>
             </div>
 
-            <div className="pt-8">
+            <div className="pt-12 space-y-4 mt-auto">
               {cert.verificationUrl && (
                 <a
                   href={cert.verificationUrl}
                   target="_blank"
                   rel="noopener"
-                  className="w-full h-16 rounded-2xl bg-[#eab308] flex items-center justify-center gap-3 text-black font-black uppercase tracking-widest text-[11px] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+                  className="w-full h-16 rounded-2xl bg-[#eab308] flex items-center justify-center gap-3 text-black font-black uppercase tracking-widest text-[11px] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 shadow-[0_0_20px_rgba(234,179,8,0.2)]"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
                 >
-                  Verify Credential <ExternalLink size={16} />
+                  Verify Online <ExternalLink size={16} />
+                </a>
+              )}
+              {cert.fileUrl && (
+                <a
+                  href={cert.fileUrl}
+                  download
+                  className="w-full h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center gap-3 text-white font-black uppercase tracking-widest text-[11px] hover:bg-white/10 transition-all duration-300"
+                  onMouseEnter={() => setCursorType('pointer')}
+                  onMouseLeave={() => setCursorType('default')}
+                >
+                  Download Document
                 </a>
               )}
             </div>
