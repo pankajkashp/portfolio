@@ -33,13 +33,5 @@ export const certifications: Certification[] = [
     description: 'Participated in the intensive Developer\'s Night workshop, focusing on advanced full-stack development, cloud architectures, and collaborative problem-solving.',
     id: 'DN-2024',
     fileUrl: '/developers-night.pdf'
-  },
-  {
-    title: 'Diploma in Computer Applications',
-    issuer: 'Guru Nanak Dev University',
-    year: '2022',
-    description: 'Completed foundational training in computer applications, MS Office tools, internet technologies, programming basics, and digital productivity skills.',
-    id: 'DCA-2022',
-    fileUrl: '/diploma.pdf'
   }
 ];

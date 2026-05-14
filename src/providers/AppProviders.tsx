@@ -9,6 +9,7 @@ import { Navbar } from '@/components/layout/Navbar';
 
 import { useDashboardStore } from '@/store/useDashboardStore';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Toaster } from 'sonner';
 
 export function AppProviders({ children }: { children: ReactNode }) {
   const { isDashboardOpen } = useDashboardStore();
@@ -33,6 +34,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
         )}
       </AnimatePresence>
       <CustomCursor />
+      <Toaster theme="dark" position="top-right" richColors />
       {children}
     </SmoothScrollProvider>
   );
