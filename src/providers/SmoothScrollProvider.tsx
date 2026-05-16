@@ -18,7 +18,6 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         infinite: false,
       }}
     >
-      {/* @ts-expect-error React 19 type compatibility */}
       {children}
     </ReactLenis>
   );
