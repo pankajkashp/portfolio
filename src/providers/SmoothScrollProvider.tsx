@@ -2,19 +2,27 @@
 
 import { ReactLenis } from '@studio-freight/react-lenis';
 import { ReactNode } from 'react';
+import { usePerformanceProfile } from '@/hooks/usePerformanceProfile';
 
 export function SmoothScrollProvider({ children }: { children: ReactNode }) {
+  const { shouldReduceEffects } = usePerformanceProfile();
+
+  if (shouldReduceEffects) {
+    return <>{children}</>;
+  }
+
   return (
     <ReactLenis
       root
       options={{
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        duration: 0.9,
+        easing: (t) => 1 - Math.pow(1 - t, 3),
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 2,
+        wheelMultiplier: 0.85,
+        touchMultiplier: 1.1,
+        smoothTouch: false,
         infinite: false,
       }}
     >

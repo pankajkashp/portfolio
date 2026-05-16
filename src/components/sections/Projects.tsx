@@ -2,7 +2,6 @@
 
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { Typography } from '@/components/ui/Typography';
 import { Section } from '@/components/layout/Section';
 import { Reveal } from '@/components/animations/Reveal';
 import { projects, projectCategories, Project } from '@/data/projects';
@@ -169,7 +168,7 @@ export const Projects = () => {
       </Reveal>
 
       {/* Grid */}
-      <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <AnimatePresence mode="popLayout">
           {filteredProjects.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} />

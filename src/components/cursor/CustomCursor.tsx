@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { useCursorStore } from '@/store/useCursorStore';
+import { usePerformanceProfile } from '@/hooks/usePerformanceProfile';
 
 export const CustomCursor = () => {
   const { cursorType } = useCursorStore();
+  const { shouldEnableHeavyEffects } = usePerformanceProfile();
   const [isVisible, setIsVisible] = useState(false);
 
   const mouseX = useMotionValue(0);
@@ -19,7 +21,7 @@ export const CustomCursor = () => {
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
-      if (!isVisible) setIsVisible(true);
+      setIsVisible(true);
     };
 
     const handleMouseLeave = () => setIsVisible(false);
@@ -34,7 +36,11 @@ export const CustomCursor = () => {
       window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('mouseenter', handleMouseEnter);
     };
-  }, [mouseX, mouseY, isVisible]);
+  }, [mouseX, mouseY]);
+
+  if (!shouldEnableHeavyEffects) {
+    return null;
+  }
 
   const variants = {
     default: {
@@ -84,7 +90,7 @@ export const CustomCursor = () => {
       
       {/* Outer Glow */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full blur-xl"
+        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full cursor-glow"
         style={{
           x: cursorX,
           y: cursorY,

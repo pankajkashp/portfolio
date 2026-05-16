@@ -32,12 +32,17 @@ export const Reveal = ({
   const selectedVariant = variants[variant];
 
   return (
-    <div ref={ref} className={className} style={{ width, position: 'relative', overflow: 'hidden' }}>
+    <div
+      ref={ref}
+      className={className}
+      style={{ width, position: 'relative', overflow: 'hidden', contentVisibility: 'auto', containIntrinsicSize: '1px 120px' }}
+    >
       <motion.div
         variants={selectedVariant}
         initial="initial"
         animate={isInView ? "animate" : "initial"}
         transition={{ delay }}
+        style={{ willChange: 'transform, opacity' }}
       >
         {children}
       </motion.div>

@@ -75,7 +75,6 @@ export const Navbar = () => {
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#ff6b0010,transparent_70%)] pointer-events-none" />
 
-            {/* Center — AI Orb System (mobile) */}
 
             <motion.div
               initial={{ opacity: 0 }}

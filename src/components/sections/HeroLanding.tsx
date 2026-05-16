@@ -1,18 +1,22 @@
 'use client';
 
-import { useRef, useEffect } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { useRef, type PointerEvent as ReactPointerEvent } from 'react';
+import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
 import { useCursorStore } from '@/store/useCursorStore';
 import { Send, ArrowUpRight } from 'lucide-react';
 import { Reveal } from '@/components/animations/Reveal';
+import Image from 'next/image';
 
 import { useDashboardStore } from '@/store/useDashboardStore';
+import { usePerformanceProfile } from '@/hooks/usePerformanceProfile';
 
 export const HeroLanding = () => {
   const { setCursorType } = useCursorStore();
   const { setIsDashboardOpen, setActiveModule } = useDashboardStore();
   const containerRef = useRef<HTMLDivElement>(null);
+  const prefersReducedMotion = useReducedMotion();
+  const { shouldEnableHeavyEffects } = usePerformanceProfile();
 
   const handleExplore = () => {
     setActiveModule(null);
@@ -23,47 +27,55 @@ export const HeroLanding = () => {
   // Parallax for the profile image
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const smoothX = useSpring(mouseX, { stiffness: 50, damping: 25 });
-  const smoothY = useSpring(mouseY, { stiffness: 50, damping: 25 });
+  const smoothX = useSpring(mouseX, { stiffness: 40, damping: 20 });
+  const smoothY = useSpring(mouseY, { stiffness: 40, damping: 20 });
 
   const photoX = useTransform(smoothX, [-0.5, 0.5], [-15, 15]);
   const photoY = useTransform(smoothY, [-0.5, 0.5], [-10, 10]);
 
-  useEffect(() => {
-    const handleMouse = (e: MouseEvent) => {
-      mouseX.set((e.clientX / window.innerWidth) - 0.5);
-      mouseY.set((e.clientY / window.innerHeight) - 0.5);
-    };
-    window.addEventListener('mousemove', handleMouse);
-    return () => window.removeEventListener('mousemove', handleMouse);
-  }, [mouseX, mouseY]);
+  const enableParallax = shouldEnableHeavyEffects && !prefersReducedMotion;
+
+  const handlePointerMove = (e: ReactPointerEvent<HTMLElement>) => {
+    if (!enableParallax || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const nextX = (e.clientX - rect.left) / rect.width - 0.5;
+    const nextY = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(nextX);
+    mouseY.set(nextY);
+  };
+
+  const resetParallax = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   return (
     <section
       ref={containerRef}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={resetParallax}
       className="relative h-screen overflow-hidden flex items-center justify-center bg-[#06060a]"
     >
       {/* ─── BACKGROUND PORTRAIT (Seamless Blending) ─── */}
       <div className="absolute inset-0 z-10 select-none pointer-events-none flex items-center justify-center">
         <motion.div
           className="relative w-full h-full flex items-center justify-end pr-[5%]"
-          initial={{ opacity: 0, scale: 1.02 }}
+          initial={{ opacity: 0, scale: 1.01 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-          style={{ x: photoX, y: photoY }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          style={enableParallax ? { x: photoX, y: photoY } : undefined}
         >
-          {/* Intensified Multi-layered Cinematic Glow Aura */}
-          <div className="absolute top-[35%] right-[-10%] w-[800px] h-[800px] bg-[#ff6b00]/20 blur-[200px] rounded-full opacity-60 animate-pulse" />
-          <div className="absolute top-[30%] right-[0%] w-[500px] h-[500px] bg-[#ff6b00]/30 blur-[150px] rounded-full opacity-50 animate-pulse" style={{ animationDelay: '1.5s' }} />
-          <div className="absolute top-[40%] right-[5%] w-[400px] h-[400px] bg-white/10 blur-[90px] rounded-full opacity-30" />
+          <div className="absolute top-[38%] right-[-6%] w-[48vw] max-w-[760px] aspect-square rounded-full opacity-60 motion-heavy pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,107,0,0.20) 0%, rgba(255,107,0,0.08) 32%, transparent 70%)', filter: 'blur(60px)' }} />
+          <div className="absolute inset-y-0 right-[4%] w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent opacity-40" />
 
-          <img
+          <Image
             src="/pankaj.png"
             alt={personalInfo.name}
-            className="h-[90%] w-auto object-contain object-bottom brightness-[0.95] grayscale-[0.05] contrast-[1.05]"
-            style={{
-              filter: 'drop-shadow(0 0 20px rgba(255,107,0,0.4)) drop-shadow(0 0 40px rgba(255,107,0,0.2))'
-            }}
+            width={1200}
+            height={1600}
+            priority
+            sizes="(max-width: 768px) 72vw, 42vw"
+            className="h-[90%] w-auto object-contain object-bottom brightness-[0.98] grayscale-[0.02] contrast-[1.02] will-change-transform"
           />
 
           {/* Cinematic Blending - No hard edges */}
@@ -124,22 +136,21 @@ export const HeroLanding = () => {
                   onMouseLeave={() => setCursorType('default')}
                   className="group relative flex items-center justify-center shrink-0"
                 >
-                  {/* Holographic Ring Decor */}
-                  <div className="absolute inset-0 -m-4 rounded-full border border-[#ff6b00]/20 animate-[spin_10s_linear_infinite]" />
-                  <div className="absolute inset-0 -m-6 rounded-full border border-white/5 animate-[spin_15s_linear_infinite_reverse]" />
+                  {/* Lightweight ring decor */}
+                  <div className="absolute inset-0 -m-4 rounded-full border border-[#ff6b00]/20 transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 -m-6 rounded-full border border-white/5 transition-transform duration-700 group-hover:scale-110" />
 
-                  <div className="relative h-16 px-12 bg-[#ff6b00] text-black font-black text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-all duration-500 group-hover:scale-105 active:scale-95 flex items-center justify-center gap-3 whitespace-nowrap">
-                    {/* Glitch Effect Layers */}
-                    <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500" />
+                  <div className="relative h-16 px-12 bg-[#ff6b00] text-black font-black text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-transform duration-300 group-hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-3 whitespace-nowrap">
+                    <div className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     <span className="relative z-10 text-lg">Explore My Work</span>
-                    <Send size={14} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                    <Send size={14} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
 
                     {/* Inner Glow */}
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.4),transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.22),transparent_72%)] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
 
                   {/* Outer Holographic Glow */}
-                  <div className="absolute -inset-1 bg-[#ff6b00] blur-2xl opacity-20 group-hover:opacity-40 transition-opacity rounded-full" />
+                  <div className="absolute -inset-1 bg-[#ff6b00]/20 opacity-10 group-hover:opacity-20 transition-opacity rounded-full blur-xl motion-heavy" />
                 </button>
 
                 {/* System Status (Now Below) */}
@@ -183,10 +194,9 @@ export const HeroLanding = () => {
       </div>
 
       {/* Subtle Grain Texture */}
-      <div className="absolute inset-0 z-50 pointer-events-none opacity-[0.03]">
+      <div className="absolute inset-0 z-50 pointer-events-none opacity-[0.03] motion-heavy">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
       </div>
     </section>
   );
 };
-

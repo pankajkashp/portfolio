@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import { Award, ShieldCheck, ExternalLink, X, ArrowUpRight } from 'lucide-react';
 import { useCursorStore } from '@/store/useCursorStore';
 import { certifications, Certification } from '@/data/certifications';
@@ -35,10 +36,14 @@ function CertificationDetail({ cert, onClose }: { cert: Certification; onClose: 
                   title={cert.title}
                 />
               ) : (
-                <img src={cert.fileUrl} alt={cert.title} className="w-full h-full object-contain" />
+                <div className="relative w-full h-full">
+                  <Image src={cert.fileUrl} alt={cert.title} fill sizes="(max-width: 768px) 100vw, 60vw" className="object-contain" />
+                </div>
               )
             ) : cert.image ? (
-              <img src={cert.image} alt={cert.title} className="w-full h-full object-contain" />
+              <div className="relative w-full h-full">
+                <Image src={cert.image} alt={cert.title} fill sizes="(max-width: 768px) 100vw, 60vw" className="object-contain" />
+              </div>
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center gap-4 text-white/10">
                 <Award size={120} strokeWidth={1} />

@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursorStore } from '@/store/useCursorStore';
@@ -10,13 +11,40 @@ import {
   Mail, X, Cpu, ArrowLeft, Award, ChevronRight
 } from 'lucide-react';
 
-// Panels
-import { AboutPanel } from '@/components/panels/AboutPanel';
-import { SkillsPanel } from '@/components/panels/SkillsPanel';
-import { EducationPanel } from '@/components/panels/EducationPanel';
-import { ProjectsPanel } from '@/components/panels/ProjectsPanel';
-import { ContactPanel } from '@/components/panels/ContactPanel';
-import { CertificationsPanel } from '@/components/panels/CertificationsPanel';
+const PanelLoader = () => (
+  <div className="space-y-6">
+    <div className="h-8 w-40 rounded-full bg-white/5" />
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="h-40 rounded-[2rem] bg-white/[0.02] border border-white/5" />
+      <div className="h-40 rounded-[2rem] bg-white/[0.02] border border-white/5" />
+    </div>
+  </div>
+);
+
+const AboutPanel = dynamic(() => import('@/components/panels/AboutPanel').then((mod) => mod.AboutPanel), {
+  ssr: false,
+  loading: PanelLoader,
+});
+const SkillsPanel = dynamic(() => import('@/components/panels/SkillsPanel').then((mod) => mod.SkillsPanel), {
+  ssr: false,
+  loading: PanelLoader,
+});
+const EducationPanel = dynamic(() => import('@/components/panels/EducationPanel').then((mod) => mod.EducationPanel), {
+  ssr: false,
+  loading: PanelLoader,
+});
+const ProjectsPanel = dynamic(() => import('@/components/panels/ProjectsPanel').then((mod) => mod.ProjectsPanel), {
+  ssr: false,
+  loading: PanelLoader,
+});
+const ContactPanel = dynamic(() => import('@/components/panels/ContactPanel').then((mod) => mod.ContactPanel), {
+  ssr: false,
+  loading: PanelLoader,
+});
+const CertificationsPanel = dynamic(() => import('@/components/panels/CertificationsPanel').then((mod) => mod.CertificationsPanel), {
+  ssr: false,
+  loading: PanelLoader,
+});
 
 interface CategoryItem {
   key: string;
@@ -92,12 +120,8 @@ export const Dashboard = () => {
       {/* Main Scrollable Area (Dashboard Grid) */}
       <motion.div 
         className={`flex-1 overflow-y-auto py-32 ${activeModule ? 'pointer-events-none' : 'pointer-events-auto'}`}
-        animate={{ 
-          filter: activeModule ? 'blur(20px)' : 'blur(0px)',
-          opacity: activeModule ? 0.3 : 1,
-          scale: activeModule ? 0.95 : 1
-        }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        animate={{ opacity: activeModule ? 0.35 : 1, scale: activeModule ? 0.985 : 1 }}
+        transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="max-w-[1600px] mx-auto px-8 md:px-16 relative z-10">
           {/* Header and Grid... */}
@@ -121,9 +145,9 @@ export const Dashboard = () => {
             
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-none">
               <motion.span
-                initial={{ opacity: 0, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, filter: 'blur(0px)' }}
-                transition={{ duration: 0.8, delay: 0.5 }}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, delay: 0.25 }}
               >
                 CORE
               </motion.span> 
@@ -245,7 +269,7 @@ export const Dashboard = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-[#06060a]/95 backdrop-blur-2xl"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-12 bg-[#06060a]/95 backdrop-blur-md"
           >
             <motion.div
               initial={{ scale: 0.9, opacity: 0, y: 30 }}

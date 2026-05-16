@@ -23,6 +23,7 @@ export const Section = ({
         "relative py-20 md:py-32 overflow-hidden",
         className
       )}
+      style={{ contentVisibility: 'auto', containIntrinsicSize: '1px 900px' }}
     >
       <div className={cn(
         "mx-auto px-6 md:px-12",

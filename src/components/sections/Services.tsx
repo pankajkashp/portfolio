@@ -1,5 +1,6 @@
 'use client';
 
+import type { ElementType } from 'react';
 import { Typography } from '@/components/ui/Typography';
 import { Section } from '@/components/layout/Section';
 import { Reveal } from '@/components/animations/Reveal';
@@ -24,7 +25,7 @@ export const Services = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service, index) => {
-          const Icon = ((Icons as unknown) as Record<string, any>)[service.icon] || Icons.HelpCircle;
+          const Icon = ((Icons as Record<string, ElementType>)[service.icon] || Icons.HelpCircle) as ElementType;
           return (
             <Reveal key={service.title} variant="fadeUp" delay={index * 0.1}>
               <div 

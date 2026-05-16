@@ -60,6 +60,11 @@
 }
 
 @layer components {
+  .motion-heavy {
+    transform: translate3d(0, 0, 0);
+    will-change: transform, opacity;
+  }
+
   /* ── Glass Cards ── */
   .glass-card {
     background: var(--glass-bg);
@@ -199,3 +204,19 @@ html.lenis { height: auto; }
 .perspective-1000 { perspective: 1000px; }
 .preserve-3d { transform-style: preserve-3d; }
 .backface-hidden { backface-visibility: hidden; }
+
+@media (prefers-reduced-motion: reduce), (max-width: 768px) {
+  .motion-heavy,
+  .cursor-glow {
+    display: none !important;
+  }
+
+  .glass-card,
+  .glass-card-hover,
+  .btn-primary,
+  .btn-ghost,
+  .dash-card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}

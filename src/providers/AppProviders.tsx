@@ -1,41 +1,49 @@
 'use client';
 
 import { ReactNode } from 'react';
+import dynamic from 'next/dynamic';
 import { SmoothScrollProvider } from './SmoothScrollProvider';
-import { CustomCursor } from '@/components/cursor/CustomCursor';
 import { CinematicBackground } from '@/components/effects/CinematicBackground';
-import { Preloader } from '@/components/effects/Preloader';
-import { Navbar } from '@/components/layout/Navbar';
-
 import { useDashboardStore } from '@/store/useDashboardStore';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { Toaster } from 'sonner';
+import { usePerformanceProfile } from '@/hooks/usePerformanceProfile';
+
+const Navbar = dynamic(() => import('@/components/layout/Navbar').then((mod) => mod.Navbar), {
+  ssr: false,
+});
+
+const CustomCursor = dynamic(() => import('@/components/cursor/CustomCursor').then((mod) => mod.CustomCursor), {
+  ssr: false,
+});
 
 export function AppProviders({ children }: { children: ReactNode }) {
   const { isDashboardOpen } = useDashboardStore();
+  const { shouldEnableHeavyEffects } = usePerformanceProfile();
 
   return (
-    <SmoothScrollProvider>
-      <Preloader />
-      <CinematicBackground />
-      <AnimatePresence>
-        {!isDashboardOpen && (
-          <motion.div
-            initial={{ y: -100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: -100, opacity: 0 }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed top-0 left-0 right-0 z-50 pointer-events-none"
-          >
-            <div className="pointer-events-auto">
-              <Navbar />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-      <CustomCursor />
-      <Toaster theme="dark" position="top-right" richColors />
-      {children}
-    </SmoothScrollProvider>
+    <MotionConfig reducedMotion="user">
+      <SmoothScrollProvider>
+        <CinematicBackground />
+        <AnimatePresence>
+          {!isDashboardOpen && (
+            <motion.div
+              initial={{ y: -32, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -32, opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="fixed top-0 left-0 right-0 z-50 pointer-events-none"
+            >
+              <div className="pointer-events-auto">
+                <Navbar />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+        {shouldEnableHeavyEffects ? <CustomCursor /> : null}
+        <Toaster theme="dark" position="top-right" richColors />
+        {children}
+      </SmoothScrollProvider>
+    </MotionConfig>
   );
 }

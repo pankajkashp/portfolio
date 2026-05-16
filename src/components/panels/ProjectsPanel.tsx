@@ -3,9 +3,10 @@
 import { useState, useEffect } from 'react';
 import { projects, Project } from '@/data/projects';
 import { motion, AnimatePresence } from 'framer-motion';
+import Image from 'next/image';
 import {
-  ExternalLink, X, ArrowUpRight, Code, Globe, Layout,
-  Cpu, ArrowLeft, Code2, Activity, ShoppingBag, Terminal
+  X, ArrowUpRight, Globe, Layout,
+  ArrowLeft, Code2, Activity, ShoppingBag, Terminal
 } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/GithubIcon';
 import { useCursorStore } from '@/store/useCursorStore';
@@ -30,7 +31,7 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="absolute inset-0 bg-[#06060a]/98 backdrop-blur-3xl" onClick={onClose} />
+      <div className="absolute inset-0 bg-[#06060a]/98 backdrop-blur-md" onClick={onClose} />
       <motion.div
         className="relative w-full max-w-6xl h-full bg-[#0d0d12] rounded-[3rem] border border-white/10 overflow-hidden grid grid-cols-1 md:grid-cols-[1.2fr_1fr]"
         initial={{ scale: 0.9, y: 30 }}
@@ -43,16 +44,23 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
           <div className="absolute inset-0 flex items-center justify-center p-12">
             <div className="w-full h-full rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center relative overflow-hidden">
               <AnimatePresence mode="wait">
-                <motion.img
+                <motion.div
                   key={currentIdx}
-                  src={images[currentIdx]}
-                  alt={project.title}
-                  initial={{ opacity: 0, scale: 1.05 }}
+                  className="relative w-full h-full"
+                  initial={{ opacity: 0, scale: 1.02 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                  className="w-full h-full object-contain"
-                />
+                  exit={{ opacity: 0, scale: 0.98 }}
+                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <Image
+                    src={images[currentIdx]}
+                    alt={project.title}
+                    fill
+                    priority={currentIdx === 0}
+                    sizes="(max-width: 768px) 100vw, 60vw"
+                    className="object-contain"
+                  />
+                </motion.div>
               </AnimatePresence>
               <div className="absolute inset-0 bg-gradient-to-t from-[#06060a]/60 to-transparent" />
             </div>
@@ -70,7 +78,7 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
                   currentIdx === idx ? 'border-[#22c55e] scale-105' : 'border-white/10 opacity-40 hover:opacity-100'
                 }`}
               >
-                <img src={img} alt={`Gallery ${idx}`} className="w-full h-full object-cover" />
+                <Image src={img} alt={`Gallery ${idx}`} fill sizes="96px" className="object-cover" />
               </button>
             ))}
           </div>
@@ -191,7 +199,11 @@ export const ProjectsPanel = () => {
                 <div className="p-2 rounded-2xl bg-white/5 border border-white/10 text-white group-hover:bg-[#22c55e] group-hover:text-black transition-all duration-500 overflow-hidden flex items-center justify-center">
                   {(() => {
                     if (project.iconName.startsWith('/')) {
-                      return <img src={project.iconName} alt="Project Logo" className="w-12 h-12 object-cover" />;
+                      return (
+                        <div className="relative w-12 h-12">
+                          <Image src={project.iconName} alt="Project Logo" fill sizes="48px" className="object-cover" />
+                        </div>
+                      );
                     }
                     const Icon = IconMap[project.iconName] || Layout;
                     return <Icon size={24} />;

@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import { Typography } from '@/components/ui/Typography';
 import { Section } from '@/components/layout/Section';
 import { Reveal } from '@/components/animations/Reveal';

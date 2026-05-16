@@ -1,12 +1,19 @@
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export const runtime = 'nodejs';
 
 export async function POST(req: Request) {
   try {
     const { name, message } = await req.json();
 
+    const apiKey = process.env.RESEND_API_KEY;
+    if (!apiKey) {
+      console.error('Resend API key is missing. Set RESEND_API_KEY in .env.local or your deployment environment.');
+      return NextResponse.json({ success: false, error: 'Mail service is not configured.' }, { status: 500 });
+    }
+
+    const resend = new Resend(apiKey);
     const data = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: ['pankajkashap26@gmail.com'],
