@@ -24,7 +24,7 @@ export const Services = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service, index) => {
-          const Icon = (Icons as Record<string, React.ElementType>)[service.icon] || Icons.HelpCircle;
+          const Icon = ((Icons as unknown) as Record<string, any>)[service.icon] || Icons.HelpCircle;
           return (
             <Reveal key={service.title} variant="fadeUp" delay={index * 0.1}>
               <div 
