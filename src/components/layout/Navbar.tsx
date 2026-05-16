@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
-import AIOrb from '@/components/ui/AIOrb';
+
 
 
 export const Navbar = () => {
@@ -76,9 +76,6 @@ export const Navbar = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#ff6b0010,transparent_70%)] pointer-events-none" />
 
             {/* Center — AI Orb System (mobile) */}
-            <div className="w-full h-[200px] mb-8">
-              <AIOrb />
-            </div>
 
             <motion.div
               initial={{ opacity: 0 }}
