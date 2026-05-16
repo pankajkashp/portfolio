@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Typography } from '@/components/ui/Typography';
 import { navigationLinks } from '@/data/navigation';
 import { projects } from '@/data/projects';
-import { Search, Command as CommandIcon, ArrowRight, X } from 'lucide-react';
+import { Search, ArrowRight, X } from 'lucide-react';
 
 interface CommandPaletteProps {
   isOpen: boolean;
@@ -14,6 +15,7 @@ interface CommandPaletteProps {
 
 export const CommandPalette = ({ isOpen, onClose }: CommandPaletteProps) => {
   const [query, setQuery] = useState('');
+  const router = useRouter();
 
   const allItems = [
     ...navigationLinks.map(n => ({ type: 'nav', label: n.name, action: n.href })),
@@ -28,7 +30,7 @@ export const CommandPalette = ({ isOpen, onClose }: CommandPaletteProps) => {
 
   const handleSelect = (action: string) => {
     if (action.startsWith('#') || action.startsWith('/')) {
-      window.location.href = action;
+      router.push(action, { scroll: false });
     }
     onClose();
     setQuery('');

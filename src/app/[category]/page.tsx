@@ -8,12 +8,9 @@ import { useCursorStore } from '@/store/useCursorStore';
 import { AboutPanel } from '@/components/panels/AboutPanel';
 import { SkillsPanel } from '@/components/panels/SkillsPanel';
 import { EducationPanel } from '@/components/panels/EducationPanel';
-import { ExperiencePanel } from '@/components/panels/ExperiencePanel';
 import { ProjectsPanel } from '@/components/panels/ProjectsPanel';
-import { ServicesPanel } from '@/components/panels/ServicesPanel';
 import { ContactPanel } from '@/components/panels/ContactPanel';
 import { CertificationsPanel } from '@/components/panels/CertificationsPanel';
-import { AILabPanel } from '@/components/panels/AILabPanel';
 
 const panels: Record<string, { title: string; component: React.FC }> = {
   about: { title: 'About Me', component: AboutPanel },

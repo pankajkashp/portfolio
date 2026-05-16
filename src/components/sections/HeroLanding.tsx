@@ -97,7 +97,7 @@ export const HeroLanding = () => {
           <div className="space-y-6">
             <Reveal variant="fadeUp" delay={0.6}>
               <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold leading-[1.05] tracking-tight text-white">
-                Hey, I'm Pankaj <br />
+                Hey, I&apos;m Pankaj <br />
                 <span className="text-[#ff6b00] text-5xl">Web Developer
                 </span>
                 <span className="text-white text-5xl"> & AI Enthusiast.</span>

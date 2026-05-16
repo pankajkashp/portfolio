@@ -4,7 +4,6 @@ import { Typography } from '@/components/ui/Typography';
 import { Section } from '@/components/layout/Section';
 import { Reveal } from '@/components/animations/Reveal';
 import { useCursorStore } from '@/store/useCursorStore';
-import { Brain, Code, Cpu, Globe } from 'lucide-react';
 
 import { services } from '@/data/services';
 import * as Icons from 'lucide-react';
@@ -25,7 +24,7 @@ export const Services = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {services.map((service, index) => {
-          const Icon = (Icons as Record<string, any>)[service.icon] || Icons.HelpCircle;
+          const Icon = (Icons as Record<string, React.ElementType>)[service.icon] || Icons.HelpCircle;
           return (
             <Reveal key={service.title} variant="fadeUp" delay={index * 0.1}>
               <div 

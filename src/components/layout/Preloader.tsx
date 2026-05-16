@@ -3,43 +3,43 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const STATUSES = [
+  'ENCRYPTING DATA STREAMS...',
+  'CALIBRATING NEURAL NETWORK...',
+  'ESTABLISHING SECURE UPLINK...',
+  'LOADING OPERATIONAL DOSSIER...',
+  'SYSTEM READY.'
+];
+
 export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState('INITIALIZING CORE...');
   const [show, setShow] = useState(true);
 
-  const statuses = [
-    'ENCRYPTING DATA STREAMS...',
-    'CALIBRATING NEURAL NETWORK...',
-    'ESTABLISHING SECURE UPLINK...',
-    'LOADING OPERATIONAL DOSSIER...',
-    'SYSTEM READY.'
-  ];
-
   useEffect(() => {
-    const timer = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(timer);
-          setTimeout(() => {
-            setShow(false);
-            setTimeout(onComplete, 1000);
-          }, 800);
-          return 100;
-        }
-        return prev + Math.random() * 15;
-      });
+    let currentProgress = 0;
+    const interval = setInterval(() => {
+      currentProgress += Math.random() * 15;
+      
+      if (currentProgress >= 100) {
+        currentProgress = 100;
+        setProgress(100);
+        setStatus(STATUSES[STATUSES.length - 1]);
+        clearInterval(interval);
+        
+        setTimeout(() => {
+          setShow(false);
+          setTimeout(onComplete, 1000);
+        }, 800);
+      } else {
+        setProgress(currentProgress);
+        const statusIndex = Math.floor((currentProgress / 100) * (STATUSES.length - 1));
+        setStatus(STATUSES[statusIndex]);
+      }
     }, 200);
 
-    return () => clearInterval(timer);
+    return () => clearInterval(interval);
   }, [onComplete]);
-
-  useEffect(() => {
-    const statusInterval = setInterval(() => {
-      setStatus(statuses[Math.floor((progress / 100) * (statuses.length - 1))]);
-    }, 800);
-    return () => clearInterval(statusInterval);
-  }, [progress]);
 
   return (
     <AnimatePresence>

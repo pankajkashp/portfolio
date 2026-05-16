@@ -1,18 +1,13 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { personalInfo } from '@/data/personal';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { AIOrb } from '@/components/ui/AIOrb';
 
-const navLinks = []; // Empty as requested to replace with 3D system
-
 export const Navbar = () => {
-  const pathname = usePathname();
   const { setCursorType } = useCursorStore();
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -23,10 +18,7 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const isActive = useCallback((href: string) => {
-    const hash = typeof window !== 'undefined' ? window.location.hash : '';
-    return hash === href;
-  }, [pathname]);
+
 
   return (
     <>

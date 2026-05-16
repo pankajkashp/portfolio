@@ -1,13 +1,13 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCursorStore } from '@/store/useCursorStore';
 import { useDashboardStore } from '@/store/useDashboardStore';
-import { personalInfo } from '@/data/personal';
 import {
-  User, Code, GraduationCap, FolderOpen,
-  Mail, FileText, ChevronRight, X, Cpu, Globe, ArrowLeft, Award
+  User, GraduationCap, FolderOpen,
+  Mail, X, Cpu, ArrowLeft, Award, ChevronRight
 } from 'lucide-react';
 
 // Panels
@@ -38,10 +38,11 @@ const categories: CategoryItem[] = [
 export const Dashboard = () => {
   const { setCursorType } = useCursorStore();
   const { activeModule, setActiveModule, setIsDashboardOpen } = useDashboardStore();
+  const router = useRouter();
 
   const handleCardClick = (key: string) => {
     setActiveModule(key);
-    window.location.hash = key;
+    router.push(`#${key}`, { scroll: false });
   };
 
   const closeModule = () => {
@@ -52,7 +53,7 @@ export const Dashboard = () => {
   const shutdownSystem = () => {
     setActiveModule(null);
     setIsDashboardOpen(false);
-    window.location.hash = '';
+    router.push('', { scroll: false });
     window.history.pushState('', document.title, window.location.pathname + window.location.search);
   };
 
@@ -71,7 +72,7 @@ export const Dashboard = () => {
     handleHash();
     window.addEventListener('hashchange', handleHash);
     return () => window.removeEventListener('hashchange', handleHash);
-  }, []);
+  }, [setActiveModule]);
 
   return (
     <section 

@@ -9,8 +9,6 @@ import {
   Points, 
   PointMaterial, 
   Line, 
-  PerspectiveCamera,
-  Environment
 } from '@react-three/drei';
 import * as THREE from 'three';
 
@@ -56,6 +54,12 @@ const OrbCore = () => {
   );
 };
 
+const STABLE_RING_ROTATIONS = [0.6, 0.75, 0.9, 1.05].map(() => [
+  Math.random() * Math.PI,
+  Math.random() * Math.PI,
+  0
+]);
+
 const OrbitalRings = () => {
   const ringsRef = useRef<THREE.Group>(null);
 
@@ -74,7 +78,7 @@ const OrbitalRings = () => {
   return (
     <group ref={ringsRef}>
       {[0.6, 0.75, 0.9, 1.05].map((radius, i) => (
-        <mesh key={i} rotation={[Math.random() * Math.PI, Math.random() * Math.PI, 0]}>
+        <mesh key={i} rotation={STABLE_RING_ROTATIONS[i] as [number, number, number]}>
           <torusGeometry args={[radius, 0.015, 16, 100]} />
           <meshStandardMaterial 
             color="#ff6b00" 
@@ -89,18 +93,22 @@ const OrbitalRings = () => {
   );
 };
 
+const INITIAL_NEURAL_POINTS = (() => {
+  const count = 60;
+  const p = [];
+  for (let i = 0; i < count; i++) {
+    const r = 0.8;
+    const theta = (Math.random() - 0.5) * Math.PI * 2;
+    const phi = (Math.random() - 0.5) * Math.PI * 2;
+    const v = new THREE.Vector3().setFromSphericalCoords(r, theta, phi);
+    p.push(v);
+  }
+  return p;
+})();
+
 const NeuralNetwork = () => {
   const count = 60;
-  const points = useMemo(() => {
-    const p = [];
-    for (let i = 0; i < count; i++) {
-      const r = 0.8;
-      const theta = THREE.MathUtils.randFloatSpread(360);
-      const phi = THREE.MathUtils.randFloatSpread(360);
-      p.push(new THREE.Vector3().setFromSphericalCoords(r, theta, phi));
-    }
-    return p;
-  }, []);
+  const points = useMemo(() => INITIAL_NEURAL_POINTS, []);
 
   const lines = useMemo(() => {
     const l = [];
@@ -149,21 +157,24 @@ const NeuralNetwork = () => {
   );
 };
 
+const INITIAL_PARTICLE_POSITIONS = (() => {
+  const count = 100;
+  const pos = new Float32Array(count * 3);
+  for (let i = 0; i < count; i++) {
+    pos[i * 3] = (Math.random() - 0.5) * 10;
+    pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
+    pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
+  }
+  return pos;
+})();
+
 const DataStreams = () => {
   const particlesCount = 100;
-  const positions = useMemo(() => {
-    const pos = new Float32Array(particlesCount * 3);
-    for (let i = 0; i < particlesCount; i++) {
-      pos[i * 3] = (Math.random() - 0.5) * 10;
-      pos[i * 3 + 1] = (Math.random() - 0.5) * 10;
-      pos[i * 3 + 2] = (Math.random() - 0.5) * 10;
-    }
-    return pos;
-  }, []);
+  const positions = useMemo(() => new Float32Array(INITIAL_PARTICLE_POSITIONS), []);
 
   const pointsRef = useRef<THREE.Points>(null);
 
-  useFrame((state) => {
+  useFrame(() => {
     if (pointsRef.current) {
       const positions = pointsRef.current.geometry.attributes.position.array as Float32Array;
       for (let i = 0; i < particlesCount; i++) {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const GithubIcon = ({ size = 24, ...props }: { size?: number; [key: string]: any }) => (
+export const GithubIcon = ({ size = 24, ...props }: React.SVGProps<SVGSVGElement> & { size?: number }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}

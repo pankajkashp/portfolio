@@ -51,7 +51,7 @@ export const ContactPanel = () => {
       } else {
         toast.error('Transmission failed. Direct email: ' + personalInfo.email, { id: toastId });
       }
-    } catch (error) {
+    } catch (_error) {
       toast.error('Network interruption detected. Please try again.', { id: toastId });
     } finally {
       setSending(false);

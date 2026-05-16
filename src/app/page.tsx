@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { HeroLanding } from '@/components/sections/HeroLanding';
 import { Dashboard } from '@/components/sections/Dashboard';
@@ -10,6 +10,8 @@ import { useDashboardStore } from '@/store/useDashboardStore';
 export default function Home() {
   const [loading, setLoading] = useState(true);
   const { isDashboardOpen, setIsDashboardOpen, setActiveModule } = useDashboardStore();
+
+  const handleComplete = useCallback(() => setLoading(false), []);
 
   useEffect(() => {
     const handleInitialRoute = () => {
@@ -27,7 +29,7 @@ export default function Home() {
 
   return (
     <main className="relative bg-[#06060a] overflow-hidden" id="home">
-      <Preloader onComplete={() => setLoading(false)} />
+      <Preloader onComplete={handleComplete} />
       
       <AnimatePresence mode="wait">
         {!loading && (

@@ -1,0 +1,114 @@
+
+> prot@0.1.0 lint
+> eslint
+
+
+/Users/pankaj/Desktop/projects/prot/src/app/[category]/page.tsx
+  11:10  warning  'ExperiencePanel' is defined but never used  @typescript-eslint/no-unused-vars
+  13:10  warning  'ServicesPanel' is defined but never used    @typescript-eslint/no-unused-vars
+  16:10  warning  'AILabPanel' is defined but never used       @typescript-eslint/no-unused-vars
+
+/Users/pankaj/Desktop/projects/prot/src/components/animations/Reveal.tsx
+  3:29  warning  'Variant' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/pankaj/Desktop/projects/prot/src/components/effects/Preloader.tsx
+  18:5  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/pankaj/Desktop/projects/prot/src/components/effects/Preloader.tsx:18:5
+  16 |     if (hasVisited) return;
+  17 |     
+> 18 |     setShouldShow(true);
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  19 |     sessionStorage.setItem('preloader-shown', 'true');
+  20 |
+  21 |     const interval = setInterval(() => {  react-hooks/set-state-in-effect
+
+/Users/pankaj/Desktop/projects/prot/src/components/layout/MobileNav.tsx
+  3:31  warning  'useCallback' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/pankaj/Desktop/projects/prot/src/components/layout/Navbar.tsx
+   7:10  warning  'personalInfo' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+  12:7   warning  'navLinks' is assigned a value but never used                                                                       @typescript-eslint/no-unused-vars
+  26:9   warning  'isActive' is assigned a value but never used                                                                       @typescript-eslint/no-unused-vars
+  29:6   warning  React Hook useCallback has an unnecessary dependency: 'pathname'. Either exclude it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/pankaj/Desktop/projects/prot/src/components/layout/Preloader.tsx
+  42:6  warning  React Hook useEffect has a missing dependency: 'statuses'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/pankaj/Desktop/projects/prot/src/components/panels/AboutPanel.tsx
+  6:10  warning  'User' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/pankaj/Desktop/projects/prot/src/components/panels/CertificationsPanel.tsx
+  38:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  41:15  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/pankaj/Desktop/projects/prot/src/components/panels/ContactPanel.tsx
+  54:14  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/pankaj/Desktop/projects/prot/src/components/panels/ProjectsPanel.tsx
+    7:3   warning  'ExternalLink' is defined but never used                                                                                                                                                                                                                                                 @typescript-eslint/no-unused-vars
+    7:34  warning  'Code' is defined but never used                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+    8:3   warning  'Cpu' is defined but never used                                                                                                                                                                                                                                                          @typescript-eslint/no-unused-vars
+   73:17  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+  194:30  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/pankaj/Desktop/projects/prot/src/components/sections/Contact.tsx
+  4:10  warning  'motion' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/pankaj/Desktop/projects/prot/src/components/sections/Dashboard.tsx
+   3:10  warning  'useState' is defined but never used                                                                                @typescript-eslint/no-unused-vars
+   8:10  warning  'personalInfo' is defined but never used                                                                            @typescript-eslint/no-unused-vars
+  10:9   warning  'Code' is defined but never used                                                                                    @typescript-eslint/no-unused-vars
+  11:9   warning  'FileText' is defined but never used                                                                                @typescript-eslint/no-unused-vars
+  11:41  warning  'Globe' is defined but never used                                                                                   @typescript-eslint/no-unused-vars
+  76:6   warning  React Hook useEffect has a missing dependency: 'setActiveModule'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+/Users/pankaj/Desktop/projects/prot/src/components/sections/HeroLanding.tsx
+  60:11  warning  Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` or a custom image loader to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+/Users/pankaj/Desktop/projects/prot/src/components/sections/Projects.tsx
+  5:10  warning  'Typography' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/pankaj/Desktop/projects/prot/src/components/sections/Services.tsx
+   7:10  warning  'Brain' is defined but never used         @typescript-eslint/no-unused-vars
+   7:17  warning  'Code' is defined but never used          @typescript-eslint/no-unused-vars
+   7:23  warning  'Cpu' is defined but never used           @typescript-eslint/no-unused-vars
+   7:28  warning  'Globe' is defined but never used         @typescript-eslint/no-unused-vars
+  28:49  error    Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+/Users/pankaj/Desktop/projects/prot/src/components/ui/AIOrb.tsx
+   57:7   warning  'OrbitalRings' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+   73:5   error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/pankaj/Desktop/projects/prot/src/components/ui/AIOrb.tsx:73:5
+  71 |
+  72 |   const randomRotations = useMemo(() => [0.6, 0.75, 0.9, 1.05].map(() => [
+> 73 |     Math.random() * Math.PI,
+     |     ^^^^^^^^^^^^^ Cannot call impure function
+  74 |     Math.random() * Math.PI,
+  75 |     0
+  76 |   ]), []);  react-hooks/purity
+   74:5   error    Error: Cannot call impure function during render
+
+`Math.random` is an impure function. Calling an impure function can produce unstable results that update unpredictably when the component happens to re-render. (https://react.dev/reference/rules/components-and-hooks-must-be-pure#components-and-hooks-must-be-idempotent).
+
+/Users/pankaj/Desktop/projects/prot/src/components/ui/AIOrb.tsx:74:5
+  72 |   const randomRotations = useMemo(() => [0.6, 0.75, 0.9, 1.05].map(() => [
+  73 |     Math.random() * Math.PI,
+> 74 |     Math.random() * Math.PI,
+     |     ^^^^^^^^^^^^^ Cannot call impure function
+  75 |     0
+  76 |   ]), []);
+  77 |  react-hooks/purity
+  177:13  warning  'state' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+
+✖ 38 problems (4 errors, 34 warnings)
+

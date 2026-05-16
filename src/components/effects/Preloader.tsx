@@ -12,25 +12,30 @@ export const Preloader = () => {
 
   useEffect(() => {
     // Only show preloader on first visit, not on back-navigation
-    const hasVisited = sessionStorage.getItem('preloader-shown');
-    if (hasVisited) {
-      setIsLoaded(true);
-      return;
-    }
-    setShouldShow(true);
-    sessionStorage.setItem('preloader-shown', 'true');
+    const hasVisited = typeof window !== 'undefined' && sessionStorage.getItem('preloader-shown');
+    if (hasVisited) return;
+    
+    let interval: NodeJS.Timeout;
+    const timeout = setTimeout(() => {
+      setShouldShow(true);
+      sessionStorage.setItem('preloader-shown', 'true');
 
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(() => setIsLoaded(true), 400);
-          return 100;
-        }
-        return prev + Math.floor(Math.random() * 8) + 2;
-      });
-    }, 40);
-    return () => clearInterval(interval);
+      interval = setInterval(() => {
+        setProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(interval);
+            setTimeout(() => setIsLoaded(true), 400);
+            return 100;
+          }
+          return prev + Math.floor(Math.random() * 8) + 2;
+        });
+      }, 40);
+    }, 0);
+
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
   }, []);
 
   if (!shouldShow) return null;

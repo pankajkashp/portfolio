@@ -157,7 +157,7 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
   );
 }
 
-const IconMap: Record<string, any> = {
+const IconMap: Record<string, React.ElementType> = {
   Code2,
   Activity,
   ShoppingBag,
