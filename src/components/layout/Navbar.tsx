@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
+import AIOrb from '@/components/ui/AIOrb';
 
 
 export const Navbar = () => {
