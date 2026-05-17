@@ -65,7 +65,7 @@ export default function CategoryPage({ params }: { params: Promise<{ category: s
       >
         {/* Breadcrumb */}
         <Link
-          href="/#dashboard"
+          href="/dashboard"
           className="inline-flex items-center gap-2 text-sm font-medium mb-8 transition-colors hover:text-accent"
           style={{ color: 'var(--text-muted)' }}
           onMouseEnter={() => setCursorType('pointer')}

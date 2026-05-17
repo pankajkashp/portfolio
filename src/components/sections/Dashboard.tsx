@@ -69,20 +69,26 @@ export const Dashboard = () => {
   const router = useRouter();
 
   const handleCardClick = (key: string) => {
+    if (key === 'contact') {
+      setActiveModule(null);
+      setIsDashboardOpen(false);
+      router.push('/contact', { scroll: false });
+      return;
+    }
+
     setActiveModule(key);
     router.push(`#${key}`, { scroll: false });
   };
 
   const closeModule = () => {
     setActiveModule(null);
-    window.history.pushState('', document.title, window.location.pathname + window.location.search);
+    router.replace('/dashboard', { scroll: false });
   };
 
   const shutdownSystem = () => {
     setActiveModule(null);
     setIsDashboardOpen(false);
-    router.push('', { scroll: false });
-    window.history.pushState('', document.title, window.location.pathname + window.location.search);
+    router.push('/', { scroll: false });
   };
 
   // Sync with URL Hash
