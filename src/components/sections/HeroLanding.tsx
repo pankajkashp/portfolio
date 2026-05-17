@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useRef, type PointerEvent as ReactPointerEvent } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
@@ -8,21 +9,13 @@ import { Send, ArrowUpRight } from 'lucide-react';
 import { Reveal } from '@/components/animations/Reveal';
 import Image from 'next/image';
 
-import { useDashboardStore } from '@/store/useDashboardStore';
 import { usePerformanceProfile } from '@/hooks/usePerformanceProfile';
 
 export const HeroLanding = () => {
   const { setCursorType } = useCursorStore();
-  const { setIsDashboardOpen, setActiveModule } = useDashboardStore();
   const containerRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const { shouldEnableHeavyEffects } = usePerformanceProfile();
-
-  const handleExplore = () => {
-    setActiveModule(null);
-    setIsDashboardOpen(true);
-    window.location.hash = '';
-  };
 
   // Parallax for the profile image
   const mouseX = useMotionValue(0);
@@ -130,8 +123,8 @@ export const HeroLanding = () => {
             <div className="flex flex-col sm:flex-row items-center gap-5 mt-8">
               {/* Left Column: Explore Button + System Status */}
               <div className="flex flex-col items-center gap-6">
-                <button
-                  onClick={handleExplore}
+                <Link
+                  href="/contact"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
                   className="group relative flex items-center justify-center shrink-0"
@@ -151,7 +144,7 @@ export const HeroLanding = () => {
 
                   {/* Outer Holographic Glow */}
                   <div className="absolute -inset-1 bg-[#a855f7]/20 opacity-10 group-hover:opacity-20 transition-opacity rounded-full blur-xl motion-heavy" />
-                </button>
+                </Link>
 
                 {/* System Status (Now Below) */}
                 <div className="flex items-center gap-4">
