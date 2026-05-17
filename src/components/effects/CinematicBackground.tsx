@@ -11,7 +11,7 @@ export const CinematicBackground = () => {
       <div
         className={`absolute top-0 right-0 w-[42vw] h-[42vh] rounded-full opacity-[0.06] motion-heavy ${shouldReduceEffects ? 'hidden' : ''}`}
         style={{
-          background: 'radial-gradient(circle, rgba(255,107,0,0.28) 0%, transparent 72%)',
+          background: 'radial-gradient(circle, rgba(168,85,247,0.28) 0%, transparent 72%)',
           filter: 'blur(120px)',
           transform: 'translate3d(0,0,0)',
         }}
@@ -19,7 +19,7 @@ export const CinematicBackground = () => {
       <div
         className={`absolute bottom-0 left-0 w-[34vw] h-[34vh] rounded-full opacity-[0.03] motion-heavy ${shouldReduceEffects ? 'hidden' : ''}`}
         style={{
-          background: 'radial-gradient(circle, rgba(255,140,51,0.22) 0%, transparent 72%)',
+          background: 'radial-gradient(circle, rgba(192,132,252,0.22) 0%, transparent 72%)',
           filter: 'blur(110px)',
           transform: 'translate3d(0,0,0)',
         }}

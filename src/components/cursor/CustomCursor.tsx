@@ -51,7 +51,7 @@ export const CustomCursor = () => {
     pointer: {
       width: 40,
       height: 40,
-      backgroundColor: 'rgba(255, 107, 0, 0.1)',
+      backgroundColor: 'rgba(168, 85, 247, 0.1)',
       border: '1px solid var(--accent)',
     },
     text: {

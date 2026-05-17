@@ -25,7 +25,7 @@ export const AboutPanel = () => {
             <div className="absolute inset-0 bg-gradient-to-t from-[#06060a] via-transparent to-transparent opacity-60" />
           </div>
           {/* Decorative Corner */}
-          <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-[#ff6b00]/30 rounded-tl-[3rem] pointer-events-none" />
+          <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-[#a855f7]/30 rounded-tl-[3rem] pointer-events-none" />
         </motion.div>
 
         <div className="space-y-8">
@@ -33,7 +33,7 @@ export const AboutPanel = () => {
             <h3 className="text-5xl md:text-6xl font-bold text-white tracking-tighter">
               {personalInfo.fullName.split(' ')[0]} <span className="text-white/20">{personalInfo.fullName.split(' ')[1]}</span>
             </h3>
-            <p className="text-sm font-medium text-[#ff6b00] uppercase tracking-[0.4em]">
+            <p className="text-sm font-medium text-[#a855f7] uppercase tracking-[0.4em]">
               {personalInfo.about.short}
             </p>
           </div>
@@ -56,7 +56,7 @@ export const AboutPanel = () => {
       {/* ─── ACHIEVEMENTS ─── */}
       <div className="grid md:grid-cols-2 gap-12">
         <div className="space-y-8">
-          <h4 className="text-xs font-black uppercase tracking-[0.5em] text-[#ff6b00]">Core Achievements</h4>
+          <h4 className="text-xs font-black uppercase tracking-[0.5em] text-[#a855f7]">Core Achievements</h4>
           <div className="grid gap-4">
             {personalInfo.about.achievements.map((a, i) => (
               <motion.div
@@ -66,7 +66,7 @@ export const AboutPanel = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3 + i * 0.1 }}
               >
-                <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-[#ff6b00]" />
+                <div className="w-1.5 h-1.5 rounded-full mt-2 shrink-0 bg-[#a855f7]" />
                 <p className="text-sm md:text-base text-white/60 leading-relaxed font-light">{a}</p>
               </motion.div>
             ))}
@@ -74,12 +74,12 @@ export const AboutPanel = () => {
         </div>
 
         <div className="space-y-8">
-          <h4 className="text-xs font-black uppercase tracking-[0.5em] text-[#ff6b00]">Focus Sectors</h4>
+          <h4 className="text-xs font-black uppercase tracking-[0.5em] text-[#a855f7]">Focus Sectors</h4>
           <div className="flex flex-wrap gap-3">
             {personalInfo.focus.map((f, i) => (
               <motion.span
                 key={f}
-                className="px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest bg-white/5 border border-white/10 text-white/60 hover:text-white hover:border-[#ff6b00]/40 transition-all duration-300"
+                className="px-6 py-3 rounded-full text-xs font-bold uppercase tracking-widest bg-white/5 border border-white/10 text-white/60 hover:text-white hover:border-[#a855f7]/40 transition-all duration-300"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.5 + i * 0.05 }}

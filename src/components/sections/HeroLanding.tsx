@@ -65,7 +65,7 @@ export const HeroLanding = () => {
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
           style={enableParallax ? { x: photoX, y: photoY } : undefined}
         >
-          <div className="absolute top-[38%] right-[-6%] w-[48vw] max-w-[760px] aspect-square rounded-full opacity-60 motion-heavy pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(255,107,0,0.20) 0%, rgba(255,107,0,0.08) 32%, transparent 70%)', filter: 'blur(60px)' }} />
+          <div className="absolute top-[38%] right-[-6%] w-[48vw] max-w-[760px] aspect-square rounded-full opacity-60 motion-heavy pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(168,85,247,0.22) 0%, rgba(124,58,237,0.08) 32%, transparent 70%)', filter: 'blur(60px)' }} />
           <div className="absolute inset-y-0 right-[4%] w-[1px] bg-gradient-to-b from-transparent via-white/10 to-transparent opacity-40" />
 
           <Image
@@ -74,8 +74,8 @@ export const HeroLanding = () => {
             width={1200}
             height={1600}
             priority
-            sizes="(max-width: 768px) 72vw, 42vw"
-            className="h-[90%] w-auto object-contain object-bottom brightness-[0.98] grayscale-[0.02] contrast-[1.02] will-change-transform"
+            sizes="(max-width: 768px) 68vw, 30vw"
+            className="h-[78%] max-h-[760px] w-auto object-contain object-bottom brightness-[0.98] grayscale-[0.02] contrast-[1.02] will-change-transform"
           />
 
           {/* Cinematic Blending - No hard edges */}
@@ -108,19 +108,19 @@ export const HeroLanding = () => {
         <div className="space-y-12 max-w-2xl lg:max-w-3xl">
           <div className="space-y-6">
             <Reveal variant="fadeUp" delay={0.6}>
-              <h1 className="text-5xl sm:text-7xl md:text-8xl font-bold leading-[1.05] tracking-tight text-white">
+              <h1 className="text-5xl sm:text-4maxl md:text-8xl font-bold leading-[1.05] tracking-tight text-white">
                 Hey, I&apos;m Pankaj <br />
-                <span className="text-[#ff6b00] text-5xl">Web Developer
+                <span className="text-[#a855f7] text-3xl">Web Developer
                 </span>
-                <span className="text-white text-5xl"> & AI Enthusiast.</span>
+                <span className="text-white text-2xl"> & AI Enthusiast.</span>
               </h1>
             </Reveal>
 
             <Reveal variant="fadeUp" delay={0.8}>
               <div className="flex items-center gap-4">
-                <div className="w-10 h-px bg-[#ff6b00]" />
+                <div className="w-10 h-px bg-[#a855f7]" />
                 <p className="text-base md:text-xl text-white/40 leading-relaxed font-light italic">
-                  {personalInfo.hero.subtitle}
+                  {personalInfo.about.med}
                 </p>
               </div>
             </Reveal>
@@ -137,12 +137,12 @@ export const HeroLanding = () => {
                   className="group relative flex items-center justify-center shrink-0"
                 >
                   {/* Lightweight ring decor */}
-                  <div className="absolute inset-0 -m-4 rounded-full border border-[#ff6b00]/20 transition-transform duration-700 group-hover:scale-105" />
+                  <div className="absolute inset-0 -m-4 rounded-full border border-[#a855f7]/20 transition-transform duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 -m-6 rounded-full border border-white/5 transition-transform duration-700 group-hover:scale-110" />
 
-                  <div className="relative h-16 px-12 bg-[#ff6b00] text-black font-black text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-transform duration-300 group-hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-3 whitespace-nowrap">
+                  <div className="relative h-16 px-12 bg-[#a855f7] text-white font-black text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-transform duration-300 group-hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-3 whitespace-nowrap">
                     <div className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span className="relative z-10 text-lg">Explore My Work</span>
+                    <span className="relative z-10 text-lg">Hire Me</span>
                     <Send size={14} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
 
                     {/* Inner Glow */}
@@ -150,15 +150,15 @@ export const HeroLanding = () => {
                   </div>
 
                   {/* Outer Holographic Glow */}
-                  <div className="absolute -inset-1 bg-[#ff6b00]/20 opacity-10 group-hover:opacity-20 transition-opacity rounded-full blur-xl motion-heavy" />
+                  <div className="absolute -inset-1 bg-[#a855f7]/20 opacity-10 group-hover:opacity-20 transition-opacity rounded-full blur-xl motion-heavy" />
                 </button>
 
                 {/* System Status (Now Below) */}
                 <div className="flex items-center gap-4">
-                  <div className="w-1.5 h-1.5 rounded-full bg-[#ff6b00] animate-pulse" />
+                  <div className="w-1.5 h-1.5 rounded-full bg-[#a855f7] animate-pulse" />
                   <div className="flex items-center gap-2">
                     <span className="text-[9px] uppercase tracking-[0.4em] text-white/20 font-black">System</span>
-                    <span className="text-[9px] uppercase tracking-[0.4em] text-[#ff6b00] font-black animate-pulse">Ready</span>
+                    <span className="text-[9px] uppercase tracking-[0.4em] text-[#a855f7] font-black animate-pulse">Ready</span>
                   </div>
                 </div>
               </div>
@@ -171,10 +171,10 @@ export const HeroLanding = () => {
                 download
                 onMouseEnter={() => setCursorType('pointer')}
                 onMouseLeave={() => setCursorType('default')}
-                className="flex items-center gap-4 text-[11px] font-black text-white/80 hover:text-[#ff6b00] transition-all group whitespace-nowrap mb-6"
+                className="flex items-center gap-4 text-[11px] font-black text-white/80 hover:text-[#a855f7] transition-all group whitespace-nowrap mb-6"
               >
                 <span className="uppercase tracking-[0.3em]">Download Resume</span>
-                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#ff6b00] group-hover:text-black transition-all">
+                <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#a855f7] group-hover:text-black transition-all">
                   <ArrowUpRight size={16} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                 </div>
               </a>

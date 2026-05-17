@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import dynamic from 'next/dynamic';
 import { SmoothScrollProvider } from './SmoothScrollProvider';
 import { CinematicBackground } from '@/components/effects/CinematicBackground';
+import { PanelSidebar } from '@/components/layout/PanelSidebar';
 import { useDashboardStore } from '@/store/useDashboardStore';
 import { motion, AnimatePresence, MotionConfig } from 'framer-motion';
 import { Toaster } from 'sonner';
@@ -40,6 +41,7 @@ export function AppProviders({ children }: { children: ReactNode }) {
             </motion.div>
           )}
         </AnimatePresence>
+        <PanelSidebar />
         {shouldEnableHeavyEffects ? <CustomCursor /> : null}
         <Toaster theme="dark" position="top-right" richColors />
         {children}

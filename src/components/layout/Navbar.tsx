@@ -39,7 +39,7 @@ export const Navbar = () => {
             className="shrink-0"
           >
             <div className="flex items-center gap-3 group">
-              <span className="text-xl font-black uppercase tracking-[0.3em] text-[#ff6b00] group-hover:text-white transition-colors">
+              <span className="text-xl font-black uppercase tracking-[0.3em] text-[#a855f7] group-hover:text-white transition-colors">
                 Pankaj Kashyap
               </span>
             </div>
@@ -73,7 +73,7 @@ export const Navbar = () => {
             transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             className="fixed inset-0 z-[40] bg-[#06060a] md:hidden flex flex-col items-center justify-center gap-8 p-12"
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#ff6b0010,transparent_70%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,#a855f710,transparent_70%)] pointer-events-none" />
 
 
             <motion.div
@@ -81,7 +81,7 @@ export const Navbar = () => {
               animate={{ opacity: 1 }}
               className="text-center"
             >
-              <h3 className="text-2xl font-black uppercase tracking-[0.2em] text-[#ff6b00] mb-2">Neural Link Active</h3>
+              <h3 className="text-2xl font-black uppercase tracking-[0.2em] text-[#a855f7] mb-2">Neural Link Active</h3>
               <p className="text-white/40 text-xs uppercase tracking-widest font-medium">Immersive Intelligence Core</p>
             </motion.div>
 

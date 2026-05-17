@@ -4,12 +4,12 @@
    CENTRALIZED THEME SYSTEM
    ========================================= */
 :root {
-  --accent: #ff6b00;
-  --accent-secondary: #ff8c33;
-  --accent-rgb: 255, 107, 0;
+  --accent: #a855f7;
+  --accent-secondary: #c084fc;
+  --accent-rgb: 168, 85, 247;
 
-  --background: #06060a;
-  --background-secondary: #0c0c12;
+  --background: #05040a;
+  --background-secondary: #0b0714;
 
   --foreground: #ffffff;
   --text-secondary: #a0a0b8;
@@ -149,7 +149,7 @@
     background-clip: text;
   }
   .text-gradient-accent {
-    background: linear-gradient(135deg, var(--accent), var(--accent-secondary), #ffb366);
+    background: linear-gradient(135deg, var(--accent), var(--accent-secondary), #e9d5ff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;

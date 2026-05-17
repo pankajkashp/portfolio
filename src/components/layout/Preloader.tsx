@@ -41,7 +41,7 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
         >
           {/* Soft ambient background */}
           <div className="absolute inset-0 z-0 pointer-events-none">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,107,0,0.14),transparent_38%),radial-gradient(circle_at_50%_60%,rgba(255,140,51,0.06),transparent_55%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.14),transparent_38%),radial-gradient(circle_at_50%_60%,rgba(192,132,252,0.06),transparent_55%)]" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#06060a] via-transparent to-[#06060a]" />
           </div>
 
@@ -70,9 +70,9 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
               animate={{ opacity: [0.45, 1, 0.45] }}
               transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <span className="w-10 h-px bg-[#ff6b00]" />
+              <span className="w-10 h-px bg-[#a855f7]" />
               <span>Loading</span>
-              <span className="w-10 h-px bg-[#ff6b00]" />
+              <span className="w-10 h-px bg-[#a855f7]" />
             </motion.div>
           </div>
         </motion.div>

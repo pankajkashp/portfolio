@@ -183,15 +183,15 @@ function GlobalSettingsManager() {
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-accent rounded-lg border border-white/20" />
               <input className="flex-1 bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm focus:outline-none focus:border-accent" 
-                defaultValue="#ff6b00" />
+              defaultValue="#a855f7" />
             </div>
           </div>
           <div>
             <label className="text-xs text-text-muted block mb-2 uppercase tracking-widest font-bold">Secondary Accent</label>
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-[#ff8c33] rounded-lg border border-white/20" />
+              <div className="w-10 h-10 bg-[#c084fc] rounded-lg border border-white/20" />
               <input className="flex-1 bg-white/5 border border-white/10 rounded-lg p-2 text-white text-sm focus:outline-none focus:border-accent" 
-                defaultValue="#ff8c33" />
+                defaultValue="#c084fc" />
             </div>
           </div>
         </div>

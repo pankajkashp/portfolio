@@ -1,14 +1,14 @@
 export const themeConfig = {
   colors: {
     background: {
-      DEFAULT: '#1c1109', // Deep Brown
-      secondary: '#2a1a0e',
-      accent: '#3d2514',
+      DEFAULT: '#05040a', // Deep Black Violet
+      secondary: '#0b0714',
+      accent: '#130b21',
     },
     accent: {
-      DEFAULT: '#ff6b00', // Bright Orange
-      secondary: '#ff8c33',
-      glow: 'rgba(255, 107, 0, 0.5)',
+      DEFAULT: '#a855f7', // Purple
+      secondary: '#c084fc',
+      glow: 'rgba(168, 85, 247, 0.5)',
     },
     text: {
       primary: '#ffffff',
@@ -21,7 +21,7 @@ export const themeConfig = {
     }
   },
   glows: {
-    primary: '0 0 20px rgba(255, 107, 0, 0.3)',
-    secondary: '0 0 40px rgba(255, 107, 0, 0.15)',
+    primary: '0 0 20px rgba(168, 85, 247, 0.3)',
+    secondary: '0 0 40px rgba(168, 85, 247, 0.15)',
   }
 };

@@ -55,7 +55,7 @@ interface CategoryItem {
 }
 
 const categories: CategoryItem[] = [
-  { key: 'about', label: 'About Me', description: 'Biometric profile & mission overview', icon: <User size={28} />, accent: '#ff6b00' },
+  { key: 'about', label: 'About Me', description: 'Biometric profile & mission overview', icon: <User size={28} />, accent: '#a855f7' },
   { key: 'skills', label: 'Skills', description: 'Technical stack & proficiency levels', icon: <Cpu size={28} />, accent: '#00d4ff' },
   { key: 'education', label: 'Education', description: 'Academic records & certifications', icon: <GraduationCap size={28} />, accent: '#a855f7' },
   { key: 'projects', label: 'Projects', description: 'Operational deployments & codebase', icon: <FolderOpen size={28} />, accent: '#22c55e' },
@@ -145,8 +145,8 @@ export const Dashboard = () => {
               transition={{ duration: 0.5, delay: 0.8 }}
               className="flex items-center gap-4"
             >
-              <div className="w-12 h-px bg-[#ff6b00]" />
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-[#ff6b00]">Command Center // System Active</span>
+              <div className="w-12 h-px bg-[#a855f7]" />
+              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-[#a855f7]">Command Center // System Active</span>
             </motion.div>
             
             <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-none">
@@ -158,11 +158,11 @@ export const Dashboard = () => {
                 CORE
               </motion.span> 
               <br />
-              <span className="text-[#ff6b00]">MODULES</span>
+              <span className="text-[#a855f7]">MODULES</span>
             </h2>
             
             <p className="text-xl text-white/50 max-w-xl font-light leading-relaxed">
-              <span className="text-[#ff6b00] font-mono text-xs mr-2 animate-pulse">[CONNECTED]</span>
+              <span className="text-[#a855f7] font-mono text-xs mr-2 animate-pulse">[CONNECTED]</span>
               Accessing neural archives... Exploring projects, skills, and professional experience.
             </p>
           </div>
@@ -171,7 +171,7 @@ export const Dashboard = () => {
             onClick={shutdownSystem}
             onMouseEnter={() => setCursorType('pointer')}
             onMouseLeave={() => setCursorType('default')}
-            className="group relative flex items-center gap-6 px-10 py-5 rounded-full bg-[#ff6b00] text-black font-black transition-all duration-500 overflow-hidden shadow-[0_0_30px_rgba(255,107,0,0.3)] hover:shadow-[0_0_50px_rgba(255,107,0,0.5)]"
+            className="group relative flex items-center gap-6 px-10 py-5 rounded-full bg-[#a855f7] text-white font-black transition-all duration-500 overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.3)] hover:shadow-[0_0_50px_rgba(168,85,247,0.5)]"
           >
             <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
             <span className="relative z-10 text-[11px] uppercase tracking-[0.4em]">Exit System</span>
@@ -212,7 +212,7 @@ export const Dashboard = () => {
                   </div>
 
                   <div className="space-y-4">
-                    <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight group-hover:text-[#ff6b00] transition-colors duration-500">
+                    <h3 className="text-3xl md:text-4xl font-bold text-white tracking-tight group-hover:text-[#a855f7] transition-colors duration-500">
                       {cat.label}
                     </h3>
                     <p className="text-sm md:text-base text-white/30 font-light leading-relaxed max-w-[80%]">
@@ -259,7 +259,7 @@ export const Dashboard = () => {
               onClick={shutdownSystem}
               onMouseEnter={() => setCursorType('pointer')}
               onMouseLeave={() => setCursorType('default')}
-              className="hover:text-[#ff6b00] transition-colors"
+              className="hover:text-[#a855f7] transition-colors"
             >
               Terminate Session
             </button>
@@ -287,7 +287,7 @@ export const Dashboard = () => {
               {/* Modal Header */}
               <div className="p-8 md:p-12 border-b border-white/5 flex items-center justify-between">
                 <div className="flex items-center gap-6">
-                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#ff6b00]">
+                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center text-[#a855f7]">
                     {categories.find(c => c.key === activeModule)?.icon}
                   </div>
                   <div>

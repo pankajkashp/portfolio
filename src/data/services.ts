@@ -3,7 +3,7 @@ export const services = [
     title: 'AI Engineering',
     description: 'Model design, fine-tuning, and deployment for production-ready AI systems.',
     icon: 'Cpu',
-    color: '#ff6b00',
+    color: '#a855f7',
   },
   {
     title: 'Full Stack Development',
