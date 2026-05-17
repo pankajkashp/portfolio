@@ -22,7 +22,6 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
         smoothWheel: true,
         wheelMultiplier: 0.85,
         touchMultiplier: 1.1,
-        smoothTouch: false,
         infinite: false,
       }}
     >
