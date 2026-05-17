@@ -2,7 +2,13 @@
 
 A cinematic, single-page portfolio built with Next.js that blends motion, storytelling, and practical contact flows into one polished experience. This site is designed to feel like a personal product launch: fast, expressive, and easy to explore.
 
-![Screenshot placeholder](./public/readme/portfolio-screenshot-placeholder.svg)
+<p align="center">
+  <img 
+    <img src="./readme-assets/landing.png" alt="Portfolio Landing Page" width="100%" />
+    alt="Pankaj Portfolio Preview"
+    width="100%"
+  />
+</p>
 
 ## What You Will Find
 
