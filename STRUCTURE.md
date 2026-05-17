@@ -33,7 +33,6 @@ The dashboard uses a modular "Panel" system. If you want to change the **layout*
 ## 🚀 Main Sections
 - **Hero / Landing Page**: `src/components/sections/HeroLanding.tsx`
 - **Dashboard Command Center**: `src/components/sections/Dashboard.tsx`
-- **Navbar**: `src/components/layout/Navbar.tsx`
 
 ---
 
