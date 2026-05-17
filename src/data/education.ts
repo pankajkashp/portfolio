@@ -28,6 +28,6 @@ export const education: Education[] = [
     degree: '10th Standard',
     institution: 'DAV High School, Batala, Punjab',
     year: '2020',
-    description: 'Completed secondary education with 89%, building a strong academic foundation in mathematics, science, and computer fundamentals.',
+    description: 'Completed secondary education with **89%**, building a strong academic foundation in mathematics, science, and computer fundamentals.',
   }
 ];

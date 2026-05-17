@@ -23,7 +23,6 @@ export const skills = [
   { name: 'NLP', category: 'AI/ML & Data Science', level: 68 },
   { name: 'Computer Vision', category: 'AI/ML & Data Science', level: 66 },
   { name: 'Hugging Face', category: 'AI/ML & Data Science', level: 64 },
-  { name: 'LoRA Fine-tuning', category: 'AI/ML & Data Science', level: 60 },
   
   // Tools
   { name: 'Git/GitHub', category: 'Tools & Platforms', level: 92 },
@@ -31,4 +30,6 @@ export const skills = [
   { name: 'Vercel', category: 'Tools & Platforms', level: 80 },
   { name: 'VS Code', category: 'Tools & Platforms', level: 90 },
   { name: 'Jupyter', category: 'Tools & Platforms', level: 76 },
+  { name: 'Canva', category: 'Tools & Platforms', level: 76 },
+  { name: 'Cursor', category: 'Tools & Platforms', level: 76 },
 ];
