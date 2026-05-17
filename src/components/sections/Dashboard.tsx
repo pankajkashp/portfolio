@@ -319,7 +319,7 @@ export const Dashboard = () => {
                       onMouseLeave={() => setCursorType('default')}
                       className="px-10 py-4 rounded-full bg-white/5 border border-white/10 text-white/60 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center gap-3 text-sm font-bold uppercase tracking-widest"
                     >
-                      <ArrowLeft size={18} /> Back to Command Center
+                      <ArrowLeft size={18} /> Back
                     </button>
                   </div>
                 </div>
