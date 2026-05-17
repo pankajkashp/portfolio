@@ -120,7 +120,7 @@ export const HeroLanding = () => {
               <div className="flex items-center gap-4">
                 <div className="w-10 h-px bg-[#a855f7]" />
                 <p className="text-base md:text-xl text-white/40 leading-relaxed font-light italic">
-                  {personalInfo.about.med}
+                  {personalInfo.about.short}
                 </p>
               </div>
             </Reveal>

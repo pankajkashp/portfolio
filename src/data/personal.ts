@@ -33,7 +33,6 @@ export const personalInfo: PersonalInfo = {
   email: 'pankajkashap26@gmail.com',
   resumeUrl: '/resume.pdf',
   about: {
-    med: 'Hi, I’m Pankaj Kashap — a Computer Science student specializing in Artificial Intelligence with a strong interest in full stack development, modern UI/UX experiences, and intelligent systems. I enjoy building real-world projects that combine creativity with technology, ranging from AI-powered applications and automation tools to IoT dashboards and interactive web platforms.\n\nI’m constantly exploring new technologies, improving my development skills, and working on projects.',
     short: 'Passionate about building intelligent digital experiences using AI, full stack development, and modern web technologies.',
     long: 'Hi, I’m Pankaj Kashap — a Computer Science student specializing in Artificial Intelligence with a strong interest in full stack development, modern UI/UX experiences, and intelligent systems. I enjoy building real-world projects that combine creativity with technology, ranging from AI-powered applications and automation tools to IoT dashboards and interactive web platforms.\n\nI’m constantly exploring new technologies, improving my development skills, and working on projects that solve practical problems while delivering clean and engaging user experiences. My focus is on building scalable, modern, and impactful digital products using technologies like React, Next.js, Node.js, AI APIs, and cloud-based tools.',
     stats: [],
