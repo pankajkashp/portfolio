@@ -6,6 +6,11 @@ import { AppProviders } from "@/providers/AppProviders";
 export const metadata: Metadata = {
   title: "Pankaj Kashap | AI Engineer & Creative Developer",
   description: "Portfolio of Pankaj Kashap — AI Engineer, Full Stack Developer, and Creative Technologist building intelligent digital experiences.",
+  icons: {
+    icon: "/pankaj.png",
+    shortcut: "/pankaj.png",
+    apple: "/pankaj.png",
+  },
   openGraph: {
     title: "Pankaj Kashap | AI Engineer & Creative Developer",
     description: "Building immersive digital experiences with AI, creativity, and modern web technologies.",
