@@ -31,9 +31,10 @@ export function usePerformanceProfile() {
     const update = () => {
       const compactViewport = window.innerWidth < 768;
       const isReducedMotion = reducedMotionQuery.matches;
-      const isTouchDevice = touchQuery.matches || 'ontouchstart' in window;
+      const isTouchDevice = touchQuery.matches || navigator.maxTouchPoints > 0;
       const isFinePointer = finePointerQuery.matches;
-      const shouldReduceEffects = isReducedMotion || isTouchDevice || compactViewport;
+      // Keep smooth scroll + visual fidelity on desktop; reduce only for explicit motion preference or compact screens.
+      const shouldReduceEffects = isReducedMotion || compactViewport;
 
       setProfile({
         isReducedMotion,

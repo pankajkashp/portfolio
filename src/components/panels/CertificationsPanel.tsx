@@ -163,7 +163,7 @@ export const CertificationsPanel = () => {
         {certifications.map((c, i) => (
           <motion.div
             key={i}
-            className="group relative p-10 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:border-white/10 transition-all duration-500 cursor-pointer overflow-hidden"
+            className="group relative p-10 rounded-[2.5rem] bg-[#0b0b13]/55 backdrop-blur-xl border border-white/10 hover:border-white/20 transition-all duration-500 cursor-pointer overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.28)]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
@@ -172,7 +172,8 @@ export const CertificationsPanel = () => {
             onMouseLeave={() => setCursorType('default')}
           >
             {/* Hover Background Accent */}
-            <div className="absolute inset-0 bg-[#eab308]/[0.02] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-[#eab308]/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="absolute inset-0 bg-[linear-gradient(140deg,rgba(255,255,255,0.06),rgba(255,255,255,0.015)_35%,transparent_70%)] pointer-events-none" />
 
             <div className="relative z-10 flex justify-between items-start mb-8">
               <div className="w-16 h-16 rounded-2xl flex items-center justify-center bg-[#eab308]/10 text-[#eab308] group-hover:bg-[#eab308] group-hover:text-black transition-all duration-500">

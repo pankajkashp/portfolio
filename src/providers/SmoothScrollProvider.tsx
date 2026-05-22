@@ -15,12 +15,12 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
     <ReactLenis
       root
       options={{
-        duration: 0.9,
+        duration: 1.15,
         easing: (t) => 1 - Math.pow(1 - t, 3),
         orientation: 'vertical',
         gestureOrientation: 'vertical',
         smoothWheel: true,
-        wheelMultiplier: 0.85,
+        wheelMultiplier: 0.95,
         touchMultiplier: 1.1,
         infinite: false,
       }}
