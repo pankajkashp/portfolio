@@ -1,7 +1,7 @@
 'use client';
 
-import { use } from 'react';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowLeft } from 'lucide-react';
 import { useCursorStore } from '@/store/useCursorStore';
@@ -22,8 +22,9 @@ const panels: Record<string, { title: string; component: React.FC }> = {
 
 };
 
-export default function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
-  const { category } = use(params);
+export default function CategoryPage() {
+  const params = useParams<{ category: string }>();
+  const category = params?.category ?? '';
   const { setCursorType } = useCursorStore();
   const panel = panels[category];
 

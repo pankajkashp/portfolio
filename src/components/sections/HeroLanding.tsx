@@ -47,7 +47,7 @@ export const HeroLanding = () => {
       ref={containerRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={resetParallax}
-      className="relative h-screen overflow-hidden flex items-center justify-center bg-[#06060a]"
+      className="relative h-screen overflow-hidden flex items-center justify-center bg-transparent"
     >
       {/* ─── BACKGROUND PORTRAIT (Seamless Blending) ─── */}
       <div className="absolute inset-0 z-10 select-none pointer-events-none flex items-center justify-center">
@@ -190,6 +190,7 @@ export const HeroLanding = () => {
       <div className="absolute inset-0 z-50 pointer-events-none opacity-[0.03] motion-heavy">
         <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
       </div>
+
     </section>
   );
 };

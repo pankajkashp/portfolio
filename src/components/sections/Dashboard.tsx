@@ -111,16 +111,12 @@ export const Dashboard = () => {
   return (
     <section 
       id="dashboard" 
-      className="relative h-screen bg-[#06060a] overflow-hidden flex flex-col"
+      className="relative h-screen bg-transparent overflow-hidden flex flex-col"
       data-lenis-prevent
     >
       {/* ─── FUTURISTIC BACKGROUND ─── */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 opacity-[0.03]" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, white 1px, transparent 0)`,
-          backgroundSize: '40px 40px',
-        }} />
-        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#06060a] via-transparent to-[#06060a]" />
+        <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-[#06060a]/70 via-transparent to-[#06060a]/70" />
       </div>
 
       {/* Main Scrollable Area (Dashboard Grid) */}

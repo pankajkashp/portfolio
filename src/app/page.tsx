@@ -33,7 +33,7 @@ export default function Home() {
   }, [loading, setIsDashboardOpen, setActiveModule]);
 
   return (
-    <main className="relative bg-[#06060a] overflow-hidden" id="home">
+    <main className="relative bg-transparent overflow-hidden" id="home">
       <Preloader onComplete={handleComplete} />
       
       <AnimatePresence mode="wait">
@@ -57,7 +57,7 @@ export default function Home() {
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: '100%', opacity: 0 }}
             transition={{ type: 'tween', duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[100] bg-[#06060a]/94 overflow-hidden"
+            className="fixed inset-0 z-[100] bg-[#06060a]/55 overflow-hidden"
             data-lenis-prevent
           >
             <Dashboard />
