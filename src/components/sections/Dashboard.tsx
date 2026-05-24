@@ -121,15 +121,15 @@ export const Dashboard = () => {
 
       {/* Main Scrollable Area (Dashboard Grid) */}
       <motion.div 
-        className={`flex-1 overflow-y-auto py-32 ${activeModule ? 'pointer-events-none' : 'pointer-events-auto'}`}
+        className={`flex-1 overflow-y-auto py-20 md:py-32 ${activeModule ? 'pointer-events-none' : 'pointer-events-auto'}`}
         animate={{ opacity: activeModule ? 0.35 : 1, scale: activeModule ? 0.985 : 1 }}
         transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
       >
-        <div className="max-w-[1600px] mx-auto px-8 md:px-16 relative z-10">
+        <div className="max-w-[1600px] mx-auto px-5 md:px-16 relative z-10">
           {/* Header and Grid... */}
         {/* ─── HEADER ─── */}
         <motion.div
-          className="mb-24 flex items-start justify-between gap-8"
+          className="mb-14 md:mb-24 flex flex-col md:flex-row items-start md:items-start justify-between gap-6 md:gap-8"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
@@ -139,13 +139,13 @@ export const Dashboard = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="flex items-center gap-4"
+              className="flex items-center gap-3 md:gap-4"
             >
-              <div className="w-12 h-px bg-[#a855f7]" />
-              <span className="text-[11px] font-black uppercase tracking-[0.5em] text-[#a855f7]">Command Center // System Active</span>
+              <div className="w-8 md:w-12 h-px bg-[#a855f7]" />
+              <span className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.32em] md:tracking-[0.5em] text-[#a855f7]">Command Center // System Active</span>
             </motion.div>
             
-            <h2 className="text-6xl md:text-8xl font-black tracking-tighter text-white leading-none">
+            <h2 className="text-5xl sm:text-6xl md:text-8xl font-black tracking-tighter text-white leading-none">
               <motion.span
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -157,7 +157,7 @@ export const Dashboard = () => {
               <span className="text-[#a855f7]">MODULES</span>
             </h2>
             
-            <p className="text-xl text-white/50 max-w-xl font-light leading-relaxed">
+            <p className="text-lg md:text-xl text-white/50 max-w-xl font-light leading-relaxed">
               <span className="text-[#a855f7] font-mono text-xs mr-2 animate-pulse">[CONNECTED]</span>
               Accessing neural archives... Exploring projects, skills, and professional experience.
             </p>
@@ -167,11 +167,11 @@ export const Dashboard = () => {
             onClick={shutdownSystem}
             onMouseEnter={() => setCursorType('pointer')}
             onMouseLeave={() => setCursorType('default')}
-            className="group relative flex items-center gap-6 px-10 py-5 rounded-full bg-[#a855f7] text-white font-black transition-all duration-500 overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.3)] hover:shadow-[0_0_50px_rgba(168,85,247,0.5)]"
+            className="group relative self-start md:self-auto flex items-center gap-3 md:gap-6 px-6 md:px-10 py-3.5 md:py-5 rounded-full bg-[#a855f7] text-white font-black transition-all duration-500 overflow-hidden shadow-[0_0_30px_rgba(168,85,247,0.3)] hover:shadow-[0_0_50px_rgba(168,85,247,0.5)]"
           >
             <div className="absolute inset-0 bg-white/20 -translate-x-full group-hover:translate-x-0 transition-transform duration-500" />
-            <span className="relative z-10 text-[11px] uppercase tracking-[0.4em]">Exit System</span>
-            <X size={20} className="relative z-10 group-hover:rotate-90 transition-transform duration-500" />
+            <span className="relative z-10 text-[10px] md:text-[11px] uppercase tracking-[0.22em] md:tracking-[0.4em]">Exit System</span>
+            <X size={18} className="relative z-10 group-hover:rotate-90 transition-transform duration-500" />
           </button>
         </motion.div>
 

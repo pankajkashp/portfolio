@@ -47,7 +47,7 @@ export const HeroLanding = () => {
       ref={containerRef}
       onPointerMove={handlePointerMove}
       onPointerLeave={resetParallax}
-      className="relative h-screen overflow-hidden flex items-center justify-center bg-transparent"
+      className="relative h-screen overflow-hidden flex items-start md:items-center justify-center bg-transparent"
     >
       {/* Landing-specific visible grid + nodes */}
       <div className="absolute inset-0 z-[6] pointer-events-none">
@@ -92,7 +92,7 @@ export const HeroLanding = () => {
       </div>
 
       {/* ─── MAIN CONTENT (80% Width) ─── */}
-      <div className="w-[80%] h-full relative z-40 flex flex-col justify-center">
+      <div className="w-[80%] h-full relative z-40 flex flex-col justify-start pt-20 md:pt-0 md:justify-center">
 
         {/* TOP: Stats (Aligned Top Left) */}
         <div className="absolute top-32 left-0 flex gap-20">
@@ -131,10 +131,34 @@ export const HeroLanding = () => {
                 </p>
               </div>
             </Reveal>
+
+            <Reveal variant="fadeUp" delay={1}>
+              <div className="md:hidden mt-4 flex items-center gap-3">
+                <Link
+                  href="/contact"
+                  onMouseEnter={() => setCursorType('pointer')}
+                  onMouseLeave={() => setCursorType('default')}
+                  className="flex-1 h-12 px-5 rounded-xl bg-[#a855f7] text-white font-black text-[11px] tracking-[0.22em] uppercase flex items-center justify-center gap-2"
+                >
+                  <span>Hire Me</span>
+                  <Send size={14} />
+                </Link>
+                <a
+                  href="/resume.pdf"
+                  download
+                  onMouseEnter={() => setCursorType('pointer')}
+                  onMouseLeave={() => setCursorType('default')}
+                  className="h-12 px-4 rounded-xl border border-white/15 bg-white/5 text-white text-[11px] font-black tracking-[0.18em] uppercase flex items-center justify-center gap-2 whitespace-nowrap"
+                >
+                  <span>Resume</span>
+                  <ArrowUpRight size={14} />
+                </a>
+              </div>
+            </Reveal>
           </div>
 
           <Reveal variant="fadeUp" delay={1.2}>
-            <div className="flex flex-col sm:flex-row items-center gap-5 mt-8">
+            <div className="hidden md:flex flex-col sm:flex-row items-center gap-5 mt-8">
               {/* Left Column: Explore Button + System Status */}
               <div className="flex flex-col items-center gap-6">
                 <Link

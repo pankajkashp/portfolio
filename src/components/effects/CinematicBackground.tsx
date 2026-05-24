@@ -19,29 +19,29 @@ export const CinematicBackground = () => {
       />
 
       <div
-        className={`absolute -inset-[80px] opacity-[0.22] ${shouldReduceEffects ? '' : 'grid-pan'}`}
+        className={`absolute -inset-[40px] md:-inset-[80px] opacity-[0.18] md:opacity-[0.22] ${shouldReduceEffects ? '' : 'grid-pan'}`}
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.09) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.09) 1px, transparent 1px)
           `,
-          backgroundSize: '80px 80px',
+          backgroundSize: '64px 64px',
         }}
       />
 
       <div
-        className="absolute inset-0 opacity-[0.16]"
+        className="absolute inset-0 opacity-[0.12] md:opacity-[0.16]"
         style={{
           backgroundImage: `
-            linear-gradient(rgba(255,255,255,0.055) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.055) 1px, transparent 1px)
+            linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)
           `,
-          backgroundSize: '20px 20px',
+          backgroundSize: '18px 18px',
         }}
       />
 
       {!shouldReduceEffects && (
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 hidden md:block">
           <span className="cine-line cine-line-a" />
           <span className="cine-line cine-line-b" />
           <span className="cine-line cine-line-c" />
