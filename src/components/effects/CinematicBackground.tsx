@@ -48,10 +48,6 @@ export const CinematicBackground = () => {
         </div>
       )}
 
-      <div className="absolute -bottom-[35%] right-[-5%] h-[64vw] w-[64vw] rounded-full border border-white/[0.05]" />
-      <div className="absolute left-1/2 top-[22%] h-[18vw] w-[18vw] -translate-x-1/2 rounded-full border border-[#f4be5e]/[0.28]" />
-      <div className="absolute left-1/2 top-[24%] h-[23vw] w-[23vw] -translate-x-1/2 rounded-full border border-[#ff8d4f]/[0.17]" />
-
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_50%,rgba(0,0,0,0.42)_100%)]" />
 
       <style jsx global>{`
