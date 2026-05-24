@@ -42,6 +42,7 @@
 @keyframes breathe   { 0%,100%{ transform: scale(1) } 50%{ transform: scale(1.02) } }
 @keyframes scanline  { 0%{ transform: translateY(-100%) } 100%{ transform: translateY(100%) } }
 @keyframes pulse-ring { 0%{ transform: scale(0.8); opacity: 0.8 } 100%{ transform: scale(1.5); opacity: 0 } }
+@keyframes grid-pan { 0% { transform: translate3d(0,0,0) } 100% { transform: translate3d(80px,80px,0) } }
 
 @layer base {
   * { border-color: var(--glass-border); }
@@ -63,6 +64,11 @@
   .motion-heavy {
     transform: translate3d(0, 0, 0);
     will-change: transform, opacity;
+  }
+
+  .grid-pan {
+    animation: grid-pan 20s linear infinite;
+    will-change: transform;
   }
 
   /* ── Glass Cards ── */

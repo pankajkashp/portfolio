@@ -49,6 +49,20 @@ export const HeroLanding = () => {
       onPointerLeave={resetParallax}
       className="relative h-screen overflow-hidden flex items-center justify-center bg-transparent"
     >
+      {/* Landing-specific visible grid + nodes */}
+      <div className="absolute inset-0 z-[6] pointer-events-none">
+        <div
+          className="absolute -inset-[80px] opacity-[0.34] grid-pan"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)
+            `,
+            backgroundSize: '64px 64px',
+          }}
+        />
+      </div>
+
       {/* ─── BACKGROUND PORTRAIT (Seamless Blending) ─── */}
       <div className="absolute inset-0 z-10 select-none pointer-events-none flex items-center justify-center">
         <motion.div

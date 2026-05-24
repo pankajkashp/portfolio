@@ -41,6 +41,16 @@ export const Preloader = ({ onComplete }: { onComplete: () => void }) => {
         >
           {/* Soft ambient background */}
           <div className="absolute inset-0 z-0 pointer-events-none">
+            <div
+              className="absolute -inset-[80px] opacity-[0.22] grid-pan"
+              style={{
+                backgroundImage: `
+                  linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
+                `,
+                backgroundSize: '64px 64px',
+              }}
+            />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.14),transparent_38%),radial-gradient(circle_at_50%_60%,rgba(192,132,252,0.06),transparent_55%)]" />
             <div className="absolute inset-0 bg-gradient-to-b from-[#06060a] via-transparent to-[#06060a]" />
           </div>

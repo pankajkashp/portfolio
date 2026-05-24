@@ -5,11 +5,16 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { HeroLanding } from '@/components/sections/HeroLanding';
 import { Preloader } from '@/components/layout/Preloader';
 import { useDashboardStore } from '@/store/useDashboardStore';
+import { CinematicBackground } from '@/components/effects/CinematicBackground';
 import dynamic from 'next/dynamic';
 
 const Dashboard = dynamic(() => import('@/components/sections/Dashboard').then((mod) => mod.Dashboard), {
   ssr: false,
-  loading: () => <div className="fixed inset-0 z-[100] bg-[#06060a]" />,
+  loading: () => (
+    <div className="fixed inset-0 z-[100] bg-[#06060a] overflow-hidden">
+      <CinematicBackground />
+    </div>
+  ),
 });
 
 export default function Home() {
