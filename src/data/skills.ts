@@ -1,35 +1,35 @@
 export const skills = [
+  // Languages
+  { name: 'C++/C', category: 'Languages', level: 85 },
+  { name: 'Python', category: 'Languages', level: 90 },
+  { name: 'JavaScript', category: 'Languages', level: 92 },
+  { name: 'SQL', category: 'Languages', level: 80 },
+
   // Frontend
-  { name: 'React', category: 'Frontend Development', level: 92 },
-  { name: 'TypeScript', category: 'Frontend Development', level: 88 },
-  { name: 'JavaScript', category: 'Frontend Development', level: 90 },
-  { name: 'Next.js', category: 'Frontend Development', level: 86 },
-  { name: 'HTML/CSS', category: 'Frontend Development', level: 92 },
-  { name: 'Tailwind CSS', category: 'Frontend Development', level: 85 },
+  { name: 'HTML5', category: 'Frontend', level: 95 },
+  { name: 'CSS3', category: 'Frontend', level: 90 },
+  { name: 'React.js', category: 'Frontend', level: 92 },
+  { name: 'Next.js', category: 'Frontend', level: 88 },
+  { name: 'Tailwind CSS', category: 'Frontend', level: 90 },
+  { name: 'GSAP', category: 'Frontend', level: 82 },
+  { name: 'Framer Motion', category: 'Frontend', level: 85 },
   
   // Backend
-  { name: 'Node.js', category: 'Backend Development', level: 82 },
-  { name: 'Express', category: 'Backend Development', level: 78 },
-  { name: 'MongoDB', category: 'Backend Development', level: 74 },
-  { name: 'REST APIs', category: 'Backend Development', level: 88 },
-  { name: 'GraphQL', category: 'Backend Development', level: 70 },
+  { name: 'Node.js', category: 'Backend', level: 85 },
+  { name: 'Express.js', category: 'Backend', level: 82 },
+  { name: 'REST APIs', category: 'Backend', level: 88 },
+
+  // Databases
+  { name: 'MongoDB', category: 'Databases', level: 80 },
+  { name: 'PostgreSQL', category: 'Databases', level: 75 },
+  { name: 'Prisma', category: 'Databases', level: 78 },
   
-  // AI/ML
-  { name: 'Python', category: 'AI/ML & Data Science', level: 86 },
-  { name: 'TensorFlow', category: 'AI/ML & Data Science', level: 70 },
-  { name: 'Scikit-learn', category: 'AI/ML & Data Science', level: 72 },
-  { name: 'Pandas', category: 'AI/ML & Data Science', level: 80 },
-  { name: 'NumPy', category: 'AI/ML & Data Science', level: 78 },
-  { name: 'NLP', category: 'AI/ML & Data Science', level: 68 },
-  { name: 'Computer Vision', category: 'AI/ML & Data Science', level: 66 },
-  { name: 'Hugging Face', category: 'AI/ML & Data Science', level: 64 },
-  
-  // Tools
-  { name: 'Git/GitHub', category: 'Tools & Platforms', level: 92 },
-  { name: 'Docker', category: 'Tools & Platforms', level: 74 },
-  { name: 'Vercel', category: 'Tools & Platforms', level: 80 },
-  { name: 'VS Code', category: 'Tools & Platforms', level: 90 },
-  { name: 'Jupyter', category: 'Tools & Platforms', level: 76 },
-  { name: 'Canva', category: 'Tools & Platforms', level: 76 },
-  { name: 'Cursor', category: 'Tools & Platforms', level: 76 },
+  // Developer Tools
+  { name: 'Git', category: 'Developer Tools', level: 90 },
+  { name: 'GitHub', category: 'Developer Tools', level: 92 },
+  { name: 'Docker', category: 'Developer Tools', level: 75 },
+  { name: 'VS Code', category: 'Developer Tools', level: 95 },
+  { name: 'AntiGravity', category: 'Developer Tools', level: 85 },
+  { name: 'IntelliJ IDEA', category: 'Developer Tools', level: 80 },
+  { name: 'PyCharm', category: 'Developer Tools', level: 82 },
 ];

@@ -62,7 +62,7 @@ export const Certifications = () => {
             Achievements
           </span>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-white">
-            Licenses & <span className="text-white/40">Certifications</span>
+            Certifications
           </h2>
         </div>
 

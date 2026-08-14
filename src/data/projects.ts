@@ -75,33 +75,49 @@ export const projects: Project[] = [
     iconName: '/projects/logo.svg'
   },
 
+
   {
     id: '3',
+
     title: 'MemoryFlix',
-    description: 'Modern AI-powered kirana store management and ecommerce platform for local businesses.',
-    longDescription: 'Smart Kirana Store is a digital-first retail management platform designed for local grocery and kirana businesses. It combines inventory management, billing, online ordering, analytics, customer management, and WhatsApp automation into a unified modern system. The platform supports real-time stock tracking, responsive storefronts, product categorization, automated order notifications, and scalable admin management for local retail businesses transitioning online.',
-    thumbnail: '/projects/kirana.jpg',
+
+    description:
+      'A modern storytelling platform where users can create, manage, and experience personalized stories.',
+
+    longDescription:
+      'MemoryFlix is a full-stack storytelling platform built to provide a structured and engaging way to create and manage stories. It features secure user authentication, story creation workflows, reusable story templates, media asset management, and a personalized dashboard. The platform uses a modern Next.js architecture with Prisma and PostgreSQL for reliable data management, while the responsive interface provides a smooth experience across devices.',
+
+    thumbnail: '/projects/memory1.png',
+
     galleryImages: [
-      '/projects/kirana-1.jpg',
-      '/projects/kirana-2.jpg'
+      '/projects/memory1.png',
+      '/projects/memory2.png'
     ],
+
     technologies: [
       'Next.js',
+      'TypeScript',
       'React',
-      'TailwindCSS',
-      'Node.js',
-      'MongoDB',
-      'Firebase',
-      'WhatsApp API',
-      'Framer Motion'
+      'Tailwind CSS',
+      'Prisma',
+      'PostgreSQL',
+      'NextAuth.js',
+      'Zod'
     ],
+
     category: 'Full Stack',
-    githubUrl: 'https://github.com/pankajkashp/kirana-store',
-    liveUrl: 'https://smartkirana.vercel.app',
+
+    githubUrl: 'https://github.com/pankajkashp/memoryflix.git',
+
+    liveUrl: '',
+
     isFeatured: true,
-    completionDate: '2025-05',
+
+    completionDate: '2026-06',
+
     status: 'Completed',
-    iconName: 'ShoppingBag'
+
+    iconName: 'Film'
   },
 
   {
@@ -131,5 +147,46 @@ export const projects: Project[] = [
     completionDate: '2025-05',
     status: 'Completed',
     iconName: 'ShoppingBag'
+  },
+  {
+    id: '5',
+
+    title: 'Cocktail',
+
+    description:
+      'An immersive cocktail website focused on rich visual design, smooth interactions, and cinematic GSAP animations.',
+
+    longDescription:
+      'Cocktail is a modern interactive web experience built to showcase how animation and visual storytelling can transform a traditional website. The project focuses heavily on GSAP-powered animations, including scroll-based interactions, animated typography, image movements, and smooth transitions. Built with React and modern frontend technologies, the website combines carefully designed layouts with dynamic motion to create an engaging and premium browsing experience.',
+
+    thumbnail: '/projects/cocktail.jpg',
+
+    galleryImages: [
+      '/projects/cocktail-1.jpg',
+      '/projects/cocktail-2.jpg'
+    ],
+
+    technologies: [
+      'React',
+      'JavaScript',
+      'GSAP',
+      'ScrollTrigger',
+      'SplitText',
+      'CSS'
+    ],
+
+    category: 'Frontend',
+
+    githubUrl: 'https://github.com/pankajkashp/cocktail.git',
+
+    liveUrl: '',
+
+    isFeatured: true,
+
+    completionDate: '2026-08',
+
+    status: 'Completed',
+
+    iconName: 'Wine'
   }
 ];
