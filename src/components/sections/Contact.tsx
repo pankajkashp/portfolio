@@ -61,6 +61,15 @@ export const Contact = () => {
               </div>
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-accent"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                </div>
+                <div>
+                  <Typography className="text-xs text-text-muted uppercase tracking-widest">WhatsApp</Typography>
+                  <a href="https://wa.me/1234567890?text=Hi,%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" className="text-white text-sm font-medium hover:text-accent transition-colors">Message Me</a>
+                </div>
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center">
                   <MapPin size={16} className="text-accent" />
                 </div>
                 <div>
@@ -137,7 +146,6 @@ export const Contact = () => {
               />
             </div>
 
-            <Magnetic strength={0.2}>
               <button
                 type="submit"
                 disabled={isSending}
@@ -148,7 +156,6 @@ export const Contact = () => {
                 {isSending ? 'SENDING...' : 'SEND MESSAGE'}
                 <Send size={16} />
               </button>
-            </Magnetic>
           </form>
         </Reveal>
       </div>

@@ -134,15 +134,15 @@ export const HeroLanding = () => {
 
             <Reveal variant="fadeUp" delay={1}>
               <div className="md:hidden mt-4 flex items-center gap-3">
-                <Link
-                  href="/contact"
+                <a
+                  href="#contact"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
                   className="flex-1 h-12 px-5 rounded-xl bg-[#a855f7] text-white font-black text-[11px] tracking-[0.22em] uppercase flex items-center justify-center gap-2"
                 >
                   <span>Hire Me</span>
                   <Send size={14} />
-                </Link>
+                </a>
                 <a
                   href="/resume.pdf"
                   download
@@ -161,8 +161,8 @@ export const HeroLanding = () => {
             <div className="hidden md:flex flex-col sm:flex-row items-center gap-5 mt-8">
               {/* Left Column: Explore Button + System Status */}
               <div className="flex flex-col items-center gap-6">
-                <Link
-                  href="/contact"
+                <a
+                  href="#projects"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
                   className="group relative flex items-center justify-center shrink-0"
@@ -173,7 +173,7 @@ export const HeroLanding = () => {
 
                   <div className="relative h-16 px-12 bg-[#a855f7] text-white font-black text-[10px] uppercase tracking-[0.4em] rounded-full overflow-hidden transition-transform duration-300 group-hover:scale-[1.03] active:scale-95 flex items-center justify-center gap-3 whitespace-nowrap">
                     <div className="absolute inset-0 bg-white/15 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    <span className="relative z-10 text-lg">Hire Me</span>
+                    <span className="relative z-10 text-lg">View Projects</span>
                     <Send size={14} className="relative z-10 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
 
                     {/* Inner Glow */}
@@ -182,7 +182,7 @@ export const HeroLanding = () => {
 
                   {/* Outer Holographic Glow */}
                   <div className="absolute -inset-1 bg-[#a855f7]/20 opacity-10 group-hover:opacity-20 transition-opacity rounded-full blur-xl motion-heavy" />
-                </Link>
+                </a>
 
                 {/* System Status (Now Below) */}
                 <div className="flex items-center gap-4">

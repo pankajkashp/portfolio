@@ -77,6 +77,35 @@ export const projects: Project[] = [
 
   {
     id: '3',
+    title: 'MemoryFlix',
+    description: 'Modern AI-powered kirana store management and ecommerce platform for local businesses.',
+    longDescription: 'Smart Kirana Store is a digital-first retail management platform designed for local grocery and kirana businesses. It combines inventory management, billing, online ordering, analytics, customer management, and WhatsApp automation into a unified modern system. The platform supports real-time stock tracking, responsive storefronts, product categorization, automated order notifications, and scalable admin management for local retail businesses transitioning online.',
+    thumbnail: '/projects/kirana.jpg',
+    galleryImages: [
+      '/projects/kirana-1.jpg',
+      '/projects/kirana-2.jpg'
+    ],
+    technologies: [
+      'Next.js',
+      'React',
+      'TailwindCSS',
+      'Node.js',
+      'MongoDB',
+      'Firebase',
+      'WhatsApp API',
+      'Framer Motion'
+    ],
+    category: 'Full Stack',
+    githubUrl: 'https://github.com/pankajkashp/kirana-store',
+    liveUrl: 'https://smartkirana.vercel.app',
+    isFeatured: true,
+    completionDate: '2025-05',
+    status: 'Completed',
+    iconName: 'ShoppingBag'
+  },
+
+  {
+    id: '4',
     title: 'Smart Kirana Store',
     description: 'Modern AI-powered kirana store management and ecommerce platform for local businesses.',
     longDescription: 'Smart Kirana Store is a digital-first retail management platform designed for local grocery and kirana businesses. It combines inventory management, billing, online ordering, analytics, customer management, and WhatsApp automation into a unified modern system. The platform supports real-time stock tracking, responsive storefronts, product categorization, automated order notifications, and scalable admin management for local retail businesses transitioning online.',

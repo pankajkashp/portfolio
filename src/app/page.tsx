@@ -1,74 +1,47 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 import { HeroLanding } from '@/components/sections/HeroLanding';
+import { About } from '@/components/sections/About';
+import { Skills } from '@/components/sections/Skills';
+import { Projects } from '@/components/sections/Projects';
+import { Certifications } from '@/components/sections/Certifications';
+import { Education } from '@/components/sections/Education';
+import { Contact } from '@/components/sections/Contact';
 import { Preloader } from '@/components/layout/Preloader';
-import { useDashboardStore } from '@/store/useDashboardStore';
-import { CinematicBackground } from '@/components/effects/CinematicBackground';
-import dynamic from 'next/dynamic';
-
-const Dashboard = dynamic(() => import('@/components/sections/Dashboard').then((mod) => mod.Dashboard), {
-  ssr: false,
-  loading: () => (
-    <div className="fixed inset-0 z-[100] bg-[#06060a] overflow-hidden">
-      <CinematicBackground />
-    </div>
-  ),
-});
+import { Navbar } from '@/components/layout/Navbar';
+import { WhatsAppButton } from '@/components/ui/WhatsAppButton';
+import { AnimatePresence } from 'framer-motion';
 
 export default function Home() {
   const [loading, setLoading] = useState(true);
-  const { isDashboardOpen, setIsDashboardOpen, setActiveModule } = useDashboardStore();
-
-  const handleComplete = useCallback(() => setLoading(false), []);
 
   useEffect(() => {
-    const handleInitialRoute = () => {
-      const hash = window.location.hash;
-      if (hash === '#projects') {
-        setIsDashboardOpen(true);
-        setActiveModule('projects');
-      }
-    };
-
-    if (!loading) {
-      handleInitialRoute();
-    }
-  }, [loading, setIsDashboardOpen, setActiveModule]);
+    // Artificial delay for preloader (adjust or remove if not needed)
+    const timer = setTimeout(() => setLoading(false), 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <main className="relative bg-transparent overflow-hidden" id="home">
-      <Preloader onComplete={handleComplete} />
-      
-      <AnimatePresence mode="wait">
-        {!loading && (
-          <motion.div
-            key="content"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: isDashboardOpen ? -6 : 0, scale: isDashboardOpen ? 0.985 : 1 }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="relative z-10"
-          >
-            <HeroLanding />
-          </motion.div>
-        )}
-      </AnimatePresence>
-
+    <main className="relative bg-[#06060a] overflow-hidden" id="home">
       <AnimatePresence>
-        {isDashboardOpen && (
-          <motion.div
-            initial={{ y: '100%', opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: '100%', opacity: 0 }}
-            transition={{ type: 'tween', duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="fixed inset-0 z-[100] bg-[#06060a]/55 overflow-hidden"
-            data-lenis-prevent
-          >
-            <Dashboard />
-          </motion.div>
-        )}
+        {loading && <Preloader onComplete={() => setLoading(false)} />}
       </AnimatePresence>
+      
+      {!loading && (
+        <>
+          <Navbar />
+          <HeroLanding />
+
+          <Skills />
+          <Projects />
+          <Certifications />
+          <Education />
+          <About />
+          <Contact />
+          <WhatsAppButton />
+        </>
+      )}
     </main>
   );
 }
