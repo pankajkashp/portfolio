@@ -122,10 +122,52 @@ export const projects: Project[] = [
 
   {
     id: '4',
+
+    title: 'Cocktail',
+
+    description:
+      'An immersive cocktail website focused on rich visual design, smooth interactions, and cinematic GSAP animations.',
+
+    longDescription:
+      'Cocktail is a modern interactive web experience built to showcase how animation and visual storytelling can transform a traditional website. The project focuses heavily on GSAP-powered animations, including scroll-based interactions, animated typography, image movements, and smooth transitions. Built with React and modern frontend technologies, the website combines carefully designed layouts with dynamic motion to create an engaging and premium browsing experience.',
+
+    thumbnail: '/projects/cocktail.png',
+
+    galleryImages: [
+      '/projects/cocktail.png',
+      '/projects/cocktail.png'
+    ],
+
+    technologies: [
+      'React',
+      'JavaScript',
+      'GSAP',
+      'ScrollTrigger',
+      'SplitText',
+      'CSS'
+    ],
+
+    category: 'Frontend',
+
+    githubUrl: 'https://github.com/pankajkashp/cocktail.git',
+
+    liveUrl: 'https://thecocktail.vercel.app/',
+
+    isFeatured: true,
+
+    completionDate: '2026-08',
+
+    status: 'Completed',
+
+    iconName: 'Wine'
+  },
+
+  {
+    id: '5',
     title: 'Smart Kirana Store',
     description: 'Modern AI-powered kirana store management and ecommerce platform for local businesses.',
     longDescription: 'Smart Kirana Store is a digital-first retail management platform designed for local grocery and kirana businesses. It combines inventory management, billing, online ordering, analytics, customer management, and WhatsApp automation into a unified modern system. The platform supports real-time stock tracking, responsive storefronts, product categorization, automated order notifications, and scalable admin management for local retail businesses transitioning online.',
-    thumbnail: '/projects/kirana.jpg',
+    thumbnail: '/projects/kirana.png',
     galleryImages: [
       '/projects/kirana-1.jpg',
       '/projects/kirana-2.jpg'
@@ -148,45 +190,4 @@ export const projects: Project[] = [
     status: 'Completed',
     iconName: 'ShoppingBag'
   },
-  {
-    id: '5',
-
-    title: 'Cocktail',
-
-    description:
-      'An immersive cocktail website focused on rich visual design, smooth interactions, and cinematic GSAP animations.',
-
-    longDescription:
-      'Cocktail is a modern interactive web experience built to showcase how animation and visual storytelling can transform a traditional website. The project focuses heavily on GSAP-powered animations, including scroll-based interactions, animated typography, image movements, and smooth transitions. Built with React and modern frontend technologies, the website combines carefully designed layouts with dynamic motion to create an engaging and premium browsing experience.',
-
-    thumbnail: '/projects/cocktail.jpg',
-
-    galleryImages: [
-      '/projects/cocktail-1.jpg',
-      '/projects/cocktail-2.jpg'
-    ],
-
-    technologies: [
-      'React',
-      'JavaScript',
-      'GSAP',
-      'ScrollTrigger',
-      'SplitText',
-      'CSS'
-    ],
-
-    category: 'Frontend',
-
-    githubUrl: 'https://github.com/pankajkashp/cocktail.git',
-
-    liveUrl: '',
-
-    isFeatured: true,
-
-    completionDate: '2026-08',
-
-    status: 'Completed',
-
-    iconName: 'Wine'
-  }
 ];

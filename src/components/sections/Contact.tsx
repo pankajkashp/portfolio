@@ -90,8 +90,8 @@ export const Contact = () => {
           </Reveal>
 
           {/* Socials */}
-          <Reveal variant="fadeUp" delay={0.4}>
-            <div className="flex gap-4 pt-6">
+          <Reveal variant="fadeUp" delay={0.4} width="100%">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 w-full">
               {socials.map((social) => (
                 <a
                   key={social.name}
@@ -100,9 +100,9 @@ export const Contact = () => {
                   rel="noopener"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
-                  className="w-10 h-10 glass-card-hover rounded-xl flex items-center justify-center text-text-muted hover:text-accent text-xs font-bold"
+                  className="h-14 glass-card-hover rounded-xl flex items-center justify-center text-text-muted hover:text-accent text-sm tracking-widest font-bold uppercase transition-colors"
                 >
-                  {social.name.slice(0, 2).toUpperCase()}
+                  {social.name}
                 </a>
               ))}
             </div>
@@ -110,8 +110,8 @@ export const Contact = () => {
         </div>
 
         {/* Right: Form */}
-        <Reveal variant="fadeUp" delay={0.2}>
-          <form onSubmit={handleSubmit} className="glass-card-hover animated-border rounded-3xl p-8 md:p-10 space-y-6">
+        <Reveal variant="fadeUp" delay={0.2} width="100%" className="w-full max-w-lg lg:ml-auto">
+          <form onSubmit={handleSubmit} className="glass-card-hover animated-border rounded-3xl p-8 md:p-10 space-y-6 w-full">
             <div className="space-y-2">
               <label className="text-xs text-text-muted uppercase tracking-widest font-bold">Name</label>
               <input

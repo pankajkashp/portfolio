@@ -265,7 +265,7 @@ export const About = () => {
           <div className="about-detail-item">
             <h4 className="text-white font-bold mb-3">Goal</h4>
             <p className="text-white/60 text-sm leading-relaxed">
-              Become a strong professional web developer by continuously building and solving real problems.
+              Build products that are useful, thoughtful, and technically strong — while growing into a professional software developer.
             </p>
           </div>
         </div>

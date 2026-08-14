@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Section } from '@/components/layout/Section';
-import { projects, projectCategories } from '@/data/projects';
+import { projects } from '@/data/projects';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ExternalLink, GitBranch, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
@@ -16,20 +16,15 @@ export const Projects = () => {
   const { setCursorType } = useCursorStore();
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const [activeCategory, setActiveCategory] = useState('All');
-
-  const filteredProjects = projects.filter(
-    (project) => activeCategory === 'All' || project.category.includes(activeCategory)
-  );
 
   useEffect(() => {
-    // Refresh ScrollTrigger when category changes and projects re-render
+    // Refresh ScrollTrigger when projects re-render
     ScrollTrigger.refresh();
 
     const ctx = gsap.context(() => {
-      // 1. Header & Filter Entrance
+      // 1. Header Entrance
       gsap.fromTo(
-        ['.projects-label', '.projects-title', '.projects-subtitle', '.projects-filter'],
+        ['.projects-label', '.projects-title', '.projects-subtitle'],
         { y: 30, opacity: 0 },
         {
           y: 0,
@@ -62,40 +57,32 @@ export const Projects = () => {
           },
         });
 
-        // Sequence: Number -> Image Reveal -> Title -> Description -> Tech Stack
-        if (number) {
-          tl.fromTo(number, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out' });
-        }
-        
+        // Left Side Animation Sequence
         if (image) {
-          tl.fromTo(
-            image,
-            { clipPath: 'polygon(0 100%, 100% 100%, 100% 100%, 0 100%)', scale: 0.95 },
-            { clipPath: 'polygon(0 0%, 100% 0%, 100% 100%, 0 100%)', scale: 1, duration: 1.2, ease: 'power3.inOut' },
-            '-=0.4'
-          );
+          tl.fromTo(image, { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, ease: 'power3.out' }, 0);
         }
-
-        if (title) {
-          tl.fromTo(title, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.6');
-        }
-
-        if (desc) {
-          tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, '-=0.4');
-        }
-
         if (tags.length > 0) {
-          tl.fromTo(tags, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out' }, '-=0.4');
+          tl.fromTo(tags, { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.4, stagger: 0.05, ease: 'power2.out' }, 0.4);
         }
 
+        // Right Side Animation Sequence
+        if (number) {
+          tl.fromTo(number, { opacity: 0, x: -20 }, { opacity: 1, x: 0, duration: 0.6, ease: 'power3.out' }, 0.2);
+        }
+        if (title) {
+          tl.fromTo(title, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.4);
+        }
+        if (desc) {
+          tl.fromTo(desc, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.6, ease: 'power3.out' }, 0.6);
+        }
         if (links) {
-          tl.fromTo(links, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power2.out' }, '-=0.2');
+          tl.fromTo(links, { opacity: 0 }, { opacity: 1, duration: 0.4, ease: 'power2.out' }, 0.8);
         }
       });
       
-      // 3. CTA & Remaining Projects Entrance
+      // 3. Remaining Projects Entrance
       gsap.fromTo(
-        ['.more-work-header', '.projects-cta'],
+        '.more-work-header',
         { y: 50, opacity: 0 },
         {
           y: 0,
@@ -132,86 +119,116 @@ export const Projects = () => {
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [activeCategory]); // Re-run when category changes
+  }, []); // Run once on mount
 
   return (
     <Section id="projects" className="relative bg-[#06060a]">
-      <div ref={sectionRef} className="max-w-7xl mx-auto">
+      <div ref={sectionRef} className="max-w-[1550px] w-full px-5 md:px-10 xl:px-16 mx-auto">
         
         {/* HEADER */}
-        <div className="mb-20 md:mb-32">
-          <span className="projects-label text-[#a855f7] font-mono text-sm tracking-[0.2em] uppercase mb-6 block">
+        <div className="mb-24 md:mb-40">
+          <span className="projects-label text-[#a855f7] font-mono text-sm md:text-base tracking-[0.2em] uppercase mb-6 md:mb-8 block">
             Selected Works
           </span>
-          <h2 className="projects-title text-5xl md:text-7xl font-bold tracking-tighter text-white mb-8">
+          <h2 className="projects-title text-6xl md:text-8xl lg:text-[7rem] font-bold tracking-tighter text-white mb-8 md:mb-10 leading-[1.1]">
             Things I've Built
           </h2>
-          <p className="projects-subtitle text-xl md:text-2xl text-white/60 max-w-2xl leading-relaxed">
+          <p className="projects-subtitle text-xl md:text-3xl text-white/60 max-w-4xl leading-relaxed">
             A collection of web experiences, applications, and experiments I've built while learning, exploring, and solving real problems.
           </p>
-          
-          {/* CATEGORY FILTER */}
-          <div className="projects-filter mt-16 flex flex-wrap gap-2 md:gap-4">
-            {projectCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`px-5 py-2.5 rounded-full text-sm font-mono tracking-wide transition-all duration-300 ${
-                  activeCategory === category
-                    ? 'bg-white text-black'
-                    : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
-                }`}
-                onMouseEnter={() => setCursorType('pointer')}
-                onMouseLeave={() => setCursorType('default')}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* FEATURED PROJECTS SHOWCASE */}
         <div ref={containerRef} className="space-y-32 md:space-y-48">
-          {filteredProjects.slice(0, 3).map((project, index) => {
-            const layoutType = index % 3;
-            // 0: Image Left (lg:w-3/5), Info Right (lg:w-2/5)
-            // 1: Info Left (lg:w-2/5), Image Right (lg:w-3/5)
-            // 2: Full Width Image (w-full), Info Below (w-full)
-            
+          {projects.slice(0, 3).map((project, index) => {
             return (
               <div
                 key={project.id}
-                className="project-item flex flex-col group relative"
+                className="project-item group relative flex flex-col lg:grid lg:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.85fr)] gap-8 lg:gap-[clamp(40px,5vw,100px)] items-start"
               >
-                {/* Responsive Layout Wrapping */}
-                <div className={`flex flex-col gap-12 lg:gap-20 ${
-                  layoutType === 0 ? 'lg:flex-row' 
-                  : layoutType === 1 ? 'lg:flex-row-reverse'
-                  : 'lg:flex-col' // Full width layout
-                }`}>
-                  
-                  {/* IMAGE BLOCK */}
-                  <div className={`project-image relative overflow-hidden rounded-3xl bg-white/5 border border-white/10 ${
-                    layoutType === 2 ? 'w-full aspect-[21/9] md:aspect-[16/7]' : 'w-full lg:w-3/5 aspect-[4/3] md:aspect-[16/10]'
-                  }`}>
-                    {/* Fake Browser Window Header (Minimal) */}
-                    <div className="absolute top-0 left-0 right-0 h-10 bg-white/5 border-b border-white/10 flex items-center px-4 gap-2 z-20 backdrop-blur-sm">
-                      <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-white/20" />
+                {/* MOBILE ORDERING (Uses CSS Grid or Flex order) */}
+                
+                {/* RIGHT COLUMN ON DESKTOP (Top on Mobile) - Meta, Title, Desc, Links */}
+                <div className="order-1 lg:order-2 flex flex-col justify-start">
+                  <div className="flex items-center gap-6 mb-6">
+                    <span className="project-number text-5xl md:text-6xl font-black text-white/10 tracking-tighter">
+                      {(index + 1).toString().padStart(2, '0')}
+                    </span>
+                    {project.isFeatured && (
+                      <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#a855f7]/10 text-[#a855f7] border border-[#a855f7]/20 uppercase tracking-widest">
+                        Featured
+                      </span>
+                    )}
+                    <span className="ml-auto text-white/40 font-mono text-sm">
+                      {project.completionDate.split('-')[0]}
+                    </span>
+                  </div>
+
+                  <h3 className="project-title text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight group-hover:text-[#a855f7] transition-colors duration-500">
+                    {project.title}
+                  </h3>
+                  <p className="project-desc text-white/60 text-lg leading-relaxed line-clamp-3">
+                    {project.description}
+                  </p>
+
+                  {/* LINKS */}
+                  <div className="project-links flex items-center gap-8 mt-8 pt-6 border-t border-white/10">
+                    {project.liveUrl ? (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link flex items-center gap-3 text-white font-medium hover:text-[#a855f7] transition-colors"
+                        onMouseEnter={() => setCursorType('pointer')}
+                        onMouseLeave={() => setCursorType('default')}
+                      >
+                        <span className="uppercase tracking-widest text-sm">Live Demo</span>
+                        <ExternalLink size={16} className="transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                      </a>
+                    ) : (
+                      <a
+                        href={project.githubUrl || '#'}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link flex items-center gap-3 text-white font-medium hover:text-[#a855f7] transition-colors"
+                        onMouseEnter={() => setCursorType('pointer')}
+                        onMouseLeave={() => setCursorType('default')}
+                      >
+                        <span className="uppercase tracking-widest text-sm">View Preview</span>
+                        <ExternalLink size={16} className="transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                      </a>
+                    )}
+                    
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link flex items-center gap-3 text-white/60 font-medium hover:text-white transition-colors"
+                        onMouseEnter={() => setCursorType('pointer')}
+                        onMouseLeave={() => setCursorType('default')}
+                      >
+                        <span className="uppercase tracking-widest text-sm">GitHub</span>
+                        <GitBranch size={16} className="transition-transform duration-300 group-hover/link:-translate-y-1" />
+                      </a>
+                    )}
+                  </div>
+                </div>
+
+                {/* LEFT COLUMN ON DESKTOP (Bottom on Mobile) - Image, Tech */}
+                <div className="order-2 lg:order-1 flex flex-col gap-8 lg:gap-10 w-full">
+                  {/* IMAGE */}
+                  <div className="project-image relative w-full aspect-video md:aspect-[16/10]">
+                    <div className="absolute inset-0 bg-[#a855f7]/5 blur-3xl rounded-full scale-90 -z-10 transition-opacity duration-700 group-hover:bg-[#a855f7]/15" />
+                    <div className="relative w-full h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)', maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)' }}>
+                      <Image
+                        src={project.thumbnail}
+                        alt={project.title}
+                        fill
+                        unoptimized={true}
+                        className="object-contain transition-transform duration-1000 group-hover:scale-[1.02]"
+                      />
                     </div>
-
-                    <Image
-                      src={project.thumbnail}
-                      alt={project.title}
-                      fill
-                      unoptimized={true} // Bypassing next/image optimization for huge local screenshots in dev
-                      className="object-cover object-top pt-10 transition-transform duration-1000 group-hover:scale-[1.03]"
-                    />
-
-                    <div className="absolute inset-0 bg-[#a855f7]/0 group-hover:bg-[#a855f7]/10 transition-colors duration-700 z-10 pointer-events-none" />
-
-                    {/* Clickable Area */}
                     <a 
                       href={project.liveUrl || project.githubUrl || '#'}
                       target="_blank"
@@ -223,87 +240,26 @@ export const Projects = () => {
                     />
                   </div>
 
-                  {/* INFO BLOCK */}
-                  <div className={`flex flex-col justify-center ${
-                    layoutType === 2 ? 'w-full lg:w-3/4 mx-auto' : 'w-full lg:w-2/5'
-                  }`}>
-                    
-                    {/* Meta Row: Number & Featured */}
-                    <div className="flex items-center gap-6 mb-8">
-                      <span className="project-number text-5xl md:text-6xl font-black text-white/10 tracking-tighter">
-                        {(index + 1).toString().padStart(2, '0')}
+                  {/* TECH STACK */}
+                  <div className="flex flex-wrap gap-2">
+                    {project.technologies.map((tech) => (
+                      <span
+                        key={tech}
+                        className="project-tag px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-sm font-mono bg-white/5 text-white/70 border border-white/10"
+                      >
+                        {tech}
                       </span>
-                      {project.isFeatured && (
-                        <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#a855f7]/10 text-[#a855f7] border border-[#a855f7]/20 uppercase tracking-widest">
-                          Featured
-                        </span>
-                      )}
-                      <span className="ml-auto text-white/40 font-mono text-sm">
-                        {project.completionDate.split('-')[0]}
-                      </span>
-                    </div>
-
-                    {/* Title & Desc */}
-                    <div className="mb-10">
-                      <h3 className="project-title text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight group-hover:text-[#a855f7] transition-colors duration-500">
-                        {project.title}
-                      </h3>
-                      <p className="project-desc text-white/60 text-lg leading-relaxed">
-                        {project.longDescription || project.description}
-                      </p>
-                    </div>
-
-                    {/* Tech Stack */}
-                    <div className="flex flex-wrap gap-2 mb-12">
-                      {project.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="project-tag px-4 py-2 rounded-lg text-sm font-mono bg-white/5 text-white/70 border border-white/10"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Links */}
-                    <div className="project-links flex items-center gap-8 mt-auto pt-8 border-t border-white/10">
-                      {project.liveUrl && (
-                        <a
-                          href={project.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group/link flex items-center gap-3 text-white font-medium hover:text-[#a855f7] transition-colors"
-                          onMouseEnter={() => setCursorType('pointer')}
-                          onMouseLeave={() => setCursorType('default')}
-                        >
-                          <span className="uppercase tracking-widest text-sm">Live Demo</span>
-                          <ExternalLink size={16} className="transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
-                        </a>
-                      )}
-                      {project.githubUrl && (
-                        <a
-                          href={project.githubUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="group/link flex items-center gap-3 text-white/60 font-medium hover:text-white transition-colors"
-                          onMouseEnter={() => setCursorType('pointer')}
-                          onMouseLeave={() => setCursorType('default')}
-                        >
-                          <span className="uppercase tracking-widest text-sm">GitHub</span>
-                          <GitBranch size={16} className="transition-transform duration-300 group-hover/link:-translate-y-1" />
-                        </a>
-                      )}
-                    </div>
-
+                    ))}
                   </div>
                 </div>
+
               </div>
             );
           })}
         </div>
 
         {/* MORE WORK GRID */}
-        {filteredProjects.length > 3 && (
+        {projects.length > 3 && (
           <div className="mt-40 pt-24 border-t border-white/10">
             <div className="more-work-header mb-16 text-center md:text-left">
               <h3 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
@@ -315,18 +271,18 @@ export const Projects = () => {
             </div>
 
             <div className="more-work-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.slice(3).map((project, index) => (
+              {projects.slice(3).map((project, index) => (
                 <div
                   key={project.id}
                   className="remaining-item group relative flex flex-col p-5 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-500 overflow-hidden hover:-translate-y-1"
                 >
-                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-6 bg-white/5">
+                  <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-6 bg-[#111]">
                     <Image
                       src={project.thumbnail}
                       alt={project.title}
                       fill
                       unoptimized={true}
-                      className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                      className="object-contain transition-transform duration-700 group-hover:scale-[1.03]"
                     />
                   </div>
                   
@@ -390,23 +346,6 @@ export const Projects = () => {
           </div>
         )}
 
-        {/* BOTTOM CTA */}
-        <div className="projects-cta mt-40 py-24 text-center border-t border-white/10">
-          <h2 className="text-4xl md:text-6xl font-bold text-white mb-6 tracking-tight">
-            Have an idea worth building?
-          </h2>
-          <p className="text-xl text-white/60 mb-12 max-w-2xl mx-auto">
-            I'm always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
-          </p>
-          <Link
-            href="#contact"
-            className="inline-flex items-center gap-4 px-8 py-4 rounded-full bg-white text-black font-semibold text-lg hover:bg-gray-200 transition-colors"
-            onMouseEnter={() => setCursorType('pointer')}
-            onMouseLeave={() => setCursorType('default')}
-          >
-            Let's Talk <ArrowRight size={20} />
-          </Link>
-        </div>
 
       </div>
     </Section>
