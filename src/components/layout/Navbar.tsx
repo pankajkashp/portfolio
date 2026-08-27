@@ -7,11 +7,11 @@ import { useLenis } from '@studio-freight/react-lenis';
 
 const navLinks = [
   { name: 'Home', href: '#home' },
-  { name: 'About', href: '#about' },
   { name: 'Skills', href: '#skills' },
   { name: 'Projects', href: '#projects' },
   { name: 'Certifications', href: '#certifications' },
   { name: 'Education', href: '#education' },
+  { name: 'About', href: '#about' },
   { name: 'Contact', href: '#contact' },
 ];
 
@@ -24,11 +24,11 @@ export function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Update active section based on scroll position
       const sections = navLinks.map(link => link.href.substring(1));
       let current = '';
-      
+
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
@@ -63,13 +63,12 @@ export function Navbar() {
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.5 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
-          isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${isScrolled ? 'bg-background/80 backdrop-blur-md border-b border-white/5' : 'bg-transparent'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-          <a 
-            href="#home" 
+          <a
+            href="#home"
             onClick={(e) => handleNavClick(e, '#home')}
             className="text-xl font-bold tracking-tighter"
           >
@@ -83,11 +82,10 @@ export function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                  activeSection === link.href.substring(1)
-                    ? 'bg-white/10 text-white'
-                    : 'text-white/60 hover:text-white hover:bg-white/5'
-                }`}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${activeSection === link.href.substring(1)
+                  ? 'bg-white/10 text-white'
+                  : 'text-white/60 hover:text-white hover:bg-white/5'
+                  }`}
               >
                 {link.name}
               </a>
@@ -119,9 +117,8 @@ export function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className={`text-2xl font-semibold transition-colors ${
-                  activeSection === link.href.substring(1) ? 'text-white' : 'text-white/60'
-                }`}
+                className={`text-2xl font-semibold transition-colors ${activeSection === link.href.substring(1) ? 'text-white' : 'text-white/60'
+                  }`}
               >
                 {link.name}
               </a>
