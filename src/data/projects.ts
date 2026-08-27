@@ -190,4 +190,29 @@ export const projects: Project[] = [
     status: 'Completed',
     iconName: 'ShoppingBag'
   },
+  {
+    id: '6',
+    title: 'FocusZen',
+    description: 'A daily focus operating system designed to turn tasks into a realistic day and help users stay focused.',
+    longDescription: 'FocusZen is a productivity and focus workspace built around the daily loop: Capture → Plan → Focus → Break → Next → Adapt → Review. It helps users organize their tasks, plan a realistic day, track focus sessions, review daily progress, and understand their productivity through focus history, streaks, and insights. The experience is designed around one simple question: “What should I be doing right now?”',
+    thumbnail: '/projects/f2.png',
+    galleryImages: [
+      '/projects/f1.png',
+      '/projects/f2.png'
+    ],
+    technologies: [
+      'Vite',
+      'TypeScript',
+      'React',
+      'Tailwind CSS',
+      'LocalStorage'
+    ],
+    category: 'Productivity',
+    githubUrl: 'https://github.com/pankajkashp/focuszen',
+    liveUrl: '',
+    isFeatured: true,
+    completionDate: '2025-08',
+    status: 'Completed',
+    iconName: 'Brain'
+  }
 ];
