@@ -1,28 +1,17 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { projects, Project } from '@/data/projects';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import {
-  X, ArrowUpRight, Globe, Layout,
-  ArrowLeft, Code2, Activity, ShoppingBag, Terminal
+  X, ArrowUpRight, Globe, Code2, ArrowLeft
 } from 'lucide-react';
 import { GithubIcon } from '@/components/icons/GithubIcon';
 import { useCursorStore } from '@/store/useCursorStore';
 
 function ProjectDetail({ project, onClose }: { project: Project; onClose: () => void }) {
   const { setCursorType } = useCursorStore();
-  const [currentIdx, setCurrentIdx] = useState(0);
-  const images = [project.thumbnail, ...project.galleryImages].filter(Boolean);
-
-  useEffect(() => {
-    if (images.length <= 1) return;
-    const timer = setInterval(() => {
-      setCurrentIdx((prev) => (prev + 1) % images.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [images.length]);
 
   return (
     <motion.div
@@ -43,44 +32,18 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
         <div className="flex-[1.2] relative bg-black/40 overflow-hidden group/imagery">
           <div className="absolute inset-0 flex items-center justify-center p-12">
             <div className="w-full h-full rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-center relative overflow-hidden">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={currentIdx}
-                  className="relative w-full h-full"
-                  initial={{ opacity: 0, scale: 1.02 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.98 }}
-                  transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  <Image
-                    src={images[currentIdx]}
-                    alt={project.title}
-                    fill
-                    priority={currentIdx === 0}
-                    sizes="(max-width: 768px) 100vw, 60vw"
-                    className="object-contain"
-                  />
-                </motion.div>
-              </AnimatePresence>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#06060a]/60 to-transparent" />
+              <div className="relative w-full h-full">
+                <Image
+                  src={project.thumbnail}
+                  alt={project.title}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 100vw, 60vw"
+                  className="object-contain p-4"
+                />
+              </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#06060a]/60 to-transparent pointer-events-none" />
             </div>
-          </div>
-
-          {/* Thumbnail Gallery / Nav */}
-          <div className="absolute bottom-12 left-12 right-12 flex gap-4 overflow-x-auto pb-4 modal-scroll z-20">
-            {images.map((img, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentIdx(idx)}
-                onMouseEnter={() => setCursorType('pointer')}
-                onMouseLeave={() => setCursorType('default')}
-                className={`relative shrink-0 w-24 aspect-video rounded-xl overflow-hidden border-2 transition-all duration-300 ${
-                  currentIdx === idx ? 'border-[#22c55e] scale-105' : 'border-white/10 opacity-40 hover:opacity-100'
-                }`}
-              >
-                <Image src={img} alt={`Gallery ${idx}`} fill sizes="96px" className="object-cover" />
-              </button>
-            ))}
           </div>
         </div>
 
@@ -97,26 +60,25 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
 
           <div className="flex-1 space-y-12">
             <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-px bg-[#22c55e]" />
-                <span className="text-[10px] uppercase tracking-[0.3em] text-[#22c55e] font-black">{project.status}</span>
-              </div>
               <h3 className="text-4xl md:text-6xl font-bold text-white tracking-tighter">
                 {project.title}
               </h3>
-              <p className="text-lg md:text-xl text-white/40 font-light leading-relaxed">
-                {project.longDescription || project.description}
+              <p className="text-lg md:text-xl text-white/70 font-light leading-relaxed">
+                {project.description}
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-8">
-              <div className="space-y-3">
-                <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black">Category</h4>
-                <p className="text-sm text-white font-medium">{project.category}</p>
-              </div>
-              <div className="space-y-3">
-                <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black">Deployed</h4>
-                <p className="text-sm text-white font-medium">{project.completionDate}</p>
+            <div className="space-y-3">
+              <h4 className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-black">Technologies</h4>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span
+                    key={tech}
+                    className="px-3 py-1.5 rounded-xl text-xs font-mono bg-white/5 text-white/80 border border-white/10"
+                  >
+                    {tech}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -125,7 +87,7 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
                 <a
                   href={project.githubUrl}
                   target="_blank"
-                  rel="noopener"
+                  rel="noopener noreferrer"
                   className="flex-1 h-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center gap-3 text-white font-bold uppercase tracking-widest text-[11px] hover:bg-white hover:text-black transition-all duration-300"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
@@ -137,12 +99,12 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
                 <a
                   href={project.liveUrl}
                   target="_blank"
-                  rel="noopener"
-                  className="flex-1 h-16 rounded-2xl bg-[#22c55e] flex items-center justify-center gap-3 text-black font-black uppercase tracking-widest text-[11px] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300"
+                  rel="noopener noreferrer"
+                  className="flex-1 h-16 rounded-2xl bg-[#a855f7] flex items-center justify-center gap-3 text-white font-black uppercase tracking-widest text-[11px] hover:scale-[1.03] active:scale-[0.97] transition-all duration-300 shadow-[0_0_20px_rgba(168,85,247,0.3)]"
                   onMouseEnter={() => setCursorType('pointer')}
                   onMouseLeave={() => setCursorType('default')}
                 >
-                  <Globe size={18} /> Live Website
+                  <Globe size={18} /> Live Demo
                 </a>
               )}
             </div>
@@ -155,7 +117,7 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
                 onMouseLeave={() => setCursorType('default')}
                 className="w-full h-16 rounded-2xl bg-white/5 border border-white/10 text-white/40 hover:text-white hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-3 text-[10px] font-black uppercase tracking-[0.3em]"
               >
-                <ArrowLeft size={16} /> Return to Intelligence Sector
+                <ArrowLeft size={16} /> Return to Projects
               </button>
             </div>
           </div>
@@ -164,14 +126,6 @@ function ProjectDetail({ project, onClose }: { project: Project; onClose: () => 
     </motion.div>
   );
 }
-
-const IconMap: Record<string, React.ElementType> = {
-  Code2,
-  Activity,
-  ShoppingBag,
-  Terminal,
-  Layout
-};
 
 export const ProjectsPanel = () => {
   const { setCursorType } = useCursorStore();
@@ -183,44 +137,45 @@ export const ProjectsPanel = () => {
         {projects.map((project, i) => (
           <motion.div
             key={project.id}
-            className="group relative aspect-[16/11] rounded-[2.5rem] bg-white/[0.02] border border-white/5 p-8 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-500 hover:bg-white/[0.04] hover:border-white/10"
+            role="button"
+            tabIndex={0}
+            aria-label={`Open ${project.title} details`}
+            className="group relative aspect-[16/11] rounded-[2.5rem] bg-white/[0.02] border border-white/5 p-8 flex flex-col justify-between overflow-hidden cursor-pointer transition-all duration-500 hover:bg-white/[0.04] hover:border-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a855f7]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
             onClick={() => setSelected(project)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                setSelected(project);
+              }
+            }}
             onMouseEnter={() => setCursorType('pointer')}
             onMouseLeave={() => setCursorType('default')}
           >
             {/* Preview Overlay */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-[#22c55e]" />
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 bg-[#a855f7]" />
 
             <div className="relative z-10 flex flex-col h-full">
               <div className="flex justify-between items-start">
-                <div className="p-2 rounded-2xl bg-white/5 border border-white/10 text-white group-hover:bg-[#22c55e] group-hover:text-black transition-all duration-500 overflow-hidden flex items-center justify-center">
-                  {(() => {
-                    if (project.iconName.startsWith('/')) {
-                      return (
-                        <div className="relative w-12 h-12">
-                          <Image src={project.iconName} alt="Project Logo" fill sizes="48px" className="object-cover" />
-                        </div>
-                      );
-                    }
-                    const Icon = IconMap[project.iconName] || Layout;
-                    return <Icon size={24} />;
-                  })()}
+                <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-white group-hover:bg-[#a855f7] group-hover:text-white transition-all duration-500 overflow-hidden flex items-center justify-center">
+                  <Code2 size={24} />
                 </div>
-                <div className="text-[10px] uppercase tracking-[0.3em] text-white/20 font-black group-hover:text-white transition-colors">
-                  {project.category}
-                </div>
+                {project.technologies[0] && (
+                  <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 font-mono group-hover:text-white transition-colors">
+                    {project.technologies[0]}
+                  </div>
+                )}
               </div>
 
               <div className="mt-auto space-y-4">
-                <h4 className="text-3xl font-bold text-white tracking-tight group-hover:text-[#22c55e] transition-colors">{project.title}</h4>
-                <p className="text-sm text-white/30 leading-relaxed font-light line-clamp-2 max-w-[90%] group-hover:text-white/50 transition-colors">
+                <h4 className="text-3xl font-bold text-white tracking-tight group-hover:text-[#a855f7] transition-colors">{project.title}</h4>
+                <p className="text-sm text-white/50 leading-relaxed font-light line-clamp-2 max-w-[90%] group-hover:text-white/70 transition-colors">
                   {project.description}
                 </p>
-                <div className="pt-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/20 group-hover:text-white transition-colors">
-                  Explore Deployment <ArrowUpRight size={12} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                <div className="pt-2 flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-white/30 group-hover:text-white transition-colors">
+                  View Details <ArrowUpRight size={12} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                 </div>
               </div>
             </div>

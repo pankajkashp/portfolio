@@ -4,7 +4,10 @@ import { useEffect, useState } from 'react';
 import { motion, useReducedMotion } from 'framer-motion';
 import { personalInfo } from '@/data/personal';
 import { useCursorStore } from '@/store/useCursorStore';
-import { Send, Download, Terminal, FolderTree, Activity, Rocket, Code2, Heart } from 'lucide-react';
+import { Send, Download, Terminal, FolderTree, Activity, Mail } from 'lucide-react';
+import { LinkedinIcon } from '@/components/icons/LinkedinIcon';
+import { GithubIcon } from '@/components/icons/GithubIcon';
+import { portfolioLinks } from '@/data/socials';
 import { Reveal } from '@/components/animations/Reveal';
 import Image from 'next/image';
 
@@ -312,7 +315,7 @@ export const HeroLanding = () => {
           <div className="p-3 font-mono text-[10px] xl:text-[11px] leading-relaxed text-white/75">
             <div><span className="text-[#c084fc]">const</span> express = <span className="text-[#60a5fa]">require</span>(<span className="text-[#34d399]">&apos;express&apos;</span>);</div>
             <div><span className="text-[#c084fc]">const</span> app = <span className="text-[#60a5fa]">express</span>();</div>
-            <div className="my-1 text-white/30">// REST API Route</div>
+            <div className="my-1 text-white/30">{`// REST API Route`}</div>
             <div>app.<span className="text-[#60a5fa]">get</span>(<span className="text-[#34d399]">&apos;/api/hello&apos;</span>, (req, res) =&gt; &#123;</div>
             <div className="pl-3">res.<span className="text-[#60a5fa]">json</span>(&#123; <span className="text-[#38bdf8]">message</span>: <span className="text-[#34d399]">&quot;Hello World!&quot;</span> &#125;);</div>
             <div>&#125;);</div>
@@ -547,50 +550,99 @@ export const HeroLanding = () => {
             </div>
           </Reveal>
 
-          {/* Stats Glass Cards (Larger & Beautifully Proportioned) */}
+          {/* Profile & Credentials Cards */}
           <Reveal variant="fadeUp" delay={0.65}>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-4 max-w-2xl">
-              {/* Stat 1 */}
-              <div className="p-4 sm:p-4.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] backdrop-blur-md text-center group hover:bg-white/[0.06] hover:border-[#a855f7]/40 transition-all duration-300">
-                <div className="flex justify-center mb-1 text-[#a855f7]/80 group-hover:text-[#a855f7] transition-colors">
-                  <Rocket size={18} />
+              {/* Card 1 — LinkedIn */}
+              <a
+                href={portfolioLinks.linkedIn}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn profile — professional profile"
+                onMouseEnter={() => setCursorType('pointer')}
+                onMouseLeave={() => setCursorType('default')}
+                className="p-4 sm:p-4.5 rounded-2xl bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.07] hover:border-[#0a66c2]/50 backdrop-blur-md text-center group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0a66c2] focus-visible:ring-offset-2 focus-visible:ring-offset-[#06060a] flex flex-col items-center justify-center cursor-pointer min-h-[108px] sm:min-h-[116px]"
+              >
+                <div className="flex justify-center mb-1.5 text-[#0a66c2] group-hover:scale-110 transition-transform duration-300">
+                  <LinkedinIcon size={20} />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-white font-mono">20+</div>
-                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/45 font-medium mt-0.5">Projects Built</div>
-              </div>
+                <div className="text-sm sm:text-base font-bold text-white tracking-wide group-hover:text-white transition-colors">
+                  LinkedIn
+                </div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/45 font-medium mt-1 group-hover:text-white/60 transition-colors">
+                  Professional Profile
+                </div>
+              </a>
 
-              {/* Stat 2 */}
-              <div className="p-4 sm:p-4.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] backdrop-blur-md text-center group hover:bg-white/[0.06] hover:border-[#a855f7]/40 transition-all duration-300">
-                <div className="flex justify-center mb-1 text-[#38bdf8]/80 group-hover:text-[#38bdf8] transition-colors">
-                  <Code2 size={18} />
+              {/* Card 2 — GitHub */}
+              <a
+                href={portfolioLinks.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub profile — repositories and projects"
+                onMouseEnter={() => setCursorType('pointer')}
+                onMouseLeave={() => setCursorType('default')}
+                className="p-4 sm:p-4.5 rounded-2xl bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.07] hover:border-white/30 backdrop-blur-md text-center group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 focus-visible:ring-offset-2 focus-visible:ring-offset-[#06060a] flex flex-col items-center justify-center cursor-pointer min-h-[108px] sm:min-h-[116px]"
+              >
+                <div className="flex justify-center mb-1.5 text-white/80 group-hover:text-white group-hover:scale-110 transition-transform duration-300">
+                  <GithubIcon size={20} />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-white font-mono">2+</div>
-                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/45 font-medium mt-0.5">Years Exp</div>
-              </div>
+                <div className="text-sm sm:text-base font-bold text-white tracking-wide group-hover:text-white transition-colors">
+                  GitHub
+                </div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/45 font-medium mt-1 group-hover:text-white/60 transition-colors">
+                  Repositories &amp; Projects
+                </div>
+              </a>
 
-              {/* Stat 3 — LeetCode */}
-              <div className="p-4 sm:p-4.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] backdrop-blur-md text-center group hover:bg-white/[0.06] hover:border-[#ffa116]/40 transition-all duration-300">
-                <div className="flex justify-center mb-1 text-[#ffa116]/80 group-hover:text-[#ffa116] transition-colors">
-                  <LeetCodeIcon className="w-[18px] h-[18px]" />
+              {/* Card 3 — LeetCode */}
+              <a
+                href={portfolioLinks.leetcode}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={
+                  leetcodeError || leetcodeSolved === null
+                    ? 'LeetCode Profile'
+                    : `LeetCode profile — ${leetcodeSolved} solved questions`
+                }
+                onMouseEnter={() => setCursorType('pointer')}
+                onMouseLeave={() => setCursorType('default')}
+                className="p-4 sm:p-4.5 rounded-2xl bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.07] hover:border-[#ffa116]/50 backdrop-blur-md text-center group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#ffa116] focus-visible:ring-offset-2 focus-visible:ring-offset-[#06060a] flex flex-col items-center justify-center cursor-pointer min-h-[108px] sm:min-h-[116px]"
+              >
+                <div className="flex justify-center mb-1.5 text-[#ffa116] group-hover:scale-110 transition-transform duration-300">
+                  <LeetCodeIcon className="w-5 h-5 text-[#ffa116]" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-white font-mono">
-                  {leetcodeError
-                    ? '—'
-                    : leetcodeSolved === null
-                    ? '…'
-                    : `${leetcodeSolved}`}
+                <div className="text-sm sm:text-base font-bold text-white tracking-wide group-hover:text-white transition-colors flex items-center justify-center gap-1.5">
+                  <span>LeetCode</span>
+                  {leetcodeSolved !== null && !leetcodeError && (
+                    <span className="font-mono text-[10px] sm:text-[11px] font-bold text-[#ffa116] bg-[#ffa116]/10 border border-[#ffa116]/25 px-1.5 py-0.2 rounded-md">
+                      {leetcodeSolved}
+                    </span>
+                  )}
                 </div>
-                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/45 font-medium mt-0.5">Questions Solved</div>
-              </div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/45 font-medium mt-1 group-hover:text-white/60 transition-colors truncate max-w-full">
+                  {leetcodeError ? 'LeetCode Profile' : 'Solved Questions'}
+                </div>
+              </a>
 
-              {/* Stat 4 */}
-              <div className="p-4 sm:p-4.5 rounded-2xl bg-white/[0.025] border border-white/[0.07] backdrop-blur-md text-center group hover:bg-white/[0.06] hover:border-[#a855f7]/40 transition-all duration-300">
-                <div className="flex justify-center mb-1 text-[#f43f5e]/80 group-hover:text-[#f43f5e] transition-colors">
-                  <Heart size={18} />
+              {/* Card 4 — Email */}
+              <a
+                href={`mailto:${portfolioLinks.email}`}
+                aria-label="Email — contact me"
+                onMouseEnter={() => setCursorType('pointer')}
+                onMouseLeave={() => setCursorType('default')}
+                className="p-4 sm:p-4.5 rounded-2xl bg-white/[0.025] hover:bg-white/[0.06] border border-white/[0.07] hover:border-[#a855f7]/50 backdrop-blur-md text-center group transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a855f7] focus-visible:ring-offset-2 focus-visible:ring-offset-[#06060a] flex flex-col items-center justify-center cursor-pointer min-h-[108px] sm:min-h-[116px]"
+              >
+                <div className="flex justify-center mb-1.5 text-[#a855f7] group-hover:scale-110 transition-transform duration-300">
+                  <Mail size={20} />
                 </div>
-                <div className="text-2xl sm:text-3xl font-black text-white font-mono">100%</div>
-                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/45 font-medium mt-0.5">Dedication</div>
-              </div>
+                <div className="text-sm sm:text-base font-bold text-white tracking-wide group-hover:text-white transition-colors">
+                  Email
+                </div>
+                <div className="text-[10px] sm:text-[11px] uppercase tracking-wider text-white/45 font-medium mt-1 group-hover:text-white/60 transition-colors">
+                  Contact Me
+                </div>
+              </a>
             </div>
           </Reveal>
         </div>

@@ -8,7 +8,7 @@ import { projects } from '@/data/projects';
 import { useCursorStore } from '@/store/useCursorStore';
 import { ExternalLink, GitBranch, ArrowRight } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
+import { ProjectModal } from '@/components/ui/ProjectModal/ProjectModal';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,6 +16,9 @@ export const Projects = () => {
   const { setCursorType } = useCursorStore();
   const sectionRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
+
+  const selectedProject = projects.find((p) => p.id === selectedProjectId) || null;
 
   useEffect(() => {
     // Refresh ScrollTrigger when projects re-render
@@ -40,9 +43,9 @@ export const Projects = () => {
       );
 
       // 2. Project Scroll Animations
-      const projectElements = gsap.utils.toArray('.project-item');
+      const projectElements = gsap.utils.toArray<HTMLElement>('.project-item');
       
-      projectElements.forEach((el: any, index) => {
+      projectElements.forEach((el) => {
         const number = el.querySelector('.project-number');
         const image = el.querySelector('.project-image');
         const title = el.querySelector('.project-title');
@@ -131,10 +134,10 @@ export const Projects = () => {
             Selected Works
           </span>
           <h2 className="projects-title text-6xl md:text-8xl lg:text-[7rem] font-bold tracking-tighter text-white mb-8 md:mb-10 leading-[1.1]">
-            Things I've Built
+            Things I&apos;ve Built
           </h2>
           <p className="projects-subtitle text-xl md:text-3xl text-white/60 max-w-4xl leading-relaxed">
-            A collection of web experiences, applications, and experiments I've built while learning, exploring, and solving real problems.
+            A collection of web experiences, applications, and experiments I&apos;ve built while learning, exploring, and solving real problems.
           </p>
         </div>
 
@@ -144,58 +147,80 @@ export const Projects = () => {
             return (
               <div
                 key={project.id}
+                id={`project-${project.id}`}
                 className="project-item group relative flex flex-col lg:grid lg:grid-cols-[minmax(0,1.35fr)_minmax(320px,0.85fr)] gap-8 lg:gap-[clamp(40px,5vw,100px)] items-start"
               >
-                {/* MOBILE ORDERING (Uses CSS Grid or Flex order) */}
-                
                 {/* RIGHT COLUMN ON DESKTOP (Top on Mobile) - Meta, Title, Desc, Links */}
                 <div className="order-1 lg:order-2 flex flex-col justify-start">
                   <div className="flex items-center gap-6 mb-6">
                     <span className="project-number text-5xl md:text-6xl font-black text-white/10 tracking-tighter">
                       {(index + 1).toString().padStart(2, '0')}
                     </span>
-                    {project.isFeatured && (
-                      <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#a855f7]/10 text-[#a855f7] border border-[#a855f7]/20 uppercase tracking-widest">
-                        Featured
+                    <span className="px-3 py-1 rounded-full text-xs font-mono bg-[#a855f7]/10 text-[#a855f7] border border-[#a855f7]/20 uppercase tracking-widest">
+                      Featured
+                    </span>
+                    {project.technologies[0] && (
+                      <span className="ml-auto text-white/40 font-mono text-sm">
+                        {project.technologies[0]}
                       </span>
                     )}
-                    <span className="ml-auto text-white/40 font-mono text-sm">
-                      {project.completionDate.split('-')[0]}
-                    </span>
                   </div>
 
-                  <h3 className="project-title text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight group-hover:text-[#a855f7] transition-colors duration-500">
-                    {project.title}
-                  </h3>
-                  <p className="project-desc text-white/60 text-lg leading-relaxed line-clamp-3">
+                  {/* Title & Clickable Details Area */}
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Open details for ${project.title}`}
+                    className="cursor-pointer group/title focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a855f7] rounded-xl p-1 -m-1"
+                    onClick={() => setSelectedProjectId(project.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setSelectedProjectId(project.id);
+                      }
+                    }}
+                    onMouseEnter={() => setCursorType('pointer')}
+                    onMouseLeave={() => setCursorType('default')}
+                  >
+                    <h3 className="project-title text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight group-hover/title:text-[#a855f7] transition-colors duration-500">
+                      {project.title}
+                    </h3>
+                  </div>
+
+                  <p
+                    className="project-desc text-white/60 text-lg leading-relaxed line-clamp-3 cursor-pointer hover:text-white/80 transition-colors"
+                    onClick={() => setSelectedProjectId(project.id)}
+                    onMouseEnter={() => setCursorType('pointer')}
+                    onMouseLeave={() => setCursorType('default')}
+                  >
                     {project.description}
                   </p>
 
-                  {/* LINKS */}
-                  <div className="project-links flex items-center gap-8 mt-8 pt-6 border-t border-white/10">
-                    {project.liveUrl ? (
+                  {/* LINKS & DETAILS TRIGGER */}
+                  <div className="project-links flex flex-wrap items-center gap-6 md:gap-8 mt-8 pt-6 border-t border-white/10">
+                    <button
+                      type="button"
+                      onClick={() => setSelectedProjectId(project.id)}
+                      className="group/link flex items-center gap-2.5 text-[#a855f7] font-medium hover:text-[#c084fc] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a855f7] rounded-lg"
+                      onMouseEnter={() => setCursorType('pointer')}
+                      onMouseLeave={() => setCursorType('default')}
+                    >
+                      <span className="uppercase tracking-widest text-sm font-semibold">View Details</span>
+                      <ArrowRight size={16} className="transition-transform duration-300 group-hover/link:translate-x-1" />
+                    </button>
+
+                    {project.liveUrl && (
                       <a
                         href={project.liveUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/link flex items-center gap-3 text-white font-medium hover:text-[#a855f7] transition-colors"
+                        className="group/link flex items-center gap-2.5 text-white font-medium hover:text-[#a855f7] transition-colors"
                         onMouseEnter={() => setCursorType('pointer')}
                         onMouseLeave={() => setCursorType('default')}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <span className="uppercase tracking-widest text-sm">Live Demo</span>
-                        <ExternalLink size={16} className="transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
-                      </a>
-                    ) : (
-                      <a
-                        href={project.githubUrl || '#'}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="group/link flex items-center gap-3 text-white font-medium hover:text-[#a855f7] transition-colors"
-                        onMouseEnter={() => setCursorType('pointer')}
-                        onMouseLeave={() => setCursorType('default')}
-                      >
-                        <span className="uppercase tracking-widest text-sm">View Preview</span>
-                        <ExternalLink size={16} className="transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
+                        <ExternalLink size={15} className="transition-transform duration-300 group-hover/link:translate-x-1 group-hover/link:-translate-y-1" />
                       </a>
                     )}
                     
@@ -204,12 +229,13 @@ export const Projects = () => {
                         href={project.githubUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/link flex items-center gap-3 text-white/60 font-medium hover:text-white transition-colors"
+                        className="group/link flex items-center gap-2.5 text-white/60 font-medium hover:text-white transition-colors"
                         onMouseEnter={() => setCursorType('pointer')}
                         onMouseLeave={() => setCursorType('default')}
+                        onClick={(e) => e.stopPropagation()}
                       >
                         <span className="uppercase tracking-widest text-sm">GitHub</span>
-                        <GitBranch size={16} className="transition-transform duration-300 group-hover/link:-translate-y-1" />
+                        <GitBranch size={15} className="transition-transform duration-300 group-hover/link:-translate-y-1" />
                       </a>
                     )}
                   </div>
@@ -217,8 +243,22 @@ export const Projects = () => {
 
                 {/* LEFT COLUMN ON DESKTOP (Bottom on Mobile) - Image, Tech */}
                 <div className="order-2 lg:order-1 flex flex-col gap-8 lg:gap-10 w-full">
-                  {/* IMAGE */}
-                  <div className="project-image relative w-full aspect-video md:aspect-[16/10]">
+                  {/* IMAGE - Clickable to open Modal */}
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Open details for ${project.title}`}
+                    className="project-image relative w-full aspect-video md:aspect-[16/10] cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a855f7] rounded-2xl"
+                    onClick={() => setSelectedProjectId(project.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        setSelectedProjectId(project.id);
+                      }
+                    }}
+                    onMouseEnter={() => setCursorType('pointer')}
+                    onMouseLeave={() => setCursorType('default')}
+                  >
                     <div className="absolute inset-0 bg-[#a855f7]/5 blur-3xl rounded-full scale-90 -z-10 transition-opacity duration-700 group-hover:bg-[#a855f7]/15" />
                     <div className="relative w-full h-full" style={{ WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)', maskImage: 'linear-gradient(to right, transparent 0%, black 5%, black 95%, transparent 100%)' }}>
                       <Image
@@ -229,15 +269,6 @@ export const Projects = () => {
                         className="object-contain transition-transform duration-1000 group-hover:scale-[1.02]"
                       />
                     </div>
-                    <a 
-                      href={project.liveUrl || project.githubUrl || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="absolute inset-0 z-30"
-                      onMouseEnter={() => setCursorType('pointer')}
-                      onMouseLeave={() => setCursorType('default')}
-                      aria-label={`View ${project.title}`}
-                    />
                   </div>
 
                   {/* TECH STACK */}
@@ -266,15 +297,28 @@ export const Projects = () => {
                 More Work
               </h3>
               <p className="text-xl text-white/50">
-                A few more things I've built.
+                A few more things I&apos;ve built.
               </p>
             </div>
 
             <div className="more-work-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {projects.slice(3).map((project, index) => (
+              {projects.slice(3).map((project) => (
                 <div
                   key={project.id}
-                  className="remaining-item group relative flex flex-col p-5 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-500 overflow-hidden hover:-translate-y-1"
+                  id={`project-${project.id}`}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Open details for ${project.title}`}
+                  className="remaining-item group relative flex flex-col p-5 rounded-3xl bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/15 transition-all duration-500 overflow-hidden hover:-translate-y-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#a855f7]"
+                  onClick={() => setSelectedProjectId(project.id)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      setSelectedProjectId(project.id);
+                    }
+                  }}
+                  onMouseEnter={() => setCursorType('pointer')}
+                  onMouseLeave={() => setCursorType('default')}
                 >
                   <div className="relative w-full aspect-video rounded-2xl overflow-hidden mb-6 bg-[#111]">
                     <Image
@@ -288,12 +332,14 @@ export const Projects = () => {
                   
                   <div className="mb-6 flex-1">
                     <div className="flex items-center justify-between mb-3">
-                      <h4 className="text-2xl font-bold text-white">
+                      <h4 className="text-2xl font-bold text-white group-hover:text-[#a855f7] transition-colors">
                         {project.title}
                       </h4>
-                      <span className="text-white/40 text-xs font-mono px-2 py-1 bg-white/5 rounded-md border border-white/5">
-                        {project.category}
-                      </span>
+                      {project.technologies[0] && (
+                        <span className="text-white/40 text-xs font-mono px-2 py-1 bg-white/5 rounded-md border border-white/5">
+                          {project.technologies[0]}
+                        </span>
+                      )}
                     </div>
                     <p className="text-white/50 text-sm leading-relaxed line-clamp-2">
                       {project.description}
@@ -317,36 +363,52 @@ export const Projects = () => {
                       )}
                     </div>
 
-                    <a
-                      href={project.liveUrl || project.githubUrl || '#'}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="group/link inline-flex items-center gap-2 text-white/80 font-medium hover:text-white transition-colors"
-                      onMouseEnter={() => setCursorType('pointer')}
-                      onMouseLeave={() => setCursorType('default')}
-                    >
-                      <span className="text-sm">View Project</span>
-                      <ArrowRight size={16} className="transition-transform duration-300 group-hover/link:translate-x-1" />
-                    </a>
+                    <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                      <div className="inline-flex items-center gap-2 text-white/80 font-medium group-hover:text-[#a855f7] transition-colors">
+                        <span className="text-sm font-semibold">View Details</span>
+                        <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
+                      </div>
+
+                      <div className="flex items-center gap-3">
+                        {project.liveUrl && (
+                          <a
+                            href={project.liveUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="p-1 text-white/40 hover:text-white transition-colors"
+                            aria-label={`Live demo of ${project.title}`}
+                          >
+                            <ExternalLink size={15} />
+                          </a>
+                        )}
+                        {project.githubUrl && (
+                          <a
+                            href={project.githubUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            className="p-1 text-white/40 hover:text-white transition-colors"
+                            aria-label={`GitHub repository of ${project.title}`}
+                          >
+                            <GitBranch size={15} />
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
-                  
-                  {/* Clickable Overlay */}
-                  <a 
-                    href={project.liveUrl || project.githubUrl || '#'}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="absolute inset-0 z-10"
-                    onMouseEnter={() => setCursorType('pointer')}
-                    onMouseLeave={() => setCursorType('default')}
-                    aria-label={`View ${project.title}`}
-                  />
                 </div>
               ))}
             </div>
           </div>
         )}
 
-
+        {/* Detailed Project Modal */}
+        <ProjectModal
+          project={selectedProject}
+          isOpen={Boolean(selectedProject)}
+          onClose={() => setSelectedProjectId(null)}
+        />
       </div>
     </Section>
   );

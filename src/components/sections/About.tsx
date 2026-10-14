@@ -271,7 +271,7 @@ export const About = () => {
         </div>
 
         {/* BOTTOM: Developer Journey Timeline */}
-        <div className="journey-timeline relative">
+        <div id="experience" className="journey-timeline relative scroll-mt-24">
           <div className="text-center mb-16">
             <h3 className="text-3xl font-bold text-white mb-4">My Journey</h3>
             <p className="text-white/50">The process of turning theory into reality.</p>
